@@ -1,30 +1,25 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  JoinColumn,
-} from "typeorm";
-import { Category } from "./Category";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("movies")
 export class Movie {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: "varchar" })
-  name: string;
+  @Column({ type: "text" })
+  movieName: string;
 
-  @Column({ type: "varchar" })
+  @Column({ type: "text" })
+  category: string;
+
+  @Column({ type: "text" })
   description: string;
 
-  @Column({ type: "uuid" })
-  category_id: number;
+  @Column({ type: "text" })
+  duration: string;
 
-  @Column({ type: "numeric" })
-  duration: number;
+  @Column({ type: "text" })
+  releaseDate: string;
 
-  @ManyToOne(() => Category, (category) => category.movies)
-  @JoinColumn({ name: "category_id" })
-  category: Category;
+  @Column({ type: "text" })
+  url: string;
 }
