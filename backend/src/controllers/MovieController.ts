@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { movieRepository } from "../repositories/movieRepository";
 
 export class MovieController {
-  async create(req: Request, res: Response) {
+  async createMovie(req: Request, res: Response) {
     const { movieName, category, description, duration, releaseDate, url } =
       req.body;
 
