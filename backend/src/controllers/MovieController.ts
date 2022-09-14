@@ -49,4 +49,32 @@ export class MovieController {
       return res.status(500).json({ message: "Internal Server Error" });
     }
   }
+
+  async updateMovie(req: Request, res: Response) {
+    const { movieId } = req.params;
+    const { movieName, category, description, duration, releaseDate, url } =
+      req.body;
+
+    if (!(await movieRepository.findOneBy({ id: Number(movieId) }))) {
+      return res.status(400).json({ message: "Filme não encontrado" });
+    }
+
+    try {
+      const updatedMovie = {
+        movieName,
+        category,
+        description,
+        duration,
+        releaseDate,
+        url,
+      };
+
+      await movieRepository.update(movieId, updatedMovie);
+
+      return res.status(201).json(updatedMovie);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ message: "Internal Server Error" });
+    }
+  }
 }
