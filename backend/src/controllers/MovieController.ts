@@ -23,4 +23,14 @@ export class MovieController {
       return res.status(500).json({ message: "Internal Server Error" });
     }
   }
+
+  async getAllMovies(req: Request, res: Response) {
+    try {
+      const allMovies = await movieRepository.find();
+      return res.status(200).json(allMovies);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ message: "Internal Server Error" });
+    }
+  }
 }
