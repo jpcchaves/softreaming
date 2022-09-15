@@ -1,10 +1,11 @@
 import { Router } from "express";
 import { MovieController } from "./controllers/MovieController";
 import { UserController } from "./controllers/UserController";
-import { authMiddleware } from "./middlewares/authMiddleware";
 
 // validation
 import { movieValidate } from "./middlewares/movieValidations";
+import { authMiddleware } from "./middlewares/authMiddleware";
+import { userValidate } from "./middlewares/userValidations";
 
 const routes = Router();
 
@@ -19,7 +20,7 @@ routes.put(
 );
 
 // user routes
-routes.post("/user", new UserController().createUser);
+routes.post("/user", userValidate, new UserController().createUser);
 routes.post("/login", new UserController().authenticateUser);
 routes.get("/profile", authMiddleware, new UserController().getProfile);
 

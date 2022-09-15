@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { userRepository } from "../repositories/userRepository";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { validationResult } from "express-validator";
 
 export class UserController {
   async createUser(req: Request, res: Response) {
@@ -13,9 +14,14 @@ export class UserController {
       return res.status(400).json({ message: "Email já cadastrado!" });
     }
 
-    const hashPassword = await bcrypt.hash(password, 10);
-
     try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array()[0].msg });
+      }
+
+      const hashPassword = await bcrypt.hash(password, 10);
+
       const createNewUser = userRepository.create({
         userName,
         email,
