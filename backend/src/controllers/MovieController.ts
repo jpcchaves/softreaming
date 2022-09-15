@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { movieRepository } from "../repositories/movieRepository";
+import { validationResult } from "express-validator";
 
 export class MovieController {
   async createMovie(req: Request, res: Response) {
@@ -7,6 +8,11 @@ export class MovieController {
       req.body;
 
     try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
+
       const newMovie = movieRepository.create({
         movieName,
         category,
@@ -60,6 +66,11 @@ export class MovieController {
     }
 
     try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
+
       const updatedMovie = {
         movieName,
         category,
