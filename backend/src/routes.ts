@@ -1,5 +1,7 @@
 import { Router } from "express";
 import { MovieController } from "./controllers/MovieController";
+import { UserController } from "./controllers/UserController";
+import { authMiddleware } from "./middlewares/authMiddleware";
 
 // validation
 import { movieValidate } from "./middlewares/movieValidations";
@@ -15,5 +17,10 @@ routes.put(
   movieValidate,
   new MovieController().updateMovie
 );
+
+// user routes
+routes.post("/user", new UserController().createUser);
+routes.post("/login", new UserController().authenticateUser);
+routes.get("/profile", authMiddleware, new UserController().getProfile);
 
 export default routes;

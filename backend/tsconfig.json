@@ -17,7 +17,8 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitAny": true,
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+    "typeRoots": ["./src/@types"]
   },
   "include": [
     "src/**/*"
