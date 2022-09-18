@@ -8,11 +8,9 @@ export const userValidate = [
     .isEmpty()
     .withMessage("O nome de usuário é obrigatório!"),
   body("email")
-    .escape()
     .not()
     .isEmpty()
-    .isString()
-    .withMessage("A categoria do filme é obrigatória!")
+    .withMessage("O email é obrigatório!")
     .isEmail()
     .withMessage("Digite um email válido!"),
   body("password")

@@ -58,14 +58,31 @@ export class UserController {
         return res.status(404).json({ message: "Usuário não encontrado!" });
       }
 
-      const { password: _, ...user } = findUser;
+      const profiles = await userRepository.find({
+        relations: {
+          profiles: true,
+        },
+        where: {
+          id: Number(idUser),
+        },
+      });
+
+      const profilesAmount = profiles[0].profiles.length;
       
+      if (profilesAmount >= 4) {
+        return res
+          .status(400)
+          .json({ message: "Limite de usuários excedido!" });
+      }
+
+      const { password: _, ...user } = findUser;
+
       const newProfile = profileRepository.create({
         profileName,
         profileUrlImage,
         user,
       });
-      
+
       await profileRepository.save(newProfile);
 
       return res.status(201).json(newProfile);
@@ -128,6 +145,9 @@ export class UserController {
       const profiles = await userRepository.find({
         relations: {
           profiles: true,
+        },
+        where: {
+          id: Number(idUser),
         },
       });
 
