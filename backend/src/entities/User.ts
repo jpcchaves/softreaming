@@ -11,6 +11,8 @@ export class User {
   email: string;
   @Column({ type: "text" })
   password: string;
+  @Column({type: "text", default: "client"})
+  role: string;
 
   @OneToMany(() => Profile, (profile) => profile.user)
   profiles: Profile[];
