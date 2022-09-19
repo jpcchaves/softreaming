@@ -68,7 +68,7 @@ export class UserController {
       });
 
       const profilesAmount = profiles[0].profiles.length;
-      
+
       if (profilesAmount >= 4) {
         return res
           .status(400)
