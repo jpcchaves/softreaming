@@ -12,7 +12,7 @@ AppDataSource.initialize().then(() => {
   const port = process.env.PORT;
 
   const limiter = rateLimit({
-    max: 20,
+    max: 100,
     windowMs: 60 * 60 * 1000,
     message: "Too many requests from this IP, please try again in an hour!",
   });
