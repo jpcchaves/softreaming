@@ -1,7 +1,5 @@
-import "./App.css";
-
 function App() {
-  return <div></div>;
+  return <div style={{color: "white", fontSize: "32px"}}>teste neflix</div>;
 }
 
 export default App;
