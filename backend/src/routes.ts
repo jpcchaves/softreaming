@@ -1,12 +1,12 @@
 import { Router } from "express";
 import { MovieController } from "./controllers/MovieController";
 import { UserController } from "./controllers/UserController";
-
-// validation
-import { movieValidate } from "./middlewares/movieValidations";
+// middlewares
 import { authMiddleware } from "./middlewares/authMiddleware";
-import { userValidate } from "./middlewares/userValidations";
-import { profileValidation } from "./middlewares/profileValidations";
+// validations
+import { movieValidate } from "./validations/movieValidations";
+import { userValidate } from "./validations/userValidations";
+import { profileValidation } from "./validations/profileValidations";
 
 const routes = Router();
 
