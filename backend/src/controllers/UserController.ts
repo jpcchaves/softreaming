@@ -127,7 +127,8 @@ export class UserController {
   }
 
   async getUser(req: Request, res: Response) {
-    return res.status(200).json(req.user);
+    const user = req.user;
+    return res.status(200).json(user);
   }
 
   async getProfiles(req: Request, res: Response) {
