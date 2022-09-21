@@ -13,11 +13,13 @@ export const authMiddleware = async (
 ) => {
   const { authorization } = req.headers;
 
-  if (!authorization) {
-    return res.status(401).json({ message: "Não autorizado!" });
+  const token = authorization && authorization.split(" ")[1];
+
+  if (!token) {
+    return res.status(401).json({ message: "Acesso negado!" });
   }
 
-  const token = authorization.split(" ")[1];
+  if (!token) return res.status(401).json({ message: "Acesso negado!" });
 
   try {
     const { id } = jwt.verify(token, process.env.JWT_PASS ?? "") as JwtPayload;
@@ -30,11 +32,11 @@ export const authMiddleware = async (
 
     const { password: _, ...loggedUser } = userExists;
 
-    req.user = loggedUser
+    req.user = loggedUser;
 
-    next()
+    next();
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: "Internal Server Error" });
+    return res.status(500).json({ message: "Token inválido!" });
   }
 };
