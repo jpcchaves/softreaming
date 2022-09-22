@@ -1,7 +1,7 @@
 export const theme = {
   colors: {
     bgColor: "#282828",
-    redColor: "#B9090B",
+    redColor: "#e50914",
     gray: "#808080",
     midGray: "#6D6D6E",
     smokeWhite: "#E5E5E5",
@@ -15,11 +15,12 @@ export const theme = {
     size: {
       normalSize: "11px",
       regularSize: "13px",
-      mediumSize: "14px",
+      mediumSize: "16px",
       mediumBigSize: "22px",
       bigSize1: "26px",
       bigSize2: "30px",
       extraBig: "48px",
+      extraBig2: "64px",
     },
     weight: {
       light: 300,
