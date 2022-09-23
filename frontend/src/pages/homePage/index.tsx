@@ -14,14 +14,14 @@ import {
 // logo
 import LogoImage from "../../assets/logo/logo.png";
 
-const LoginPage: React.FC = () => {
+const HomePage: React.FC = () => {
   return (
     <>
       <EnterPageContainer>
         <EnterPageWrapper>
           <LogoWrapper>
             <Logo src={LogoImage} alt="logo da netflix" />
-            <EnterLink>Entrar</EnterLink>
+            <EnterLink to="/auth">Entrar</EnterLink>
           </LogoWrapper>
           <StoryCard>
             <StoryCardTitle>
@@ -41,4 +41,4 @@ const LoginPage: React.FC = () => {
   );
 };
 
-export default LoginPage;
+export default HomePage;

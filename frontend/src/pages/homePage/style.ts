@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { Link } from "react-router-dom";
 
 export const EnterPageContainer = styled.header`
   height: 100vh;
@@ -33,7 +34,7 @@ export const Logo = styled.img`
   margin-left: 60px;
 `;
 
-export const EnterLink = styled.a`
+export const EnterLink = styled(Link)`
   ${({ theme }) => css`
     background-color: ${theme.colors.redColor};
     color: ${theme.colors.white};
@@ -44,6 +45,11 @@ export const EnterLink = styled.a`
   cursor: pointer;
   border-radius: 3px;
   margin-right: 60px;
+  text-decoration: none;
+
+  &:hover {
+    opacity: 0.9;
+  }
 `;
 
 export const StoryCard = styled.div`
