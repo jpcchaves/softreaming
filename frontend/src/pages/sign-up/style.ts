@@ -45,7 +45,7 @@ export const LoginFormWrapper = styled.div`
   align-items: flex-start;
   min-height: 400px;
   margin: 0 auto;
-  padding: 60px 68px 40px;
+  padding: 20px 40px;
   max-width: 500px;
   width: 100%;
 `;
@@ -54,10 +54,12 @@ export const FormTitle = styled.h1`
   ${({ theme }) => css`
     color: ${theme.colors.white};
   `}
-  margin-bottom: 28px;
+  margin-bottom: 14px;
 `;
 
-export const LoginForm = styled.form``;
+export const LoginForm = styled.form`
+  width: 100%;
+`;
 
 export const FormInput = styled.input`
   background: #333;
@@ -67,7 +69,7 @@ export const FormInput = styled.input`
   color: #fff;
   padding: 15px;
   width: 100%;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 `;
 
 export const FormInputSubmit = styled(FormInput)`
@@ -76,10 +78,20 @@ export const FormInputSubmit = styled(FormInput)`
     font-size: ${theme.fonts.size.mediumSize};
     font-weight: ${theme.fonts.weight.bold};
   `}
-  margin: 1rem auto 4rem auto;
+  margin: 1rem auto;
   cursor: pointer;
 
   &:hover {
     opacity: 0.9;
   }
+`;
+
+export const ErrorMessageWrapper = styled.div`
+  width: 100%;
+  margin-bottom: 0.5rem;
+`;
+
+export const ErrorMessage = styled.p`
+  color: #f8d7da;
+  font-size: 14px;
 `;

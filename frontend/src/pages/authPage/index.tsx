@@ -14,13 +14,30 @@ import {
   SignUpLink,
   SignUpNow,
   SignUpText,
+  ErrorMessageWrapper,
+  ErrorMessage,
 } from "./style";
 // logo
 import LogoImage from "../../assets/logo/logo.png";
+// hook forms
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+// yup schema validation
+import { authSchemaValidation } from "../../validations/authSchemaValidation";
 
 const HomePage: React.FC = () => {
-  const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    resolver: yupResolver(authSchemaValidation),
+  });
+
+  const submitForm = (data: Object) => {
+    console.log({ data });
+    reset();
   };
 
   return (
@@ -34,18 +51,31 @@ const HomePage: React.FC = () => {
           </LogoWrapper>
           <LoginFormWrapper>
             <FormTitle>Entrar</FormTitle>
-            <LoginForm onSubmit={handleSubmit}>
+            <LoginForm onSubmit={handleSubmit(submitForm)}>
               <FormInput
-                type="email"
+                type="text"
                 placeholder="Digite seu email..."
-                required
-                minLength={5}
+                {...register("email")}
               />
+              {errors.email?.message && (
+                <ErrorMessageWrapper>
+                  <ErrorMessage>
+                    <>{errors.email?.message}</>
+                  </ErrorMessage>
+                </ErrorMessageWrapper>
+              )}
               <FormInput
                 type="password"
                 placeholder="Digite sua senha..."
-                required
+                {...register("password")}
               />
+              {errors.password?.message && (
+                <ErrorMessageWrapper>
+                  <ErrorMessage>
+                    <>{errors.password?.message}</>
+                  </ErrorMessage>
+                </ErrorMessageWrapper>
+              )}
               <FormInputSubmit type="submit" value="Entrar" />
             </LoginForm>
             <SignUpNow>
