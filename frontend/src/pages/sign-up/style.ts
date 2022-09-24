@@ -45,7 +45,7 @@ export const LoginFormWrapper = styled.div`
   align-items: flex-start;
   min-height: 400px;
   margin: 0 auto;
-  padding: 20px 40px;
+  padding: 40px 40px;
   max-width: 500px;
   width: 100%;
 `;
@@ -54,7 +54,7 @@ export const FormTitle = styled.h1`
   ${({ theme }) => css`
     color: ${theme.colors.white};
   `}
-  margin-bottom: 14px;
+  margin-bottom: 28px;
 `;
 
 export const LoginForm = styled.form`
