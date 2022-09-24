@@ -6,10 +6,19 @@ import { AppDataSource } from "./data-source";
 import routes from "./routes";
 // rate limit
 import rateLimit from "express-rate-limit";
+// cors
+import cors from "cors";
 
 AppDataSource.initialize().then(() => {
   const app = express();
   const port = process.env.PORT;
+
+  app.use(
+    cors({
+      origin: "*",
+      credentials: true,
+    })
+  );
 
   const limiter = rateLimit({
     max: 100,
