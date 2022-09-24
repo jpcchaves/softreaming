@@ -91,7 +91,10 @@ const SignUpPage: React.FC = () => {
               />
               {errors.confirmPassword && (
                 <ErrorMessageWrapper>
-                  <ErrorMessage>Passwords should match!</ErrorMessage>
+                  <ErrorMessage>
+                    {" "}
+                    <>{errors.confirmPassword?.message}</>
+                  </ErrorMessage>
                 </ErrorMessageWrapper>
               )}
               <FormInputSubmit type="submit" value="Entrar" />
