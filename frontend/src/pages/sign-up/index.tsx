@@ -166,7 +166,7 @@ const SignUpPage: React.FC = () => {
                   </SubmitButtonDisabled>
                 </SubmitButtonWrapper>
               )}
-              {!isLoading && <FormInputSubmit type="submit" value="Entrar" />}
+              {!isLoading && <FormInputSubmit type="submit" value="Cadastrar" />}
             </LoginForm>
           </LoginFormWrapper>
         </EnterPageWrapper>
