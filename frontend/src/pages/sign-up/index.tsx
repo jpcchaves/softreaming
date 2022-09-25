@@ -1,17 +1,24 @@
 // styled components
 import {
+  ApiErrorMessageWrapper,
   EnterPageContainer,
   EnterPageWrapper,
   ErrorMessage,
-  ErrorMessageWrapper,
+  FormErrorMessageWrapper,
   FormInput,
   FormInputSubmit,
+  SubmitButtonDisabled,
   FormTitle,
   LoginForm,
   LoginFormWrapper,
   Logo,
   LogoLink,
   LogoWrapper,
+  SuccessMessageWrapper,
+  SuccessMessage,
+  LoaderSpan,
+  SubmitButtonWrapper,
+  LoadingMessage,
 } from "./style";
 // logo
 import LogoImage from "../../assets/logo/logo.png";
@@ -20,8 +27,20 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 // yup schema validation
 import { signUpSchemaValidation } from "../../validations/authSchemaValidation";
+// axios
+import axios from "axios";
+// hooks
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SignUpPage: React.FC = () => {
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [successMessage, setsuccessMessage] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  // navigate hook
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -31,8 +50,39 @@ const SignUpPage: React.FC = () => {
     resolver: yupResolver(signUpSchemaValidation),
   });
 
-  const submitForm = (data: Object) => {
-    console.log({ data });
+  const submitForm = async (data: any) => {
+    setIsLoading(true);
+    try {
+      const { userName, email, password, confirmPassword } = data;
+
+      const newUserData: object = {
+        userName,
+        email,
+        password,
+        confirmPassword,
+      };
+
+      const baseApiUrl: string = "http://localhost:3001/user";
+
+      const apiResponse = await axios.post(baseApiUrl, newUserData);
+
+      setsuccessMessage(
+        "Usuário criado com sucesso! Aguarde... você será redirecionado para a tela de Login"
+      );
+      setIsLoading(false);
+
+      setTimeout(() => {
+        navigate("/auth");
+        setsuccessMessage("");
+      }, 3000);
+    } catch (error: any) {
+      setErrorMessage(error.response.data.message);
+      setTimeout(() => {
+        setErrorMessage("");
+      }, 3000);
+      setIsLoading(false);
+      return;
+    }
     reset();
   };
 
@@ -54,11 +104,11 @@ const SignUpPage: React.FC = () => {
                 {...register("userName")}
               />
               {errors.userName && (
-                <ErrorMessageWrapper>
+                <FormErrorMessageWrapper>
                   <ErrorMessage>
                     <>{errors.userName?.message}</>
                   </ErrorMessage>
-                </ErrorMessageWrapper>
+                </FormErrorMessageWrapper>
               )}
               <FormInput
                 type="email"
@@ -66,11 +116,11 @@ const SignUpPage: React.FC = () => {
                 {...register("email")}
               />
               {errors.email && (
-                <ErrorMessageWrapper>
+                <FormErrorMessageWrapper>
                   <ErrorMessage>
                     <>{errors.email?.message}</>
                   </ErrorMessage>
-                </ErrorMessageWrapper>
+                </FormErrorMessageWrapper>
               )}
               <FormInput
                 type="password"
@@ -78,11 +128,11 @@ const SignUpPage: React.FC = () => {
                 {...register("password")}
               />
               {errors.password && (
-                <ErrorMessageWrapper>
+                <FormErrorMessageWrapper>
                   <ErrorMessage>
                     <>{errors.password?.message}</>
                   </ErrorMessage>
-                </ErrorMessageWrapper>
+                </FormErrorMessageWrapper>
               )}
               <FormInput
                 type="password"
@@ -90,14 +140,32 @@ const SignUpPage: React.FC = () => {
                 {...register("confirmPassword")}
               />
               {errors.confirmPassword && (
-                <ErrorMessageWrapper>
+                <FormErrorMessageWrapper>
                   <ErrorMessage>
                     {" "}
                     <>{errors.confirmPassword?.message}</>
                   </ErrorMessage>
-                </ErrorMessageWrapper>
+                </FormErrorMessageWrapper>
               )}
-              <FormInputSubmit type="submit" value="Entrar" />
+              {successMessage && (
+                <SuccessMessageWrapper>
+                  <SuccessMessage>{successMessage}</SuccessMessage>
+                </SuccessMessageWrapper>
+              )}
+              {errorMessage && (
+                <ApiErrorMessageWrapper>
+                  <ErrorMessage>{errorMessage}</ErrorMessage>
+                </ApiErrorMessageWrapper>
+              )}
+              {isLoading && (
+                <SubmitButtonWrapper>
+                  <SubmitButtonDisabled disabled>
+                    <LoaderSpan></LoaderSpan>
+                    <LoadingMessage>Carregando...</LoadingMessage>
+                  </SubmitButtonDisabled>
+                </SubmitButtonWrapper>
+              )}
+              {!isLoading && <FormInputSubmit type="submit" value="Entrar" />}
             </LoginForm>
           </LoginFormWrapper>
         </EnterPageWrapper>
