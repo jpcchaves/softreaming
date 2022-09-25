@@ -92,7 +92,7 @@ export const SubmitButtonWrapper = styled.div`
   justify-content: center;
   align-items: center;
   margin: 1rem auto;
-  border: 1px solid #E5E5E5;
+  border: 1px solid #e5e5e5;
   border-radius: 5px;
   padding: 5px;
   cursor: not-allowed;
@@ -110,11 +110,10 @@ export const SubmitButtonDisabled = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap:  10px;
+  gap: 10px;
 `;
 
-export const LoadingMessage = styled.p`
-`
+export const LoadingMessage = styled.p``;
 
 export const LoaderSpan = styled.div`
   transform: rotateZ(45deg);
@@ -221,6 +220,11 @@ export const SuccessMessage = styled.p`
 `;
 
 export const ErrorMessage = styled.p`
-  color: #721c24;
+  color: #f8d7da;
   font-size: 14px;
+`;
+
+export const ApiErrorMessage = styled.p`
+  font-size: 14px;
+  color: #721c24;
 `;

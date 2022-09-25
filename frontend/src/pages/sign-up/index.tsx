@@ -19,6 +19,7 @@ import {
   LoaderSpan,
   SubmitButtonWrapper,
   LoadingMessage,
+  ApiErrorMessage
 } from "./style";
 // logo
 import LogoImage from "../../assets/logo/logo.png";
@@ -154,7 +155,7 @@ const SignUpPage: React.FC = () => {
               )}
               {errorMessage && (
                 <ApiErrorMessageWrapper>
-                  <ErrorMessage>{errorMessage}</ErrorMessage>
+                  <ApiErrorMessage>{errorMessage}</ApiErrorMessage>
                 </ApiErrorMessageWrapper>
               )}
               {isLoading && (
