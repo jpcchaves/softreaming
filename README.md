@@ -14,7 +14,9 @@ Antes de começar, verifique se você atendeu aos seguintes requisitos:
 
 Para instalar o Softreaming, siga estas etapas:
 
-Linux e macOS: Na pasta Backend e, posteriormente, na pasta Frontend, rode o seguinte comando no terminal integrado para instalar as dependências do projeto:
+Na pasta Backend e, posteriormente, na pasta Frontend, rode o seguinte comando no terminal integrado para instalar as dependências do projeto:
+
+Linux e macOS:
 ```
 npm install \ yarn 
 ```
@@ -28,9 +30,8 @@ npm install \ yarn
 
 Para usar Softreaming, siga estas etapas:
 
-```
 Ao finalizar o projeto, caso o usuário queira testá-lo, será disponibilizado um link com o deploy do projeto.
-```
+
 
 ## 🤝 Colaboradores
 
@@ -39,7 +40,7 @@ As seguintes pessoas contribuíram para este projeto:
 <table>
   <tr>
     <td align="center">
-      <a href="#">
+      <a href="https://github.com/jpcchaves">
         <img src="https://avatars.githubusercontent.com/u/95300143?s=400&v=4" width="100px;" alt="Foto do João Paulo"/><br>
         <sub>
           <b>João Paulo</b>
@@ -52,3 +53,5 @@ As seguintes pessoas contribuíram para este projeto:
 ## 📝 Licença
 
 Esse projeto está sob licença. Veja o arquivo [LICENÇA](https://github.com/jpcchaves/softreaming/blob/master/LICENSE) para mais detalhes.
+
+[⬆ Voltar ao topo](#softreaming)<br>
