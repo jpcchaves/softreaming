@@ -19,12 +19,12 @@ import {
   LoaderSpan,
   SubmitButtonWrapper,
   LoadingMessage,
-  ApiErrorMessage
+  ApiErrorMessage,
 } from "./style";
 // logo
 import LogoImage from "../../assets/logo/logo.png";
 // hook forms
-import { useForm } from "react-hook-form";
+import { FieldValues, set, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 // yup schema validation
 import { signUpSchemaValidation } from "../../validations/authSchemaValidation";
@@ -33,10 +33,12 @@ import axios from "axios";
 // hooks
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+// userDataInterface
+import { UserDataInterface } from "./userDataInterface";
 
 const SignUpPage: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const [successMessage, setsuccessMessage] = useState<string>("");
+  const [successMessage, setSuccessMessage] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   // navigate hook
@@ -51,12 +53,12 @@ const SignUpPage: React.FC = () => {
     resolver: yupResolver(signUpSchemaValidation),
   });
 
-  const submitForm = async (data: any) => {
+  const submitForm = async (data: FieldValues) => {
     setIsLoading(true);
     try {
       const { userName, email, password, confirmPassword } = data;
 
-      const newUserData: object = {
+      const newUserData: UserDataInterface = {
         userName,
         email,
         password,
@@ -65,25 +67,35 @@ const SignUpPage: React.FC = () => {
 
       const baseApiUrl: string = "http://localhost:3001/user";
 
-      const apiResponse = await axios.post(baseApiUrl, newUserData);
+      const apiResponse: object = await axios.post(baseApiUrl, newUserData);
 
-      setsuccessMessage(
+      setSuccessMessage(
         "Usuário criado com sucesso! Aguarde... você será redirecionado para a tela de Login"
       );
+
       setIsLoading(false);
 
       setTimeout(() => {
         navigate("/auth");
-        setsuccessMessage("");
+        setSuccessMessage("");
       }, 3000);
     } catch (error: any) {
-      setErrorMessage(error.response.data.message);
+
+      if (error.response.data) {
+        setErrorMessage(error.response.data.message);
+      } else {
+        setErrorMessage("Ocorreu um erro... Tente novamente mais tade.");
+      }
+
       setTimeout(() => {
         setErrorMessage("");
       }, 3000);
+
       setIsLoading(false);
+
       return;
     }
+
     reset();
   };
 
@@ -166,7 +178,9 @@ const SignUpPage: React.FC = () => {
                   </SubmitButtonDisabled>
                 </SubmitButtonWrapper>
               )}
-              {!isLoading && <FormInputSubmit type="submit" value="Cadastrar" />}
+              {!isLoading && (
+                <FormInputSubmit type="submit" value="Cadastrar" />
+              )}
             </LoginForm>
           </LoginFormWrapper>
         </EnterPageWrapper>
