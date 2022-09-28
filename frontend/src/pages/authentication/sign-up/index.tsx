@@ -22,12 +22,12 @@ import {
   ApiErrorMessage,
 } from "./style";
 // logo
-import LogoImage from "../../assets/logo/logo.png";
+import LogoImage from "../../../assets/logo/logo.png";
 // hook forms
 import { FieldValues, set, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 // yup schema validation
-import { signUpSchemaValidation } from "../../validations/authSchemaValidation";
+import { signUpSchemaValidation } from "../../../validations/authSchemaValidation";
 // axios
 import axios from "axios";
 // hooks

@@ -12,7 +12,7 @@ import {
   StoryCardTitle,
 } from "./style";
 // logo
-import LogoImage from "../../assets/logo/logo.png";
+import LogoImage from "../../../assets/logo/logo.png";
 
 const HomePage: React.FC = () => {
   return (
@@ -21,7 +21,7 @@ const HomePage: React.FC = () => {
         <EnterPageWrapper>
           <LogoWrapper>
             <Logo src={LogoImage} alt="logo da netflix" />
-            <EnterLink to="/auth">Entrar</EnterLink>
+            <EnterLink to="/login">Entrar</EnterLink>
           </LogoWrapper>
           <StoryCard>
             <StoryCardTitle>

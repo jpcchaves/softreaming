@@ -18,14 +18,14 @@ import {
   ErrorMessage,
 } from "./style";
 // logo
-import LogoImage from "../../assets/logo/logo.png";
+import LogoImage from "../../../assets/logo/logo.png";
 // hook forms
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 // yup schema validation
-import { authSchemaValidation } from "../../validations/authSchemaValidation";
+import { authSchemaValidation } from "../../../validations/authSchemaValidation";
 
-const HomePage: React.FC = () => {
+const LoginPage: React.FC = () => {
   const {
     register,
     handleSubmit,
@@ -91,4 +91,4 @@ const HomePage: React.FC = () => {
   );
 };
 
-export default HomePage;
+export default LoginPage;
