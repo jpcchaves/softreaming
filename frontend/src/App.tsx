@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // pages
 import EnterPage from "./pages/authentication/homePage";
 import LoginPage from "./pages/authentication/loginPage";
-import SignUpPage from "./pages/authentication/sign-up";
+import SignUpPage from "./pages/authentication/signUp";
 // styled components
 import { ThemeProvider } from "styled-components";
 import { theme } from "./styles/theme";

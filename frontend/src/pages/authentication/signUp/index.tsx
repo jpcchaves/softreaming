@@ -24,7 +24,7 @@ import {
 // logo
 import LogoImage from "../../../assets/logo/logo.png";
 // hook forms
-import { FieldValues, set, useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 // yup schema validation
 import { signUpSchemaValidation } from "../../../validations/authSchemaValidation";
@@ -76,11 +76,10 @@ const SignUpPage: React.FC = () => {
       setIsLoading(false);
 
       setTimeout(() => {
-        navigate("/auth");
+        navigate("/login");
         setSuccessMessage("");
       }, 3000);
     } catch (error: any) {
-
       if (error.response.data) {
         setErrorMessage(error.response.data.message);
       } else {
