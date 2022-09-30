@@ -11,24 +11,39 @@ import { profileValidation } from "./validations/profileValidations";
 const routes = Router();
 
 // movie routes
-routes.post("/movie", movieValidate, new MovieController().createMovie);
-routes.get("/movies", new MovieController().getAllMovies);
-routes.delete("/movies/:movieId", new MovieController().deleteMovie);
+routes.post(
+  "/movie",
+  authMiddleware,
+  movieValidate,
+  new MovieController().createMovie
+);
+routes.get("/movies", authMiddleware, new MovieController().getAllMovies);
+routes.delete(
+  "/movies/:movieId",
+  authMiddleware,
+  new MovieController().deleteMovie
+);
 routes.put(
   "/movies/:movieId",
+  authMiddleware,
   movieValidate,
   new MovieController().updateMovie
 );
 
 // user routes
 routes.post("/user", userValidate, new UserController().createUser);
-routes.get("/user", authMiddleware, new UserController().getUser);
+routes.get("/user", new UserController().getUser);
 routes.post(
   "/user/:idUser/profiles",
+  authMiddleware,
   profileValidation,
   new UserController().createProfile
 );
-routes.get("/user/:idUser/profiles", new UserController().getProfiles);
+routes.get(
+  "/user/:idUser/profiles",
+  authMiddleware,
+  new UserController().getProfiles
+);
 routes.post("/login", new UserController().authenticateUser);
 
 export default routes;
