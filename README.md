@@ -1,6 +1,6 @@
 # Softreaming
 
-<img src="https://i.ibb.co/DGX0dNh/exemplo-image.jpg" alt="exemplo imagem">
+<img src="https://i.ibb.co/rbqpv8c/Whats-App-Image-2022-10-01-at-19-11-04.jpg" alt="exemplo imagem">
 
 > O projeto trata-se de um visualizador de filmes inspirado na Netflix! Desenvolvido com tecnologia de ponta (Vite + ReactJS + TypeScript + NodeJS + PostgreSQL), é o meu primeiro projeto completamente Full Stack, desenvolvido do absoluto zero.
 
