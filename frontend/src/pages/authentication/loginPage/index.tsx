@@ -40,8 +40,8 @@ import { AuthContext } from "../../../contexts/auth/AuthContext";
 const LoginPage: React.FC = () => {
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
-
-  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const {
@@ -55,11 +55,13 @@ const LoginPage: React.FC = () => {
 
   const submitForm = async (data: FieldValues) => {
     try {
-      (true);
+      setIsLoading(true);
       const { email, password } = data;
       if (email && password) {
         const isLogged = await auth.signin(email, password);
         if (isLogged) {
+          setSuccessMessage("Usuário logado com sucesso");
+          reset();
           setTimeout(() => {
             navigate("/profiles");
           }, 2000);
@@ -118,6 +120,11 @@ const LoginPage: React.FC = () => {
                     <>{errors.password?.message}</>
                   </ErrorMessage>
                 </ErrorMessageWrapper>
+              )}
+              {successMessage && (
+                <SuccessMessageWrapper>
+                  <SuccessMessage>{successMessage}</SuccessMessage>
+                </SuccessMessageWrapper>
               )}
               {errorMessage && (
                 <ApiErrorMessageWrapper>
