@@ -64,23 +64,22 @@ const LoginPage: React.FC = () => {
           reset();
           setTimeout(() => {
             navigate("/profiles");
-          }, 2000);
+          }, 1000);
         }
       }
       setIsLoading(false);
     } catch (error: any) {
       setIsLoading(true);
-      if (error.response) {
+      console.log(error);
+      if (error.response.data) {
         const { message } = error.response.data;
         setErrorMessage(message);
       } else {
-        setErrorMessage("Ocorreu um erro... Tente novamente mais tarde.");
+        setErrorMessage("Ocorreu um erro... Tente novamente mais tarde!");
       }
-
       setTimeout(() => {
         setErrorMessage("");
       }, 2000);
-      setIsLoading(false);
     }
     setIsLoading(false);
   };
