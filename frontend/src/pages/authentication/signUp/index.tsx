@@ -28,13 +28,13 @@ import { FieldValues, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 // yup schema validation
 import { signUpSchemaValidation } from "../../../validations/authSchemaValidation";
-// axios
-import axios from "axios";
 // hooks
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 // userDataInterface
 import { UserDataInterface } from "./userDataInterface";
+// axios
+import { api } from "../../../hooks/useApi";
 
 const SignUpPage: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -65,9 +65,7 @@ const SignUpPage: React.FC = () => {
         confirmPassword,
       };
 
-      const baseApiUrl: string = "http://localhost:3001/user";
-
-      const apiResponse: object = await axios.post(baseApiUrl, newUserData);
+      await api.post("/user", newUserData);
 
       setSuccessMessage(
         "Usuário criado com sucesso! Aguarde... você será redirecionado para a tela de Login"

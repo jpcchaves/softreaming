@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+// hooks
+import React, { useContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 // styled components
 import {
   EnterPageContainer,
@@ -32,13 +34,14 @@ import { FieldValues, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 // yup schema validation
 import { authSchemaValidation } from "../../../validations/authSchemaValidation";
-// interfaces
-import { LoginData } from "./userLoginDataInterface";
-import axios from "axios";
+// context
+import { AuthContext } from "../../../contexts/auth/AuthContext";
 
 const LoginPage: React.FC = () => {
+  const auth = useContext(AuthContext);
+  const navigate = useNavigate();
+
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const [successMessage, setSuccessMessage] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const {
@@ -51,46 +54,33 @@ const LoginPage: React.FC = () => {
   });
 
   const submitForm = async (data: FieldValues) => {
-    setIsLoading(true);
     try {
+      (true);
       const { email, password } = data;
-      const currentUserData: LoginData = {
-        email,
-        password,
-      };
-
-      const baseUrl: string = "http://localhost:3001/login";
-
-      const loggedUserData = await axios.post(baseUrl, currentUserData);
-
-      const { token, user } = loggedUserData.data;
-
-      setSuccessMessage(
-        "Usuário logado com sucesso! Você será redirecionado para a página de perfis."
-      );
-
+      if (email && password) {
+        const isLogged = await auth.signin(email, password);
+        if (isLogged) {
+          setTimeout(() => {
+            navigate("/profiles");
+          }, 2000);
+        }
+      }
       setIsLoading(false);
-
-      setTimeout(() => {
-        setSuccessMessage("");
-      }, 3000);
     } catch (error: any) {
-      if (error.response.data) {
-        setErrorMessage(error.response.data.message);
+      setIsLoading(true);
+      if (error.response) {
+        const { message } = error.response.data;
+        setErrorMessage(message);
       } else {
-        setErrorMessage("Ocorreu um erro... Tente novamente mais tade.");
+        setErrorMessage("Ocorreu um erro... Tente novamente mais tarde.");
       }
 
       setTimeout(() => {
         setErrorMessage("");
-      }, 3000);
-
+      }, 2000);
       setIsLoading(false);
-
-      return;
     }
-
-    reset();
+    setIsLoading(false);
   };
 
   return (
@@ -129,11 +119,6 @@ const LoginPage: React.FC = () => {
                   </ErrorMessage>
                 </ErrorMessageWrapper>
               )}
-              {successMessage && (
-                <SuccessMessageWrapper>
-                  <SuccessMessage>{successMessage}</SuccessMessage>
-                </SuccessMessageWrapper>
-              )}
               {errorMessage && (
                 <ApiErrorMessageWrapper>
                   <ApiErrorMessage>{errorMessage}</ApiErrorMessage>
@@ -147,9 +132,7 @@ const LoginPage: React.FC = () => {
                   </SubmitButtonDisabled>
                 </SubmitButtonWrapper>
               )}
-              {!isLoading && (
-                <FormInputSubmit type="submit" value="Cadastrar" />
-              )}
+              {!isLoading && <FormInputSubmit type="submit" value="Entrar" />}
             </LoginForm>
             <SignUpNow>
               <SignUpText>
