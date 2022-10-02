@@ -2,12 +2,14 @@
 import SuccessMessageComponent from "../../../components/successMessage";
 import ErrorMessageComponent from "../../../components/errorMessage";
 import LoadingSpan from "../../../components/loadingSpan";
+import {
+  FormInput,
+  FormInputSubmit,
+} from "../../../components/inputStyledComponent/style";
 // styled components
 import {
   EnterPageContainer,
   EnterPageWrapper,
-  FormInput,
-  FormInputSubmit,
   FormTitle,
   LoginForm,
   LoginFormWrapper,

@@ -2,6 +2,11 @@
 import SuccessMessageComponent from "../../../components/successMessage";
 import ErrorMessageComponent from "../../../components/errorMessage";
 import LoadingSpan from "../../../components/loadingSpan";
+import {
+  FormInput,
+  FormInputSubmit,
+  FormInputWrapper,
+} from "../../../components/inputStyledComponent/style";
 // hooks
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -9,8 +14,6 @@ import { useNavigate } from "react-router-dom";
 import {
   EnterPageContainer,
   EnterPageWrapper,
-  FormInput,
-  FormInputSubmit,
   FormTitle,
   LoginForm,
   LoginFormWrapper,
@@ -90,11 +93,13 @@ const LoginPage: React.FC = () => {
           <LoginFormWrapper>
             <FormTitle>Entrar</FormTitle>
             <LoginForm onSubmit={handleSubmit(submitForm)}>
-              <FormInput
-                type="text"
-                placeholder="Digite seu email..."
-                {...register("email")}
-              />
+              <FormInputWrapper>
+                <FormInput
+                  type="text"
+                  placeholder="Digite seu email..."
+                  {...register("email")}
+                />
+              </FormInputWrapper>
               {errors.email && (
                 <FormErrorMessage message={errors.email?.message} />
               )}
