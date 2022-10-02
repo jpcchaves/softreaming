@@ -1,8 +1,8 @@
 // components
 import SuccessMessageComponent from "../../../components/successMessage";
+import ErrorMessageComponent from "../../../components/errorMessage";
 // styled components
 import {
-  ApiErrorMessageWrapper,
   EnterPageContainer,
   EnterPageWrapper,
   ErrorMessage,
@@ -19,7 +19,6 @@ import {
   LoaderSpan,
   SubmitButtonWrapper,
   LoadingMessage,
-  ApiErrorMessage,
 } from "./style";
 // logo
 import LogoImage from "../../../assets/logo/logo.png";
@@ -163,10 +162,9 @@ const SignUpPage: React.FC = () => {
               )}
 
               {errorMessage && (
-                <ApiErrorMessageWrapper>
-                  <ApiErrorMessage>{errorMessage}</ApiErrorMessage>
-                </ApiErrorMessageWrapper>
+                <ErrorMessageComponent errorMessage={errorMessage} />
               )}
+
               {isLoading && (
                 <SubmitButtonWrapper>
                   <SubmitButtonDisabled disabled>

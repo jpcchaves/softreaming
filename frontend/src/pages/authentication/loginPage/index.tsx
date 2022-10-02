@@ -20,8 +20,6 @@ import {
   SignUpText,
   ErrorMessageWrapper,
   ErrorMessage,
-  ApiErrorMessageWrapper,
-  ApiErrorMessage,
   SubmitButtonWrapper,
   SubmitButtonDisabled,
   LoaderSpan,
@@ -36,6 +34,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { authSchemaValidation } from "../../../validations/authSchemaValidation";
 // context
 import { AuthContext } from "../../../contexts/auth/AuthContext";
+import ErrorMessageComponent from "../../../components/errorMessage";
 
 const LoginPage: React.FC = () => {
   const auth = useContext(AuthContext);
@@ -123,9 +122,7 @@ const LoginPage: React.FC = () => {
                 <SuccessMessageComponent successMessage={successMessage} />
               )}
               {errorMessage && (
-                <ApiErrorMessageWrapper>
-                  <ApiErrorMessage>{errorMessage}</ApiErrorMessage>
-                </ApiErrorMessageWrapper>
+                <ErrorMessageComponent errorMessage={errorMessage} />
               )}
               {isLoading && (
                 <SubmitButtonWrapper>
