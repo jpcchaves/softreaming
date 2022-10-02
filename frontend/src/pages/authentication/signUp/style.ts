@@ -85,13 +85,3 @@ export const FormInputSubmit = styled(FormInput)`
     opacity: 0.9;
   }
 `;
-
-export const FormErrorMessageWrapper = styled.div`
-  width: 100%;
-  margin-bottom: 0.5rem;
-`;
-
-export const ErrorMessage = styled.p`
-  color: #f8d7da;
-  font-size: 14px;
-`;

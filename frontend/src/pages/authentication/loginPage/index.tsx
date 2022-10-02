@@ -20,8 +20,6 @@ import {
   SignUpLink,
   SignUpNow,
   SignUpText,
-  ErrorMessageWrapper,
-  ErrorMessage,
 } from "./style";
 // logo
 import LogoImage from "../../../assets/logo/logo.png";
@@ -32,6 +30,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { authSchemaValidation } from "../../../validations/authSchemaValidation";
 // context
 import { AuthContext } from "../../../contexts/auth/AuthContext";
+import FormErrorMessage from "../../../components/formErrorMessage";
 
 const LoginPage: React.FC = () => {
   const auth = useContext(AuthContext);
@@ -96,24 +95,18 @@ const LoginPage: React.FC = () => {
                 placeholder="Digite seu email..."
                 {...register("email")}
               />
-              {errors.email?.message && (
-                <ErrorMessageWrapper>
-                  <ErrorMessage>
-                    <>{errors.email?.message}</>
-                  </ErrorMessage>
-                </ErrorMessageWrapper>
+              {errors.email && (
+                <FormErrorMessage message={errors.email?.message} />
               )}
+
               <FormInput
                 type="password"
                 placeholder="Digite sua senha..."
                 {...register("password")}
               />
-              {errors.password?.message && (
-                <ErrorMessageWrapper>
-                  <ErrorMessage>
-                    <>{errors.password?.message}</>
-                  </ErrorMessage>
-                </ErrorMessageWrapper>
+
+              {errors.password && (
+                <FormErrorMessage message={errors.password?.message} />
               )}
 
               {successMessage && (
@@ -127,7 +120,6 @@ const LoginPage: React.FC = () => {
               {isLoading && <LoadingSpan />}
 
               {!isLoading && <FormInputSubmit type="submit" value="Entrar" />}
-              
             </LoginForm>
             <SignUpNow>
               <SignUpText>

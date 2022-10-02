@@ -6,8 +6,6 @@ import LoadingSpan from "../../../components/loadingSpan";
 import {
   EnterPageContainer,
   EnterPageWrapper,
-  ErrorMessage,
-  FormErrorMessageWrapper,
   FormInput,
   FormInputSubmit,
   FormTitle,
@@ -31,6 +29,7 @@ import { useNavigate } from "react-router-dom";
 import { UserDataInterface } from "./userDataInterface";
 // axios
 import { api } from "../../../hooks/useApi";
+import FormErrorMessage from "../../../components/formErrorMessage";
 
 const SignUpPage: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -110,47 +109,37 @@ const SignUpPage: React.FC = () => {
                 {...register("userName")}
               />
               {errors.userName && (
-                <FormErrorMessageWrapper>
-                  <ErrorMessage>
-                    <>{errors.userName?.message}</>
-                  </ErrorMessage>
-                </FormErrorMessageWrapper>
+                <FormErrorMessage message={errors.userName?.message} />
               )}
+
               <FormInput
                 type="email"
                 placeholder="Digite seu email..."
                 {...register("email")}
               />
+
               {errors.email && (
-                <FormErrorMessageWrapper>
-                  <ErrorMessage>
-                    <>{errors.email?.message}</>
-                  </ErrorMessage>
-                </FormErrorMessageWrapper>
+                <FormErrorMessage message={errors.email?.message} />
               )}
+
               <FormInput
                 type="password"
                 placeholder="Digite sua senha..."
                 {...register("password")}
               />
+
               {errors.password && (
-                <FormErrorMessageWrapper>
-                  <ErrorMessage>
-                    <>{errors.password?.message}</>
-                  </ErrorMessage>
-                </FormErrorMessageWrapper>
+                <FormErrorMessage message={errors.password?.message} />
               )}
+
               <FormInput
                 type="password"
                 placeholder="Digite novamente sua senha..."
                 {...register("confirmPassword")}
               />
+
               {errors.confirmPassword && (
-                <FormErrorMessageWrapper>
-                  <ErrorMessage>
-                    <>{errors.confirmPassword?.message}</>
-                  </ErrorMessage>
-                </FormErrorMessageWrapper>
+                <FormErrorMessage message={errors.confirmPassword?.message} />
               )}
 
               {successMessage && (
