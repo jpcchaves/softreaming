@@ -1,3 +1,5 @@
+// components
+import SuccessMessageComponent from "../../../components/successMessage";
 // styled components
 import {
   ApiErrorMessageWrapper,
@@ -14,8 +16,6 @@ import {
   Logo,
   LogoLink,
   LogoWrapper,
-  SuccessMessageWrapper,
-  SuccessMessage,
   LoaderSpan,
   SubmitButtonWrapper,
   LoadingMessage,
@@ -157,11 +157,11 @@ const SignUpPage: React.FC = () => {
                   </ErrorMessage>
                 </FormErrorMessageWrapper>
               )}
+
               {successMessage && (
-                <SuccessMessageWrapper>
-                  <SuccessMessage>{successMessage}</SuccessMessage>
-                </SuccessMessageWrapper>
+                <SuccessMessageComponent successMessage={successMessage} />
               )}
+
               {errorMessage && (
                 <ApiErrorMessageWrapper>
                   <ApiErrorMessage>{errorMessage}</ApiErrorMessage>

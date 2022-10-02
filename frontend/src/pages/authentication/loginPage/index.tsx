@@ -1,5 +1,7 @@
+// components
+import SuccessMessageComponent from "../../../components/successMessage";
 // hooks
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // styled components
 import {
@@ -18,8 +20,6 @@ import {
   SignUpText,
   ErrorMessageWrapper,
   ErrorMessage,
-  SuccessMessageWrapper,
-  SuccessMessage,
   ApiErrorMessageWrapper,
   ApiErrorMessage,
   SubmitButtonWrapper,
@@ -120,9 +120,7 @@ const LoginPage: React.FC = () => {
                 </ErrorMessageWrapper>
               )}
               {successMessage && (
-                <SuccessMessageWrapper>
-                  <SuccessMessage>{successMessage}</SuccessMessage>
-                </SuccessMessageWrapper>
+                <SuccessMessageComponent successMessage={successMessage} />
               )}
               {errorMessage && (
                 <ApiErrorMessageWrapper>
