@@ -32,7 +32,7 @@ routes.put(
 
 // user routes
 routes.post("/user", userValidate, new UserController().createUser);
-routes.get("/user", new UserController().getUser);
+routes.get("/user", authMiddleware, new UserController().getUser);
 routes.post(
   "/user/:idUser/profiles",
   authMiddleware,
