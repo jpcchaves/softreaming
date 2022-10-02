@@ -70,7 +70,6 @@ const LoginPage: React.FC = () => {
       setIsLoading(false);
     } catch (error: any) {
       setIsLoading(true);
-      console.log(error);
       if (error.response.data) {
         const { message } = error.response.data;
         setErrorMessage(message);
