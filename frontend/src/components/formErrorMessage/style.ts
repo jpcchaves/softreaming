@@ -2,9 +2,11 @@ import styled from "styled-components";
 
 export const ErrorMessageWrapper = styled.div`
   width: 100%;
-  margin-bottom: 0.5rem;
+  margin: -0.3rem 0rem .5rem 0;
 `;
 
 export const ErrorMessage = styled.p`
   color: #f8d7da;
+  font-size: .9rem;
+  padding-left: .1rem;
 `;
