@@ -1,6 +1,7 @@
 // components
 import SuccessMessageComponent from "../../../components/successMessage";
 import ErrorMessageComponent from "../../../components/errorMessage";
+import LoadingSpan from "../../../components/loadingSpan";
 // styled components
 import {
   EnterPageContainer,
@@ -9,16 +10,12 @@ import {
   FormErrorMessageWrapper,
   FormInput,
   FormInputSubmit,
-  SubmitButtonDisabled,
   FormTitle,
   LoginForm,
   LoginFormWrapper,
   Logo,
   LogoLink,
   LogoWrapper,
-  LoaderSpan,
-  SubmitButtonWrapper,
-  LoadingMessage,
 } from "./style";
 // logo
 import LogoImage from "../../../assets/logo/logo.png";
@@ -151,7 +148,6 @@ const SignUpPage: React.FC = () => {
               {errors.confirmPassword && (
                 <FormErrorMessageWrapper>
                   <ErrorMessage>
-                    {" "}
                     <>{errors.confirmPassword?.message}</>
                   </ErrorMessage>
                 </FormErrorMessageWrapper>
@@ -165,14 +161,8 @@ const SignUpPage: React.FC = () => {
                 <ErrorMessageComponent errorMessage={errorMessage} />
               )}
 
-              {isLoading && (
-                <SubmitButtonWrapper>
-                  <SubmitButtonDisabled disabled>
-                    <LoaderSpan></LoaderSpan>
-                    <LoadingMessage>Carregando...</LoadingMessage>
-                  </SubmitButtonDisabled>
-                </SubmitButtonWrapper>
-              )}
+              {isLoading && <LoadingSpan />}
+
               {!isLoading && (
                 <FormInputSubmit type="submit" value="Cadastrar" />
               )}

@@ -1,5 +1,7 @@
 // components
 import SuccessMessageComponent from "../../../components/successMessage";
+import ErrorMessageComponent from "../../../components/errorMessage";
+import LoadingSpan from "../../../components/loadingSpan";
 // hooks
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -20,10 +22,6 @@ import {
   SignUpText,
   ErrorMessageWrapper,
   ErrorMessage,
-  SubmitButtonWrapper,
-  SubmitButtonDisabled,
-  LoaderSpan,
-  LoadingMessage,
 } from "./style";
 // logo
 import LogoImage from "../../../assets/logo/logo.png";
@@ -34,7 +32,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { authSchemaValidation } from "../../../validations/authSchemaValidation";
 // context
 import { AuthContext } from "../../../contexts/auth/AuthContext";
-import ErrorMessageComponent from "../../../components/errorMessage";
 
 const LoginPage: React.FC = () => {
   const auth = useContext(AuthContext);
@@ -118,21 +115,19 @@ const LoginPage: React.FC = () => {
                   </ErrorMessage>
                 </ErrorMessageWrapper>
               )}
+
               {successMessage && (
                 <SuccessMessageComponent successMessage={successMessage} />
               )}
+
               {errorMessage && (
                 <ErrorMessageComponent errorMessage={errorMessage} />
               )}
-              {isLoading && (
-                <SubmitButtonWrapper>
-                  <SubmitButtonDisabled disabled>
-                    <LoaderSpan></LoaderSpan>
-                    <LoadingMessage>Carregando...</LoadingMessage>
-                  </SubmitButtonDisabled>
-                </SubmitButtonWrapper>
-              )}
+
+              {isLoading && <LoadingSpan />}
+
               {!isLoading && <FormInputSubmit type="submit" value="Entrar" />}
+              
             </LoginForm>
             <SignUpNow>
               <SignUpText>
