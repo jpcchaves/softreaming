@@ -6,7 +6,6 @@ export const SubmitButtonWrapper = styled.div`
   justify-content: center;
   align-items: center;
   margin: 1rem auto;
-  border: 1px solid #e5e5e5;
   border-radius: 5px;
   padding: 5px;
   cursor: not-allowed;

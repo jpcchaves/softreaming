@@ -47,31 +47,26 @@ export const ProfilesWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 30px;
+  gap: 50px;
   flex-wrap: wrap;
   width: 100%;
 `;
 
-export const ProfileBanner = styled.div`
-  width: 200px;
-  height: 253px;
+export const TextToCreateProfile = styled(ProfilesTitle)`
+  font-size: ${({ theme }) => theme.fonts.size.bigSize2};
+`;
+
+export const ProfilesNotFound = styled.div`
+  width: 50%;
+  padding: 10px;
+  background-color: #f8d7da;
   text-align: center;
+  border-radius: 5px;
 `;
 
-export const ProfileImageWrapper = styled.div`
-  width: 100%;
-  height: 200px;
-`;
-
-export const ProfileImage = styled.img`
-  width: 100%;
-  height: 100%;
-`;
-
-export const ProfileName = styled.p`
-  color: ${({ theme }) => theme.colors.midGray};
-  font-size: ${({ theme }) => theme.fonts.size.mediumBigSize};
-  margin: .5rem 0;
+export const ProfileNotFoundText = styled.p`
+  font-size: 26px;
+  color: #721c24;
 `;
 
 export const ManageProfilesButtonWrapper = styled.div`
@@ -80,10 +75,11 @@ export const ManageProfilesButtonWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-`
+`;
 
 export const ManageProfilesButton = styled.button`
   background-color: transparent;
+  cursor: pointer;
   border: 1px solid #6d6d6e;
   padding: 10px 5px;
   border-radius: 5px;
