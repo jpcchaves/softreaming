@@ -33,6 +33,7 @@ routes.put(
 // user routes
 routes.post("/user", userValidate, new UserController().createUser);
 routes.get("/user", authMiddleware, new UserController().getUser);
+routes.post("/login", new UserController().authenticateUser);
 routes.post(
   "/user/:idUser/profiles",
   authMiddleware,
@@ -44,6 +45,16 @@ routes.get(
   authMiddleware,
   new UserController().getProfiles
 );
-routes.post("/login", new UserController().authenticateUser);
+routes.delete(
+  "/profiles/:idUser/:profileId",
+  authMiddleware,
+  new UserController().deleteProfile
+);
+routes.put(
+  "/profiles/:idUser/:profileId",
+  authMiddleware,
+  profileValidation,
+  new UserController().updateProfile
+);
 
 export default routes;

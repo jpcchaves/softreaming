@@ -160,4 +160,48 @@ export class UserController {
       return res.status(500).json({ message: "Internal Server Error" });
     }
   }
+
+  async deleteProfile(req: Request, res: Response) {
+    const { profileId } = req.params;
+
+    if (!(await profileRepository.findOneBy({ id: Number(profileId) }))) {
+      return res.status(400).json({ message: "Perfil não encontrado" });
+    }
+
+    try {
+      await profileRepository.delete(profileId);
+      res.status(204).end();
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ message: "Internal Server Error" });
+    }
+  }
+
+  async updateProfile(req: Request, res: Response) {
+    const { profileId } = req.params;
+    const { profileName, profileUrlImage } = req.body;
+
+    if (!(await profileRepository.findOneBy({ id: Number(profileId) }))) {
+      return res.status(400).json({ message: "Perfil não encontrado" });
+    }
+
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
+
+      const updatedProfile = {
+        profileName,
+        profileUrlImage,
+      };
+
+      await profileRepository.update(profileId, updatedProfile);
+
+      return res.status(201).json(updatedProfile);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ message: "Internal Server Error" });
+    }
+  }
 }
