@@ -2,6 +2,12 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../contexts/auth/AuthContext";
 // styled
 import {
+  AddProfileButtonWrapper,
+  AddProfileImage,
+  AddProfileImageWrapper,
+  AddProfileText,
+  AddProfileTextWrapper,
+  CreateProfile,
   Logo,
   LogoContainer,
   LogoWrapper,
@@ -11,6 +17,7 @@ import {
   ProfilesButtonText,
   ProfilesContainer,
   ProfilesNotFound,
+  ProfilesNotFoundWrapper,
   ProfilesPageWrapper,
   ProfilesTitle,
   ProfilesTitleContainer,
@@ -21,12 +28,13 @@ import {
 import { UserProfiles } from "../../../types/Profiles";
 // Logo
 import LogoImage from "../../../assets/logo/logo.png";
+// add img
+import AddProfileImg from "../../../assets/add/Add.png";
 import { api } from "../../../hooks/useApi";
-import { Navigate } from "react-router-dom";
+import { Navigate, Link, useNavigate } from "react-router-dom";
 // components
 import LoadingSpan from "../../../components/loadingSpan";
 import ProfileBannerComponent from "../../../components/profileBanner";
-import ErrorMessageComponent from "../../../components/errorMessage";
 
 const ProfilesPage: React.FC = () => {
   const auth = useContext(AuthContext);
@@ -34,6 +42,8 @@ const ProfilesPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  const navigate = useNavigate();
 
   const { id } = auth.user!;
 
@@ -66,14 +76,27 @@ const ProfilesPage: React.FC = () => {
 
         setError(true);
 
-        setErrorMessage(
-          "Ocorreu um erro ao carregar os perfis, tente novamente!"
-        );
+        if (error.response.data) {
+          setErrorMessage(error.response.data.message);
+        } else {
+          setErrorMessage("Ocorreu um erro... Tente novamente mais tarde.");
+        }
+
+        setTimeout(() => {
+          setErrorMessage("");
+        }, 3000);
+
         setIsLoading(false);
+
+        return;
       }
     };
     getUserProfiles();
   }, []);
+
+  const handleClick = () => {
+    navigate("/profiles/create");
+  };
 
   return (
     <ProfilesPageWrapper>
@@ -94,26 +117,42 @@ const ProfilesPage: React.FC = () => {
             </ProfilesNotFound>
           )}
           {!error && userProfiles?.length === 0 && (
-            <TextToCreateProfile>
-              Nenhum perfil cadastrado ainda. Clique em gerenciar perfis e crie
-              um agora!
-            </TextToCreateProfile>
+            <ProfilesNotFoundWrapper>
+              <TextToCreateProfile>
+                Nenhum perfil cadastrado ainda.
+              </TextToCreateProfile>
+              <CreateProfile to="/profiles/create">Criar Perfil</CreateProfile>
+            </ProfilesNotFoundWrapper>
           )}
           {!isLoading &&
             userProfiles &&
             userProfiles.map((profile) => (
               <ProfileBannerComponent
-                id={profile.id}
+                key={profile.id}
                 profileName={profile.profileName}
                 profileUrlImage={profile.profileUrlImage}
-              ></ProfileBannerComponent>
+              />
             ))}
+          {userProfiles &&
+            userProfiles?.length >= 1 &&
+            userProfiles?.length <= 3 && (
+              <AddProfileButtonWrapper onClick={handleClick}>
+                <AddProfileImageWrapper>
+                  <AddProfileImage src={AddProfileImg} />
+                </AddProfileImageWrapper>
+                <AddProfileTextWrapper>
+                  <AddProfileText>Adicionar Perfil</AddProfileText>
+                </AddProfileTextWrapper>
+              </AddProfileButtonWrapper>
+            )}
         </ProfilesWrapper>
-        <ManageProfilesButtonWrapper>
-          <ManageProfilesButton>
-            <ProfilesButtonText>Gerenciar perfis</ProfilesButtonText>
-          </ManageProfilesButton>
-        </ManageProfilesButtonWrapper>
+        {userProfiles && userProfiles?.length > 0 && (
+          <ManageProfilesButtonWrapper>
+            <ManageProfilesButton to="/profiles/manage-profiles">
+              <ProfilesButtonText>Gerenciar Perfis</ProfilesButtonText>
+            </ManageProfilesButton>
+          </ManageProfilesButtonWrapper>
+        )}
       </ProfilesContainer>
     </ProfilesPageWrapper>
   );

@@ -12,6 +12,8 @@ import ProfilesPage from "./pages/authentication/profilesPage";
 import { RequireAuth } from "./contexts/auth/RequireAuth";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "./contexts/auth/AuthContext";
+import ManageProfiles from "./pages/authentication/manageProfiles";
+import CreateProfile from "./pages/authentication/createProfile";
 
 const App: React.FC = () => {
   const auth = useContext(AuthContext);
@@ -38,6 +40,22 @@ const App: React.FC = () => {
             element={
               <RequireAuth>
                 <ProfilesPage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/profiles/create"
+            element={
+              <RequireAuth>
+                <CreateProfile />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/profiles/manage-profiles"
+            element={
+              <RequireAuth>
+                <ManageProfiles />
               </RequireAuth>
             }
           />

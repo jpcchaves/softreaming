@@ -16,3 +16,8 @@ export const signUpSchemaValidation = yup.object().shape({
     .max(15)
     .oneOf([yup.ref("password")]),
 });
+
+export const createProfileValidation = yup.object().shape({
+  profileName: yup.string().min(3).required(),
+  profileUrlImage: yup.string().url().required()
+})

@@ -12,6 +12,7 @@ setLocale({
     min: ({ min }) => `O campo precisa ter pelo menos ${min} caracteres`,
     length: ({ length }) =>
       `O campo precisa ter exatamente ${length} caracteres`,
+    url: "Insira uma URL válida!",
   },
   date: {
     max: ({ max }) => `A data deve ser menor que ${max}`,

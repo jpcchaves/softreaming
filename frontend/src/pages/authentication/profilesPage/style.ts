@@ -1,4 +1,5 @@
-import styled, { ThemeContext } from "styled-components";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 export const ProfilesPageWrapper = styled.div`
   width: 100vw;
@@ -45,11 +46,41 @@ export const ProfilesTitle = styled.h1`
 
 export const ProfilesWrapper = styled.div`
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   gap: 50px;
   flex-wrap: wrap;
   width: 100%;
+`;
+
+export const AddProfileButtonWrapper = styled.div`
+  width: 200px;
+  height: 253px;
+  cursor: pointer;
+`;
+
+export const AddProfileImageWrapper = styled.div`
+  width: 100%;
+  height: calc(253px - 53px);
+`;
+
+export const AddProfileImage = styled.img`
+  width: 100%;
+  height: 100%;
+`;
+
+export const AddProfileTextWrapper = styled.div`
+  height: 53px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+export const AddProfileText = styled.p`
+  color: ${({ theme }) => theme.colors.midGray};
+  font-size: ${({ theme }) => theme.fonts.size.mediumBigSize};
+  margin: 0.5rem 0;
 `;
 
 export const TextToCreateProfile = styled(ProfilesTitle)`
@@ -64,9 +95,32 @@ export const ProfilesNotFound = styled.div`
   border-radius: 5px;
 `;
 
+export const ProfilesNotFoundWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const ProfileNotFoundText = styled.p`
   font-size: 26px;
   color: #721c24;
+`;
+
+export const CreateProfile = styled(Link)`
+  text-decoration: none;
+  color: ${({ theme }) => theme.colors.midGray};
+  font-size: ${({ theme }) => theme.fonts.size.mediumBigSize};
+  margin-top: 2rem;
+  border: 1px solid #6d6d6e;
+  padding: 10px;
+  border-radius: 5px;
+  transition: 0.2s ease-in-out;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.midGray};
+    color: #000;
+  }
 `;
 
 export const ManageProfilesButtonWrapper = styled.div`
@@ -77,17 +131,31 @@ export const ManageProfilesButtonWrapper = styled.div`
   justify-content: center;
 `;
 
-export const ManageProfilesButton = styled.button`
+export const ManageProfilesButton = styled(Link)`
   background-color: transparent;
+  text-decoration: none;
+  text-align: center;
   cursor: pointer;
   border: 1px solid #6d6d6e;
   padding: 10px 5px;
   border-radius: 5px;
   width: 400px;
+  transition: 0.2s ease-in-out;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.midGray};
+  }
 `;
 
 export const ProfilesButtonText = styled.span`
   text-transform: uppercase;
   font-size: ${({ theme }) => theme.fonts.size.mediumBigSize};
   color: ${({ theme }) => theme.colors.midGray};
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+
+  &:hover {
+    color: #000;
+  }
 `;
