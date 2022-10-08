@@ -122,7 +122,7 @@ const CreateProfile = () => {
             )}
             <FormInput
               type="text"
-              placeholder="Digite o nome do perfil..."
+              placeholder="Insira a URL da sua profile image..."
               {...register("profileUrlImage")}
             />
             {errors.profileUrlImage && (
