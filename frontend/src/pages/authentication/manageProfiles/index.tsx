@@ -4,22 +4,21 @@ import { AuthContext } from "../../../contexts/auth/AuthContext";
 import { api } from "../../../hooks/useApi";
 import { UserProfiles } from "../../../types/Profiles";
 import {
-  ButtonsWrapper,
-  DeleteButton,
-  EditButton,
+  GoBackLink,
+  GoBackLinkWrapper,
   ManageProfilesContainer,
   ManageProfilesDashboardWrapper,
   ManageProfilesPageContainer,
   ManageProfilesSubtitle,
   ManageProfilesTitle,
   ManageProfilesTitleContainer,
-  ProfileBanner,
-  ProfileImage,
-  ProfileImageWrapper,
-  ProfileName,
-  ProfileNameWrapper,
   ProfilesWrapper,
 } from "./style";
+// icons
+import { BsFillArrowLeftCircleFill } from "react-icons/bs";
+import ManageProfileBanner from "../../../components/manageProfileBanner";
+import LoadingSpan from "../../../components/loadingSpan";
+import ErrorMessageComponent from "../../../components/errorMessage";
 
 const ManageProfiles: React.FC = () => {
   const [userProfiles, setUserProfiles] = useState<UserProfiles>();
@@ -27,7 +26,7 @@ const ManageProfiles: React.FC = () => {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const auth = useContext(AuthContext);
-
+  
   const { id } = auth.user!;
 
   const getToken = () => {
@@ -78,19 +77,24 @@ const ManageProfiles: React.FC = () => {
           </ManageProfilesSubtitle>
         </ManageProfilesTitleContainer>
         <ManageProfilesContainer>
+          {isLoading && <LoadingSpan />}
+          {error && <ErrorMessageComponent errorMessage={errorMessage} />}
           <ProfilesWrapper>
-            <ProfileBanner>
-              <ProfileImageWrapper>
-                <ProfileImage src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png" />
-              </ProfileImageWrapper>
-              <ProfileNameWrapper>
-                <ProfileName>Profile Name</ProfileName>
-              </ProfileNameWrapper>
-              <ButtonsWrapper>
-                <EditButton to="">Editar</EditButton>
-                <DeleteButton to="">Excluir</DeleteButton>
-              </ButtonsWrapper>
-            </ProfileBanner>
+            {!isLoading &&
+              userProfiles &&
+              userProfiles.map((profile) => (
+                <ManageProfileBanner
+                  key={profile.id}
+                  id={profile.id}
+                  profileName={profile.profileName}
+                  profileUrlImage={profile.profileUrlImage}
+                />
+              ))}
+            <GoBackLinkWrapper>
+              <GoBackLink to="/profiles">
+                <BsFillArrowLeftCircleFill />
+              </GoBackLink>
+            </GoBackLinkWrapper>
           </ProfilesWrapper>
         </ManageProfilesContainer>
       </ManageProfilesDashboardWrapper>

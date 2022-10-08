@@ -1,5 +1,5 @@
 import * as yup from "yup";
-import "./yupTranslations"
+import "./yupTranslations";
 
 export const authSchemaValidation = yup.object().shape({
   email: yup.string().email().required(),
@@ -18,6 +18,6 @@ export const signUpSchemaValidation = yup.object().shape({
 });
 
 export const createProfileValidation = yup.object().shape({
-  profileName: yup.string().min(3).required(),
-  profileUrlImage: yup.string().url().required()
-})
+  profileName: yup.string().min(3).max(12).required(),
+  profileUrlImage: yup.string().url().required(),
+});
