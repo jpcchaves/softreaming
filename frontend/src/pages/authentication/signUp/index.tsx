@@ -73,7 +73,7 @@ const SignUpPage: React.FC = () => {
       setTimeout(() => {
         navigate("/login");
         setSuccessMessage("");
-      }, 3000);
+      }, 1500);
     } catch (error: any) {
       if (error.response.data) {
         setErrorMessage(error.response.data.message);

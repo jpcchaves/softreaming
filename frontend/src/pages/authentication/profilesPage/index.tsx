@@ -75,7 +75,7 @@ const ProfilesPage: React.FC = () => {
         setIsLoading(true);
 
         setError(true);
-        
+
         if (error.response.data) {
           setErrorMessage(error.response.data.message);
         } else {
@@ -84,7 +84,7 @@ const ProfilesPage: React.FC = () => {
 
         setTimeout(() => {
           setErrorMessage("");
-          setError(false)
+          setError(false);
         }, 3000);
 
         setIsLoading(false);
@@ -125,7 +125,8 @@ const ProfilesPage: React.FC = () => {
               <CreateProfile to="/profiles/create">Criar Perfil</CreateProfile>
             </ProfilesNotFoundWrapper>
           )}
-          {!error && !isLoading &&
+          {!error &&
+            !isLoading &&
             userProfiles &&
             userProfiles.map((profile) => (
               <ProfileBannerComponent

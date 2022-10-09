@@ -20,7 +20,6 @@ export const useApi = () => ({
     return response.data;
   },
   signout: async () => {
-    const response = await api.post("/logout");
-    return response.data;
+    return { status: true };
   },
 });

@@ -15,6 +15,10 @@ import { AuthContext } from "./contexts/auth/AuthContext";
 import ManageProfiles from "./pages/authentication/manageProfiles";
 import CreateProfile from "./pages/authentication/createProfile";
 import EditProfile from "./pages/authentication/editProfile";
+import MoviesPage from "./pages/movies/moviesPage";
+import Navbar from "./components/navbar";
+import MovieHomePage from "./pages/movies/movieHomePage";
+import UserDetails from "./pages/user";
 
 const App: React.FC = () => {
   const auth = useContext(AuthContext);
@@ -68,6 +72,11 @@ const App: React.FC = () => {
               </RequireAuth>
             }
           />
+          <Route path="/br" element={<Navbar />}>
+            <Route index element={<MovieHomePage />} />
+            <Route path="movies" element={<MoviesPage />} />
+            <Route path="user" element={<UserDetails />} />
+          </Route>
         </Routes>
       </ThemeProvider>
       <GlobalStyles />

@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { Profiles } from "../../types/Profiles";
 import {
   ProfileBanner,
@@ -11,8 +12,14 @@ const ProfileBannerComponent = ({
   profileName,
   profileUrlImage,
 }: Profiles) => {
+  const navigate = useNavigate();
+
+  const navigateToMovies = () => {
+    navigate("/br");
+  };
+
   return (
-    <ProfileBanner key={id}>
+    <ProfileBanner key={id} onClick={navigateToMovies}>
       <ProfileImageWrapper>
         <ProfileImage src={profileUrlImage} />
         <ProfileName>{profileName}</ProfileName>

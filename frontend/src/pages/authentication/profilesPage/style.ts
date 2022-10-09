@@ -137,23 +137,24 @@ export const ManageProfilesButton = styled(Link)`
   text-align: center;
   cursor: pointer;
   border: 1px solid #6d6d6e;
-  padding: 10px 5px;
   border-radius: 5px;
   width: 400px;
   transition: 0.2s ease-in-out;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.midGray};
+    color: #000;
   }
 `;
 
 export const ProfilesButtonText = styled.span`
+  width: 100%;
+  height: 100%;
+  padding: 10px 5px;
   text-transform: uppercase;
   font-size: ${({ theme }) => theme.fonts.size.mediumBigSize};
   color: ${({ theme }) => theme.colors.midGray};
-  display: inline-block;
-  width: 100%;
-  height: 100%;
+  display: block;
 
   &:hover {
     color: #000;
