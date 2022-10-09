@@ -4,6 +4,7 @@ import { AuthContext } from "../../../contexts/auth/AuthContext";
 import { api } from "../../../hooks/useApi";
 import { UserProfiles } from "../../../types/Profiles";
 import {
+  ErrorMessagePageWrapper,
   GoBackLink,
   GoBackLinkWrapper,
   ManageProfilesContainer,
@@ -26,7 +27,7 @@ const ManageProfiles: React.FC = () => {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const auth = useContext(AuthContext);
-  
+
   const { id } = auth.user!;
 
   const getToken = () => {
@@ -78,7 +79,11 @@ const ManageProfiles: React.FC = () => {
         </ManageProfilesTitleContainer>
         <ManageProfilesContainer>
           {isLoading && <LoadingSpan />}
-          {error && <ErrorMessageComponent errorMessage={errorMessage} />}
+          {error && (
+            <ErrorMessagePageWrapper>
+              <ErrorMessageComponent errorMessage={errorMessage} />
+            </ErrorMessagePageWrapper>
+          )}
           <ProfilesWrapper>
             {!isLoading &&
               userProfiles &&

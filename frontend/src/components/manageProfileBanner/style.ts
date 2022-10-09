@@ -29,18 +29,23 @@ export const ButtonsWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
 `;
 
-export const EditButton = styled(Link)`
+export const EditButton = styled.button`
   text-decoration: none;
   background-color: transparent;
   color: ${({ theme }) => theme.colors.midGray};
-  padding: 5px 10px;
+  font-size: ${({ theme }) => theme.fonts.size.mediumSize};
+  font-family: ${({ theme }) => theme.fonts.family.default};
+  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-weight: ${({ theme }) => theme.fonts.weight.bold};
   transition: 0.2s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.midGray};
@@ -59,7 +64,7 @@ export const DeleteButton = styled.button`
   color: #721c24;
   font-weight: ${({ theme }) => theme.fonts.weight.bold};
   font-size: ${({ theme }) => theme.fonts.size.mediumSize};
-  padding: 5px 10px;
+  padding: 10px;
   font-family: ${({ theme }) => theme.fonts.family.default};
   display: flex;
   align-items: center;

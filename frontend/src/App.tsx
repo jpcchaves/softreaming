@@ -14,6 +14,7 @@ import { useContext, useEffect } from "react";
 import { AuthContext } from "./contexts/auth/AuthContext";
 import ManageProfiles from "./pages/authentication/manageProfiles";
 import CreateProfile from "./pages/authentication/createProfile";
+import EditProfile from "./pages/authentication/editProfile";
 
 const App: React.FC = () => {
   const auth = useContext(AuthContext);
@@ -48,6 +49,14 @@ const App: React.FC = () => {
             element={
               <RequireAuth>
                 <CreateProfile />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/profiles/edit/:profileId"
+            element={
+              <RequireAuth>
+                <EditProfile />
               </RequireAuth>
             }
           />

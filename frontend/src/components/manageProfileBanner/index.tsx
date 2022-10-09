@@ -1,5 +1,7 @@
+// icons
+import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
 // hooks
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 // auth context
 import { AuthContext } from "../../contexts/auth/AuthContext";
@@ -25,6 +27,15 @@ const ManageProfileBanner = ({
 }: Profiles) => {
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
+  const [profileIdToEdit, setProfileIdToEdit] = useState<number>(id!);
+
+  const handleEditProfile = (id?: number) => {
+    if (id) {
+      setProfileIdToEdit(id);
+    }
+
+    navigate(`/profiles/edit/${profileIdToEdit}`);
+  };
 
   const handleDeleteProfile = async (id?: number) => {
     if (!auth.user) return <Navigate to="/login" />;
@@ -61,9 +72,11 @@ const ManageProfileBanner = ({
         <ProfileName>{profileName}</ProfileName>
       </ProfileNameWrapper>
       <ButtonsWrapper>
-        <EditButton to="">Editar</EditButton>
+        <EditButton onClick={() => handleEditProfile(id)}>
+          <BsFillPencilFill />
+        </EditButton>
         <DeleteButton onClick={() => handleDeleteProfile(id)}>
-          Excluir
+          <BsFillTrashFill />
         </DeleteButton>
       </ButtonsWrapper>
     </ProfileBanner>

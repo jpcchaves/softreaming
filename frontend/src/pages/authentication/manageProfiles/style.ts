@@ -57,6 +57,11 @@ export const ProfilesWrapper = styled.div`
   padding: 20px 50px 50px 50px;
 `;
 
+export const ErrorMessagePageWrapper = styled.div`
+  width: 50%;
+  margin: 0 auto;
+`;
+
 export const GoBackLinkWrapper = styled.div`
   width: 100%;
   display: flex;

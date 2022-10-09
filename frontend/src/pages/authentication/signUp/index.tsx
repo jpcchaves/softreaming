@@ -83,7 +83,7 @@ const SignUpPage: React.FC = () => {
 
       setTimeout(() => {
         setErrorMessage("");
-      }, 3000);
+      }, 1500);
 
       setIsLoading(false);
 
