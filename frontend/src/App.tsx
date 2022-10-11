@@ -72,11 +72,40 @@ const App: React.FC = () => {
               </RequireAuth>
             }
           />
-          <Route path="/br" element={<Navbar />}>
-            <Route index element={<MovieHomePage />} />
-            <Route path="movies" element={<MoviesPage />} />
-            <Route path="user" element={<UserDetails />} />
+          <Route
+            path="/br"
+            element={
+              <RequireAuth>
+                <Navbar />
+              </RequireAuth>
+            }
+          >
+            <Route
+              index
+              element={
+                <RequireAuth>
+                  <MovieHomePage />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="movies"
+              element={
+                <RequireAuth>
+                  <MoviesPage />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="user"
+              element={
+                <RequireAuth>
+                  <UserDetails />
+                </RequireAuth>
+              }
+            />
           </Route>
+          <Route path="*" element={<LoginPage />} />
         </Routes>
       </ThemeProvider>
       <GlobalStyles />

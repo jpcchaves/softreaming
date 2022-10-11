@@ -9,12 +9,15 @@ export const ProfileBanner = styled.div`
 
 export const ProfileImageWrapper = styled.div`
   width: 100%;
+  min-width: 200px;
   height: 200px;
 `;
 
 export const ProfileImage = styled.img`
   width: 100%;
+  max-width: 200px;
   height: 100%;
+  object-fit: cover;
 `;
 
 export const ProfileName = styled.p`
