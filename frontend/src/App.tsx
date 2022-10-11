@@ -9,7 +9,7 @@ import SignUpPage from "./pages/authentication/signUp";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./styles/theme";
 import ProfilesPage from "./pages/authentication/profilesPage";
-import { RequireAuth } from "./contexts/auth/RequireAuth";
+import { RequireAuth, RequireAuthAndAdmin } from "./contexts/auth/RequireAuth";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "./contexts/auth/AuthContext";
 import ManageProfiles from "./pages/authentication/manageProfiles";
@@ -19,6 +19,7 @@ import MoviesPage from "./pages/movies/moviesPage";
 import Navbar from "./components/navbar";
 import MovieHomePage from "./pages/movies/movieHomePage";
 import UserDetails from "./pages/user";
+import AddMovie from "./pages/movies/addMovie";
 
 const App: React.FC = () => {
   const auth = useContext(AuthContext);
@@ -102,6 +103,14 @@ const App: React.FC = () => {
                 <RequireAuth>
                   <UserDetails />
                 </RequireAuth>
+              }
+            />
+            <Route
+              path="add-movie"
+              element={
+                <RequireAuthAndAdmin>
+                  <AddMovie />
+                </RequireAuthAndAdmin>
               }
             />
           </Route>

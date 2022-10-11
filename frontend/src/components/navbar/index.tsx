@@ -56,6 +56,10 @@ const Navbar = () => {
           <RightContainer>
             <NavbarLinkContainer>
               <NavbarLink to="/br/user">{auth.user?.userName}</NavbarLink>
+              <NavbarLink to="/profiles">Profiles</NavbarLink>
+              {auth.user?.role === "admin" && (
+                <NavbarLink to="/br/add-movie">Add Movies</NavbarLink>
+              )}
               <NavbarLink to="" onClick={handleLogout}>
                 Sair
               </NavbarLink>
@@ -72,6 +76,9 @@ const Navbar = () => {
             </NavbarLinkExtended>
             <NavbarLinkExtended to="/br/user" onClick={handleExtendNavbar}>
               {auth.user?.userName}
+            </NavbarLinkExtended>
+            <NavbarLinkExtended to="/profiles" onClick={handleExtendNavbar}>
+              Profiles
             </NavbarLinkExtended>
             <NavbarLinkExtended to="" onClick={handleLogout}>
               Sair

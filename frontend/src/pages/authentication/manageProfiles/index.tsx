@@ -85,7 +85,8 @@ const ManageProfiles: React.FC = () => {
             </ErrorMessagePageWrapper>
           )}
           <ProfilesWrapper>
-            {!isLoading &&
+            {!error &&
+              !isLoading &&
               userProfiles &&
               userProfiles.map((profile) => (
                 <ManageProfileBanner

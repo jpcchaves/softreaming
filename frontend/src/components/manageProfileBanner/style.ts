@@ -1,15 +1,21 @@
 import styled from "styled-components";
 
 export const ProfileBanner = styled.div`
+  height: 200px;
   width: 200px;
+  margin-bottom: 50px;
+  background-color: blue;
 `;
 
 export const ProfileImageWrapper = styled.div`
+  height: 100%;
   width: 100%;
 `;
 
 export const ProfileImage = styled.img`
+  height: 100%;
   width: 100%;
+  object-fit: cover;
 `;
 
 export const ProfileNameWrapper = styled.div`
@@ -28,7 +34,7 @@ export const ButtonsWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-evenly;  
 `;
 
 export const EditButton = styled.button`
@@ -53,18 +59,14 @@ export const EditButton = styled.button`
 `;
 
 export const DeleteButton = styled.button`
-  text-decoration: none;
   border: none;
   background-color: #f8d7da;
-  border: 1px solid #f5c6cb;
   cursor: pointer;
   color: #000;
   border-radius: 5px;
   color: #721c24;
-  font-weight: ${({ theme }) => theme.fonts.weight.bold};
   font-size: ${({ theme }) => theme.fonts.size.mediumSize};
   padding: 10px;
-  font-family: ${({ theme }) => theme.fonts.family.default};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -74,5 +76,3 @@ export const DeleteButton = styled.button`
     opacity: 0.8;
   }
 `;
-
-export const DeleteButtonText = styled.span``;

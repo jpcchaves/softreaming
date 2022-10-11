@@ -13,3 +13,16 @@ export const RequireAuth = ({ children }: { children: JSX.Element }) => {
 
   return children;
 };
+export const RequireAuthAndAdmin = ({
+  children,
+}: {
+  children: JSX.Element;
+}) => {
+  const auth = useContext(AuthContext);
+
+  if (!auth.user || auth.user.role != "admin") {
+    return <Navigate to="/login" />;
+  }
+
+  return children;
+};

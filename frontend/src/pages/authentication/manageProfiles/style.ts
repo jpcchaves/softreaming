@@ -41,7 +41,7 @@ export const ManageProfilesSubtitle = styled.h4`
 export const ManageProfilesContainer = styled.div`
   width: 100%;
   height: 100%;
-  margin-top: 3rem;
+  margin-top: 1rem;
   flex-basis: calc(100vh - 30%);
 `;
 // inside the flex container, we'll have small profile banners
@@ -54,7 +54,7 @@ export const ProfilesWrapper = styled.div`
   align-items: flex-start;
   flex-wrap: wrap;
   gap: 70px;
-  padding: 20px 50px 50px 50px;
+  padding: 0px 50px;
 `;
 
 export const ErrorMessagePageWrapper = styled.div`
