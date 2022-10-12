@@ -60,7 +60,9 @@ const Navbar = () => {
                 <NavbarLink to="/br/add-movie">Add Movies</NavbarLink>
               )}
               <NavbarLink to="/profiles">Profiles</NavbarLink>
-              <NavbarLink to={`/br/user/${id}`}>{auth.user?.userName}</NavbarLink>
+              <NavbarLink to={`/br/user/${id}`}>
+                {auth.user?.userName}
+              </NavbarLink>
               <NavbarLink to="" onClick={handleLogout}>
                 Sair
               </NavbarLink>

@@ -34,8 +34,6 @@ import { AuthContext } from "../../../contexts/auth/AuthContext";
 
 const CreateProfile = () => {
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const [successMessage, setSuccessMessage] = useState<string>("");
-  const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   // navigate hook
@@ -90,8 +88,6 @@ const CreateProfile = () => {
     } catch (error: any) {
       setIsLoading(true);
 
-      setError(true);
-
       setErrorMessage(
         "Ocorreu um erro ao editar o perfil! Tente novamente mais tarde..."
       );
@@ -131,10 +127,6 @@ const CreateProfile = () => {
             />
             {errors.profileUrlImage && (
               <FormErrorMessage message={errors.profileUrlImage?.message} />
-            )}
-
-            {successMessage && (
-              <SuccessMessageComponent successMessage={successMessage} />
             )}
 
             {errorMessage && (

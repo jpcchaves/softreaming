@@ -18,7 +18,7 @@ import EditProfile from "./pages/authentication/editProfile";
 import MoviesPage from "./pages/movies/moviesPage";
 import Navbar from "./components/navbar";
 import MovieHomePage from "./pages/movies/movieHomePage";
-import UserDetails from "./pages/user";
+import UserDetails from "./pages/user/editUser";
 import AddMovie from "./pages/movies/addMovie";
 
 const App: React.FC = () => {

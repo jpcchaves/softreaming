@@ -21,3 +21,8 @@ export const createProfileValidation = yup.object().shape({
   profileName: yup.string().min(3).max(12).required(),
   profileUrlImage: yup.string().url().required(),
 });
+
+export const updateUserValidation = yup.object().shape({
+  userName: yup.string().min(5).max(12).required(),
+  password: yup.string().min(5).max(15).required(),
+});
