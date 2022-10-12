@@ -23,6 +23,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const auth = useContext(AuthContext);
+  const { id } = auth.user!;
   const navigate = useNavigate();
   const [extendNavbar, setExtendNavbar] = useState(false);
 
@@ -55,11 +56,11 @@ const Navbar = () => {
           </LeftContainer>
           <RightContainer>
             <NavbarLinkContainer>
-              <NavbarLink to="/br/user">{auth.user?.userName}</NavbarLink>
-              <NavbarLink to="/profiles">Profiles</NavbarLink>
               {auth.user?.role === "admin" && (
                 <NavbarLink to="/br/add-movie">Add Movies</NavbarLink>
               )}
+              <NavbarLink to="/profiles">Profiles</NavbarLink>
+              <NavbarLink to={`/br/user/${id}`}>{auth.user?.userName}</NavbarLink>
               <NavbarLink to="" onClick={handleLogout}>
                 Sair
               </NavbarLink>
@@ -71,14 +72,22 @@ const Navbar = () => {
         </NavbarInnerContainer>
         {extendNavbar && (
           <NavbarExtendedContainer>
+            {auth.user?.role === "admin" && (
+              <NavbarLinkExtended to="/br/add-movie">
+                Add Movies
+              </NavbarLinkExtended>
+            )}
             <NavbarLinkExtended to="/br/movies" onClick={handleExtendNavbar}>
               Movies
             </NavbarLinkExtended>
-            <NavbarLinkExtended to="/br/user" onClick={handleExtendNavbar}>
-              {auth.user?.userName}
-            </NavbarLinkExtended>
             <NavbarLinkExtended to="/profiles" onClick={handleExtendNavbar}>
               Profiles
+            </NavbarLinkExtended>
+            <NavbarLinkExtended
+              to={`/br/user/${id}`}
+              onClick={handleExtendNavbar}
+            >
+              {auth.user?.userName}
             </NavbarLinkExtended>
             <NavbarLinkExtended to="" onClick={handleLogout}>
               Sair

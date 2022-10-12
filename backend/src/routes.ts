@@ -7,6 +7,7 @@ import { authMiddleware } from "./middlewares/authMiddleware";
 import { movieValidate } from "./validations/movieValidations";
 import { userValidate } from "./validations/userValidations";
 import { profileValidation } from "./validations/profileValidations";
+import { updateUserValidate } from "./validations/updateUserValidation";
 
 const routes = Router();
 
@@ -33,6 +34,12 @@ routes.put(
 // user routes
 routes.post("/user", userValidate, new UserController().createUser);
 routes.get("/user", authMiddleware, new UserController().getUser);
+routes.put(
+  "/user/:idUser",
+  authMiddleware,
+  updateUserValidate,
+  new UserController().updateUser
+);
 routes.post("/login", new UserController().authenticateUser);
 routes.post(
   "/user/:idUser/profiles",

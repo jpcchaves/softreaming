@@ -9,6 +9,7 @@ export const NavbarContainer = styled.nav<Props>`
   position: ${(props) => (props.extendNavbar ? "fixed" : "")};
   display: flex;
   flex-direction: column;
+  font-weight: bold;
 
   @media (min-width: 700px) {
     height: 80px;

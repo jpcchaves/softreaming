@@ -4,7 +4,6 @@ export const ProfileBanner = styled.div`
   height: 200px;
   width: 200px;
   margin-bottom: 50px;
-  background-color: blue;
 `;
 
 export const ProfileImageWrapper = styled.div`
@@ -34,7 +33,7 @@ export const ButtonsWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-evenly;  
+  justify-content: space-evenly;
 `;
 
 export const EditButton = styled.button`

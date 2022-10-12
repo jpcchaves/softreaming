@@ -98,7 +98,7 @@ const App: React.FC = () => {
               }
             />
             <Route
-              path="user"
+              path="user/:idUser"
               element={
                 <RequireAuth>
                   <UserDetails />

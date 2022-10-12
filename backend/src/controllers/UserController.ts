@@ -40,6 +40,44 @@ export class UserController {
     }
   }
 
+  async updateUser(req: Request, res: Response) {
+    const { userName, password } = req.body;
+    const { idUser } = req.params;
+
+    const hashPassword = await bcrypt.hash(password, 10);
+
+    const updatedUser = {
+      userName,
+      password: hashPassword,
+    };
+
+    const { password: _, ...updtedUserData } = updatedUser;
+
+
+    try {
+      const errors = validationResult(req);
+
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
+
+      const findUser = await userRepository.findOneBy({
+        id: Number(idUser),
+      });
+
+      if (!findUser) {
+        return res.status(404).json({ message: "Usuário não encontrado!" });
+      }
+
+      await userRepository.update(idUser, updatedUser);
+
+      return res.status(201).json(updtedUserData);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ message: "Internal Sever Error" });
+    }
+  }
+
   async createProfile(req: Request, res: Response) {
     const { profileName, profileUrlImage } = req.body;
     const { idUser } = req.params;
