@@ -25,16 +25,18 @@ import { yupResolver } from "@hookform/resolvers/yup";
 // yup schema validation
 import { createProfileValidation } from "../../../validations/authSchemaValidation";
 // hooks
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 // axios
 import { api } from "../../../hooks/useApi";
 // context
 import { AuthContext } from "../../../contexts/auth/AuthContext";
+import { Profiles } from "../../../types/ProfilesEditPage";
 
 const CreateProfile = () => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [userProfiles, setUserProfiles] = useState<Profiles[]>([]);
 
   // navigate hook
   const navigate = useNavigate();
@@ -44,6 +46,37 @@ const CreateProfile = () => {
 
   // profile id URL param
   const { profileId } = useParams();
+
+  // user id
+  const { id } = auth.user!;
+
+  const getToken = () => {
+    const token = localStorage.getItem("authToken");
+    return token;
+  };
+
+  useEffect(() => {
+    const getUserProfiles = async () => {
+      const authToken = getToken();
+
+      const profiles = await api.get(`/user/${id}/profiles`, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      setUserProfiles(profiles.data.profiles);
+    };
+    getUserProfiles();
+  }, []);
+
+  const profileBeingEdited = userProfiles.filter((profile) => {
+    return profile.id == profileId;
+  });
+
+  const {
+    profileName: profileNamePlaceholder,
+    profileUrlImage: profileUrlImagePlaceholder,
+  } = profileBeingEdited[0] || "";
 
   const {
     register,
@@ -67,13 +100,6 @@ const CreateProfile = () => {
     if (!auth.user) return <Navigate to="/login" />;
 
     try {
-      const { id } = auth.user!;
-
-      const getToken = () => {
-        const token = localStorage.getItem("authToken");
-        return token;
-      };
-
       const authToken = getToken();
 
       await api.put(`/profiles/${id}/${profileId}`, newProfileData, {
@@ -114,7 +140,7 @@ const CreateProfile = () => {
           <LoginForm onSubmit={handleSubmit(submitForm)}>
             <FormInput
               type="text"
-              placeholder="Digite o novo nome do perfil..."
+              placeholder={profileNamePlaceholder || ""}
               {...register("profileName")}
             />
             {errors.profileName && (
@@ -122,7 +148,7 @@ const CreateProfile = () => {
             )}
             <FormInput
               type="text"
-              placeholder="Insira a nova URL da sua profile image..."
+              placeholder={profileUrlImagePlaceholder || ""}
               {...register("profileUrlImage")}
             />
             {errors.profileUrlImage && (
