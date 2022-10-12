@@ -6,7 +6,11 @@ export const UserDetailsPageWrapper = styled.div`
   color: white;
 `;
 
+<<<<<<< HEAD
 export const EditFormWrapper = styled.div`
+=======
+export const LoginFormWrapper = styled.div`
+>>>>>>> 1aef47ebc1c087731b60db5e32ed541d369bc5e3
   background-color: rgba(0, 0, 0, 0.75);
   border-radius: 4px;
   display: flex;
@@ -26,6 +30,10 @@ export const FormTitle = styled.h1`
   margin-bottom: 28px;
 `;
 
+<<<<<<< HEAD
 export const EditForm = styled.form`
+=======
+export const LoginForm = styled.form`
+>>>>>>> 1aef47ebc1c087731b60db5e32ed541d369bc5e3
   width: 100%;
 `;

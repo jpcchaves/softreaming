@@ -21,8 +21,13 @@ import { api } from "../../../hooks/useApi";
 import { AuthContext } from "../../../contexts/auth/AuthContext";
 import {
   FormTitle,
+<<<<<<< HEAD
   EditForm,
   EditFormWrapper,
+=======
+  LoginForm,
+  LoginFormWrapper,
+>>>>>>> 1aef47ebc1c087731b60db5e32ed541d369bc5e3
   UserDetailsPageWrapper,
 } from "./style";
 
@@ -92,9 +97,15 @@ const UserDetails = () => {
 
   return (
     <UserDetailsPageWrapper>
+<<<<<<< HEAD
       <EditFormWrapper>
         <FormTitle>Editar Usuário</FormTitle>
         <EditForm onSubmit={handleSubmit(submitForm)}>
+=======
+      <LoginFormWrapper>
+        <FormTitle>Editar Usuário</FormTitle>
+        <LoginForm onSubmit={handleSubmit(submitForm)}>
+>>>>>>> 1aef47ebc1c087731b60db5e32ed541d369bc5e3
           <FormInput
             type="text"
             placeholder="Digite o novo nome de usuário..."
@@ -125,8 +136,13 @@ const UserDetails = () => {
           {!isLoading && (
             <FormInputSubmit type="submit" value="Editar Usuário" />
           )}
+<<<<<<< HEAD
         </EditForm>
       </EditFormWrapper>
+=======
+        </LoginForm>
+      </LoginFormWrapper>
+>>>>>>> 1aef47ebc1c087731b60db5e32ed541d369bc5e3
     </UserDetailsPageWrapper>
   );
 };
