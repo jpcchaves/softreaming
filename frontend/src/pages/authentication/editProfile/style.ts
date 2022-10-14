@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 export const EditProfilePageContainer = styled.div`
@@ -47,4 +48,25 @@ export const FormTitle = styled.h1`
 
 export const LoginForm = styled.form`
   width: 100%;
+`;
+
+export const GoBackLinkWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  margin-top: 2rem;
+  text-align: center;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const GoBackLink = styled(Link)`
+  color: ${({ theme }) => theme.colors.smokeWhite};
+  font-size: ${({ theme }) => theme.fonts.size.bigSize2};
+  text-decoration: none;
+  transition: 0.2s ease-in-out;
+
+  &:hover {
+    opacity: 0.8;
+  }
 `;

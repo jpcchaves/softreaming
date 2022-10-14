@@ -8,11 +8,12 @@ import {
   FormInput,
   FormInputSubmit,
 } from "../../../components/inputStyledComponent/style";
-import SuccessMessageComponent from "../../../components/successMessage";
 import {
   EditProfilePageContainer,
   EditProfilePageWrapper,
   FormTitle,
+  GoBackLink,
+  GoBackLinkWrapper,
   LoginForm,
   LoginFormWrapper,
   Logo,
@@ -32,6 +33,8 @@ import { api } from "../../../hooks/useApi";
 // context
 import { AuthContext } from "../../../contexts/auth/AuthContext";
 import { Profiles } from "../../../types/ProfilesEditPage";
+// icon
+import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 
 const CreateProfile = () => {
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -165,6 +168,11 @@ const CreateProfile = () => {
               <FormInputSubmit type="submit" value="Editar Perfil" />
             )}
           </LoginForm>
+          <GoBackLinkWrapper>
+            <GoBackLink to="/profiles">
+              <BsFillArrowLeftCircleFill />
+            </GoBackLink>
+          </GoBackLinkWrapper>
         </LoginFormWrapper>
       </EditProfilePageWrapper>
     </EditProfilePageContainer>

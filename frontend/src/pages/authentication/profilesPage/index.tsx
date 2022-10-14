@@ -76,11 +76,7 @@ const ProfilesPage: React.FC = () => {
 
         setError(true);
 
-        if (error.response.data) {
-          setErrorMessage(error.response.data.message);
-        } else {
-          setErrorMessage("Ocorreu um erro... Tente novamente mais tarde.");
-        }
+        setErrorMessage("Ocorreu um erro... Tente novamente mais tarde.");
 
         setTimeout(() => {
           setErrorMessage("");
