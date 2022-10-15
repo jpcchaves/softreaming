@@ -33,7 +33,7 @@ export const MoviePageBannerContents = styled.div`
 export const BannerTitle = styled.h1`
   font-size: ${({ theme }) => theme.fonts.size.extraBig};
   font-weight: ${({ theme }) => theme.fonts.weight.extraBold};
-  padding-bottom: 0.7rem;
+  padding-bottom: 1rem;
   width: 100%;
 `;
 
@@ -46,7 +46,7 @@ export const MoviePageBannerButtons = styled(Link)`
   text-decoration: none;
   font-weight: ${({ theme }) => theme.fonts.weight.bold};
   background-color: rgba(51, 51, 51, 0.5);
-  border-radius: 0.2vw;
+  border-radius: 5px;
   padding: 0.5rem 1rem;
   transition: 0.2s ease-in-out;
 

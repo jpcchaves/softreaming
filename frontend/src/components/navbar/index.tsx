@@ -75,7 +75,7 @@ const Navbar = () => {
         {extendNavbar && (
           <NavbarExtendedContainer>
             {auth.user?.role === "admin" && (
-              <NavbarLinkExtended to="/br/add-movie">
+              <NavbarLinkExtended to="/br/add-movie" onClick={handleExtendNavbar}>
                 Add Movies
               </NavbarLinkExtended>
             )}

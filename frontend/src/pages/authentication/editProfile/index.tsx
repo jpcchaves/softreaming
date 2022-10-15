@@ -86,8 +86,16 @@ const CreateProfile = () => {
     handleSubmit,
     formState: { errors },
     reset,
+    setFocus,
   } = useForm({
     resolver: yupResolver(createProfileValidation),
+  });
+
+  setFocus("profileUrlImage", {
+    shouldSelect: false,
+  });
+  setFocus("profileName", {
+    shouldSelect: false,
   });
 
   const submitForm = async (data: FieldValues) => {
@@ -144,6 +152,7 @@ const CreateProfile = () => {
             <FormInput
               type="text"
               placeholder={profileNamePlaceholder || ""}
+              defaultValue={profileNamePlaceholder}
               {...register("profileName")}
             />
             {errors.profileName && (
@@ -151,8 +160,9 @@ const CreateProfile = () => {
             )}
             <FormInput
               type="text"
-              placeholder={profileUrlImagePlaceholder || ""}
               {...register("profileUrlImage")}
+              placeholder={profileUrlImagePlaceholder || ""}
+              defaultValue={profileUrlImagePlaceholder}
             />
             {errors.profileUrlImage && (
               <FormErrorMessage message={errors.profileUrlImage?.message} />

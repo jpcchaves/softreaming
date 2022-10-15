@@ -32,6 +32,7 @@ const UserDetails = () => {
   const [successMessage, setSuccessMessage] = useState<string>("");
 
   const auth = useContext(AuthContext);
+  const { userName: name } = auth.user!;
   if (!auth.user) return <Navigate to="/login" />;
 
   const {
@@ -99,6 +100,7 @@ const UserDetails = () => {
             type="text"
             placeholder="Digite o novo nome de usuário..."
             {...register("userName")}
+            defaultValue={name}
           />
           {errors.userName && (
             <FormErrorMessage message={errors.userName?.message} />

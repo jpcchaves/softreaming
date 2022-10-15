@@ -8,7 +8,8 @@ export const UserDetailsPageWrapper = styled.div`
 
 export const EditFormWrapper = styled.div`
   background-color: rgba(0, 0, 0, 0.75);
-  border-radius: 4px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
