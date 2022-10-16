@@ -1,11 +1,11 @@
 import styled, { css } from "styled-components";
-
 import { Link } from "react-router-dom";
+import BgImg from "../../../assets/bg_poster/netflix_poster.jpg";
 
 export const EnterPageContainer = styled.header`
   height: 100vh;
   max-width: 100vw;
-  background-image: url("./../src/assets/bg_poster/netflix_poster.jpg");
+  background-image: url(${BgImg});
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
