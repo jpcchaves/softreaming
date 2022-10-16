@@ -4,8 +4,15 @@ import { validationResult } from "express-validator";
 
 export class MovieController {
   async createMovie(req: Request, res: Response) {
-    const { movieName, category, description, duration, releaseDate, url } =
-      req.body;
+    const {
+      movieName,
+      category,
+      description,
+      duration,
+      releaseDate,
+      movie_url,
+      poster_url,
+    } = req.body;
 
     try {
       const errors = validationResult(req);
@@ -19,7 +26,8 @@ export class MovieController {
         description,
         duration,
         releaseDate,
-        url,
+        movie_url,
+        poster_url,
       });
       await movieRepository.save(newMovie);
 

@@ -21,5 +21,8 @@ export class Movie {
   releaseDate: string;
 
   @Column({ type: "text" })
-  url: string;
+  movie_url: string;
+
+  @Column({ type: "text" })
+  poster_url: string;
 }
