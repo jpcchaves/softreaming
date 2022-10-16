@@ -66,8 +66,15 @@ export class MovieController {
 
   async updateMovie(req: Request, res: Response) {
     const { movieId } = req.params;
-    const { movieName, category, description, duration, releaseDate, url } =
-      req.body;
+    const {
+      movieName,
+      category,
+      description,
+      duration,
+      releaseDate,
+      movie_url,
+      poster_url,
+    } = req.body;
 
     if (!(await movieRepository.findOneBy({ id: Number(movieId) }))) {
       return res.status(400).json({ message: "Filme não encontrado" });
@@ -85,7 +92,8 @@ export class MovieController {
         description,
         duration,
         releaseDate,
-        url,
+        movie_url,
+        poster_url,
       };
 
       await movieRepository.update(movieId, updatedMovie);
