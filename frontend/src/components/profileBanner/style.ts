@@ -5,6 +5,12 @@ export const ProfileBanner = styled.div`
   height: 253px;
   text-align: center;
   cursor: pointer;
+  border-radius: 10px;
+  transition: 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.02);
+  }
 `;
 
 export const ProfileImageWrapper = styled.div`
