@@ -1,10 +1,16 @@
 import styled, { css } from "styled-components";
+import BgImg from "../../../assets/add_movie_bg/add_movie_bg.jpg";
 
 export const AddMoviePageWrapper = styled.div`
   width: 100vw;
   max-width: 100%;
   min-height: calc(100vh - 80px);
-  padding-bottom: 50px;
+  padding: 50px 0;
+  background: rgba(0, 0, 0, 0.8) url(${BgImg});
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-blend-mode: darken;
 `;
 
 export const AddMovieFormWrapper = styled.div`
