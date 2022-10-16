@@ -4,6 +4,7 @@ import { Props } from "../../types/NavbarProps";
 
 export const NavbarContainer = styled.nav<Props>`
   width: 100vw;
+  max-width: 100%;
   height: ${(props) => (props.extendNavbar ? "100vh" : "80px")};
   background-color: ${({ theme }) => theme.colors.bgColor};
   position: ${(props) => (props.extendNavbar ? "fixed" : "")};

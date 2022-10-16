@@ -26,7 +26,7 @@ import {
   UserDetailsPageWrapper,
 } from "./style";
 
-const UserDetails = () => {
+const UserDetails: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<string>("");

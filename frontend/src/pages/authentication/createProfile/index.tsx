@@ -34,7 +34,7 @@ import { api } from "../../../hooks/useApi";
 import { AuthContext } from "../../../contexts/auth/AuthContext";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 
-const CreateProfile = () => {
+const CreateProfile: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [error, setError] = useState(false);

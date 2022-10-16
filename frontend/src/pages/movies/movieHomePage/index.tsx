@@ -10,7 +10,7 @@ import {
   MoviePageBannerContents,
 } from "./style";
 
-const MovieHomePage = () => {
+const MovieHomePage: React.FC = () => {
   return (
     <MovieHomePageWrapper>
       <MovieHomePageContainer>

@@ -36,7 +36,7 @@ import { Profiles } from "../../../types/ProfilesEditPage";
 // icon
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 
-const CreateProfile = () => {
+const CreateProfile: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [userProfiles, setUserProfiles] = useState<Profiles[]>([]);
