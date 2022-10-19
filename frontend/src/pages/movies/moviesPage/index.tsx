@@ -1,13 +1,22 @@
 // hooks
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { Navigate } from "react-router-dom";
+// icons
+import { BsFillPencilFill, BsFillTrashFill } from "react-icons/bs";
+// components
 import ErrorMessageComponent from "../../../components/errorMessage";
 import LoadingSpan from "../../../components/loadingSpan";
+// context
+import { AuthContext } from "../../../contexts/auth/AuthContext";
 // axios
 import { api } from "../../../hooks/useApi";
 // types
 import { AllMovies } from "../../../types/Movie";
 // styled components
 import {
+  ButtonsWrapper,
+  DeleteButton,
+  EditButton,
   MovieBannerWrapper,
   MovieCategory,
   MovieName,
@@ -25,6 +34,8 @@ const MoviesPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
 
+  const auth = useContext(AuthContext);
+
   const getToken = () => {
     const token = localStorage.getItem("authToken");
     return token;
@@ -41,18 +52,39 @@ const MoviesPage: React.FC = () => {
             Authorization: `Bearer ${authToken}`,
           },
         });
-        setAllMovies(movies.data);
+        const currentMovies = movies.data;
+        setAllMovies(currentMovies);
         setIsLoading(false);
       } catch (error) {
         setIsLoading(false);
         setErrorMessage(
           "Ocorreu um erro ao carregar os filmes... Tente novamente mais tarde."
         );
-        // console.log(error);
+        console.log(error);
       }
     };
     fetchMovies();
   }, []);
+
+  const handleDeleteMovie = async (id?: number) => {
+    if (!auth.user) return <Navigate to="/login" />;
+
+    try {
+      window.confirm("Você irá deletar um filme. Deseja confirmar?");
+      await api.delete(`/movies/${id}`, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+
+      const remainingMovies = allMovies.filter((movie) => {
+        return movie.id !== id;
+      });
+      setAllMovies(remainingMovies);
+    } catch (error: any) {
+      console.log(error);
+    }
+  };
 
   return (
     <MoviesHomePageContainer>
@@ -74,6 +106,16 @@ const MoviesPage: React.FC = () => {
               <MovieName>{movie.movieName}</MovieName>
               <MovieCategory>{movie.category}</MovieCategory>
               <MovieReleaseDate>{movie.releaseDate}</MovieReleaseDate>
+              {auth.user?.role === "admin" && (
+                <ButtonsWrapper>
+                  <EditButton>
+                    <BsFillPencilFill />
+                  </EditButton>
+                  <DeleteButton onClick={() => handleDeleteMovie(movie.id)}>
+                    <BsFillTrashFill />
+                  </DeleteButton>
+                </ButtonsWrapper>
+              )}
             </MovieBannerWrapper>
           ))}
       </MoviesWrapper>
