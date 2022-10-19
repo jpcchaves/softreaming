@@ -70,17 +70,22 @@ const MoviesPage: React.FC = () => {
     if (!auth.user) return <Navigate to="/login" />;
 
     try {
-      window.confirm("Você irá deletar um filme. Deseja confirmar?");
-      await api.delete(`/movies/${id}`, {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      });
+      if (
+        window.confirm("Você irá deletar um filme. Deseja confirmar?") === true
+      ) {
+        await api.delete(`/movies/${id}`, {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        });
 
-      const remainingMovies = allMovies.filter((movie) => {
-        return movie.id !== id;
-      });
-      setAllMovies(remainingMovies);
+        const remainingMovies = allMovies.filter((movie) => {
+          return movie.id !== id;
+        });
+        setAllMovies(remainingMovies);
+      } else {
+        return;
+      }
     } catch (error: any) {
       console.log(error);
     }

@@ -34,15 +34,23 @@ export const MoviesWrapper = styled.div`
 export const MovieBannerWrapper = styled.div`
   width: 300px;
   max-width: 300px;
-  height: 320px;
+  height: auto;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 10px;
+  padding-bottom: 20px;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.02);
+    box-shadow: rgba(255, 255, 255, 0.1) 0px 3px 12px;
+  }
 `;
 
 export const MoviePosterWrapper = styled.div`
   width: 100%;
   max-width: 100%;
-  height: 160px;
+  height: 200px;
   margin-bottom: 1rem;
 `;
 
