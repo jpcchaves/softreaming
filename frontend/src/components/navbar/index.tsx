@@ -16,7 +16,7 @@ import {
 // logo
 import LogoImage from "../../assets/logo/logo.png";
 // hooks
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 // context
 import { AuthContext } from "../../contexts/auth/AuthContext";
 import { Outlet, useNavigate } from "react-router-dom";
@@ -26,6 +26,13 @@ const Navbar = () => {
   const { id } = auth.user!;
   const navigate = useNavigate();
   const [extendNavbar, setExtendNavbar] = useState(false);
+  const [currentProfile, setCurrentProfile] = useState("");
+
+  useEffect(() => {
+    const profile = localStorage.getItem("loggedProfile");
+    setCurrentProfile(profile!);
+    console.log(profile);
+  }, []);
 
   const handleExtendNavbar = () => {
     setExtendNavbar((curr) => !curr);
@@ -60,9 +67,7 @@ const Navbar = () => {
                 <NavbarLink to="/br/add-movie">Add Movies</NavbarLink>
               )}
               <NavbarLink to="/profiles">Profiles</NavbarLink>
-              <NavbarLink to={`/br/user/${id}`}>
-                {auth.user?.userName}
-              </NavbarLink>
+              <NavbarLink to={`/br/user/${id}`}>{currentProfile}</NavbarLink>
               <NavbarLink to="" onClick={handleLogout}>
                 Sair
               </NavbarLink>
@@ -75,7 +80,10 @@ const Navbar = () => {
         {extendNavbar && (
           <NavbarExtendedContainer>
             {auth.user?.role === "admin" && (
-              <NavbarLinkExtended to="/br/add-movie" onClick={handleExtendNavbar}>
+              <NavbarLinkExtended
+                to="/br/add-movie"
+                onClick={handleExtendNavbar}
+              >
                 Add Movies
               </NavbarLinkExtended>
             )}

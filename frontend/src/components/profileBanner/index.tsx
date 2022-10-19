@@ -15,6 +15,7 @@ const ProfileBannerComponent = ({
   const navigate = useNavigate();
 
   const navigateToMovies = () => {
+    localStorage.setItem("loggedProfile", profileName);
     navigate("/br");
   };
 
