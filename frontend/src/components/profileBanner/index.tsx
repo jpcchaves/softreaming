@@ -14,8 +14,10 @@ const ProfileBannerComponent = ({
 }: Profiles) => {
   const navigate = useNavigate();
 
+  const profileToStore = { id, profileName, profileUrlImage };
+
   const navigateToMovies = () => {
-    localStorage.setItem("loggedProfile", profileName);
+    localStorage.setItem("loggedProfile", JSON.stringify(profileToStore));
     navigate("/br");
   };
 

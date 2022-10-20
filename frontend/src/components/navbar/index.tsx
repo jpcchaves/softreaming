@@ -12,6 +12,8 @@ import {
   RightContainer,
   OpenLinksButton,
   NavbarLinkExtended,
+  NavProfileImgWrapper,
+  NavProfileImg,
 } from "./style";
 // logo
 import LogoImage from "../../assets/logo/logo.png";
@@ -20,16 +22,19 @@ import { useState, useContext, useEffect } from "react";
 // context
 import { AuthContext } from "../../contexts/auth/AuthContext";
 import { Outlet, useNavigate } from "react-router-dom";
+import { Profiles, UserProfiles } from "../../types/Profiles";
 
 const Navbar = () => {
   const auth = useContext(AuthContext);
   const { id } = auth.user!;
   const navigate = useNavigate();
   const [extendNavbar, setExtendNavbar] = useState(false);
-  const [currentProfile, setCurrentProfile] = useState("");
+  const [currentProfile, setCurrentProfile] = useState<Profiles>();
 
   useEffect(() => {
-    const profile = localStorage.getItem("loggedProfile");
+    const profile = JSON.parse(
+      localStorage.getItem("loggedProfile")!
+    ) as Profiles;
     setCurrentProfile(profile!);
     console.log(profile);
   }, []);
@@ -67,7 +72,17 @@ const Navbar = () => {
                 <NavbarLink to="/br/add-movie">Add Movies</NavbarLink>
               )}
               <NavbarLink to="/profiles">Profiles</NavbarLink>
-              <NavbarLink to={`/br/user/${id}`}>{currentProfile}</NavbarLink>
+              <NavbarLink to={`/br/user/${id}`}>
+                {currentProfile?.profileName}
+              </NavbarLink>
+              <NavbarLink to="">
+                <NavProfileImgWrapper>
+                  <NavProfileImg
+                    src={currentProfile?.profileUrlImage}
+                    alt="imagem do perfil logado"
+                  />
+                </NavProfileImgWrapper>
+              </NavbarLink>
               <NavbarLink to="" onClick={handleLogout}>
                 Sair
               </NavbarLink>

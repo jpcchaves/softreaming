@@ -63,6 +63,17 @@ export const NavbarLink = styled(Link)`
   }
 `;
 
+export const NavProfileImgWrapper = styled.div`
+  height: 32px;
+  width: 32px;
+`;
+
+export const NavProfileImg = styled.img`
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+`;
+
 export const NavbarLinkExtended = styled(Link)`
   color: white;
   font-size: x-large;
