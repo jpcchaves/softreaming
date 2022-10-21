@@ -19,6 +19,11 @@ routes.post(
   new MovieController().createMovie
 );
 routes.get("/movies", authMiddleware, new MovieController().getAllMovies);
+routes.get(
+  "/movie/:movieId",
+  authMiddleware,
+  new MovieController().getOneMovie
+);
 routes.delete(
   "/movies/:movieId",
   authMiddleware,

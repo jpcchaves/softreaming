@@ -48,6 +48,22 @@ export class MovieController {
     }
   }
 
+  async getOneMovie(req: Request, res: Response) {
+    const { movieId } = req.params;
+
+    if (!(await movieRepository.findOneBy({ id: Number(movieId) }))) {
+      return res.status(400).json({ message: "Filme não encontrado" });
+    }
+
+    try {
+      const movie = await movieRepository.findOneBy({ id: Number(movieId) });
+      return res.status(200).json(movie);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ message: "Internal Server Error" });
+    }
+  }
+
   async deleteMovie(req: Request, res: Response) {
     const { movieId } = req.params;
 
