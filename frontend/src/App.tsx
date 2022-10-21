@@ -1,4 +1,5 @@
-import { GlobalStyles } from "./styles/global-styles";
+// hooks
+import { useContext, useEffect } from "react";
 // router
 import { Routes, Route, useNavigate } from "react-router-dom";
 // pages
@@ -6,20 +7,24 @@ import EnterPage from "./pages/authentication/homePage";
 import LoginPage from "./pages/authentication/loginPage";
 import SignUpPage from "./pages/authentication/signUp";
 // styled components
+import { GlobalStyles } from "./styles/global-styles";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./styles/theme";
-import ProfilesPage from "./pages/authentication/profilesPage";
+// context
 import { RequireAuth, RequireAuthAndAdmin } from "./contexts/auth/RequireAuth";
-import { useContext, useEffect } from "react";
 import { AuthContext } from "./contexts/auth/AuthContext";
+// pages
+import ProfilesPage from "./pages/authentication/profilesPage";
 import ManageProfiles from "./pages/authentication/manageProfiles";
 import CreateProfile from "./pages/authentication/createProfile";
 import EditProfile from "./pages/authentication/editProfile";
 import MoviesPage from "./pages/movies/moviesPage";
-import Navbar from "./components/navbar";
 import MovieHomePage from "./pages/movies/movieHomePage";
 import UserDetails from "./pages/user/editUser";
 import AddMovie from "./pages/movies/addMovie";
+import WatchMovie from "./pages/movies/watchMovie";
+// components
+import Navbar from "./components/navbar";
 
 const App: React.FC = () => {
   const auth = useContext(AuthContext);
@@ -102,6 +107,14 @@ const App: React.FC = () => {
               element={
                 <RequireAuth>
                   <UserDetails />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="watch/:movieId"
+              element={
+                <RequireAuth>
+                  <WatchMovie />
                 </RequireAuth>
               }
             />

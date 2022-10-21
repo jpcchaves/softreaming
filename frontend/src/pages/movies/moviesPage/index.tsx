@@ -2,7 +2,11 @@
 import { useEffect, useState, useContext } from "react";
 import { Navigate } from "react-router-dom";
 // icons
-import { BsFillPencilFill, BsFillTrashFill } from "react-icons/bs";
+import {
+  BsFillPencilFill,
+  BsFillTrashFill,
+  BsFillPlayBtnFill,
+} from "react-icons/bs";
 // components
 import ErrorMessageComponent from "../../../components/errorMessage";
 import LoadingSpan from "../../../components/loadingSpan";
@@ -27,6 +31,7 @@ import {
   MoviesPageErrorWrapper,
   MoviesPageTitle,
   MoviesWrapper,
+  WatchMovieButton,
 } from "./style";
 
 const MoviesPage: React.FC = () => {
@@ -111,16 +116,21 @@ const MoviesPage: React.FC = () => {
               <MovieName>{movie.movieName}</MovieName>
               <MovieCategory>{movie.category}</MovieCategory>
               <MovieReleaseDate>{movie.releaseDate}</MovieReleaseDate>
-              {auth.user?.role === "admin" && (
-                <ButtonsWrapper>
-                  <EditButton>
-                    <BsFillPencilFill />
-                  </EditButton>
-                  <DeleteButton onClick={() => handleDeleteMovie(movie.id)}>
-                    <BsFillTrashFill />
-                  </DeleteButton>
-                </ButtonsWrapper>
-              )}
+              <ButtonsWrapper>
+                <WatchMovieButton to={`/br/watch/${movie.id}`}>
+                  <BsFillPlayBtnFill />
+                </WatchMovieButton>
+                {auth.user?.role === "admin" && (
+                  <>
+                    <EditButton>
+                      <BsFillPencilFill />
+                    </EditButton>
+                    <DeleteButton onClick={() => handleDeleteMovie(movie.id)}>
+                      <BsFillTrashFill />
+                    </DeleteButton>
+                  </>
+                )}
+              </ButtonsWrapper>
             </MovieBannerWrapper>
           ))}
       </MoviesWrapper>

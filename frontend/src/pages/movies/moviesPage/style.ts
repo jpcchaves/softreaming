@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const MoviesHomePageContainer = styled.div`
@@ -78,8 +79,29 @@ export const ButtonsWrapper = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 50px;
-  margin-top: 5px;
+  gap: 30px;
+  margin-top: 10px;
+`;
+
+export const WatchMovieButton = styled(Link)`
+  background-color: transparent;
+  color: ${({ theme }) => theme.colors.midGray};
+  font-size: ${({ theme }) => theme.fonts.size.mediumSize};
+  font-family: ${({ theme }) => theme.fonts.family.default};
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: ${({ theme }) => theme.fonts.weight.bold};
+  transition: 0.2s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.midGray};
+    color: #000;
+  }
 `;
 
 export const EditButton = styled.button`

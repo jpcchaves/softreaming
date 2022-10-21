@@ -36,7 +36,6 @@ const Navbar = () => {
       localStorage.getItem("loggedProfile")!
     ) as Profiles;
     setCurrentProfile(profile!);
-    console.log(profile);
   }, []);
 
   const handleExtendNavbar = () => {
@@ -75,7 +74,7 @@ const Navbar = () => {
               <NavbarLink to={`/br/user/${id}`}>
                 {currentProfile?.profileName}
               </NavbarLink>
-              <NavbarLink to="">
+              <NavbarLink to="#">
                 <NavProfileImgWrapper>
                   <NavProfileImg
                     src={currentProfile?.profileUrlImage}
