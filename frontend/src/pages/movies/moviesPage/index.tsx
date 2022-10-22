@@ -26,7 +26,6 @@ import {
   MovieName,
   MoviePoster,
   MoviePosterWrapper,
-  MovieReleaseDate,
   MoviesHomePageContainer,
   MoviesPageErrorWrapper,
   MoviesPageTitle,
@@ -113,16 +112,17 @@ const MoviesPage: React.FC = () => {
               <MoviePosterWrapper>
                 <MoviePoster src={movie.poster_url} />
               </MoviePosterWrapper>
-              <MovieName>{movie.movieName}</MovieName>
-              <MovieCategory>{movie.category}</MovieCategory>
-              <MovieReleaseDate>{movie.releaseDate}</MovieReleaseDate>
+              <MovieName>
+                {movie.movieName} ({movie.releaseDate})
+              </MovieName>
+              <MovieCategory>Categoria: {movie.category}</MovieCategory>
               <ButtonsWrapper>
                 <WatchMovieButton to={`/br/watch/${movie.id}`}>
                   <BsFillPlayBtnFill />
                 </WatchMovieButton>
                 {auth.user?.role === "admin" && (
                   <>
-                    <EditButton>
+                    <EditButton to={`/br/movie/${movie.id}`}>
                       <BsFillPencilFill />
                     </EditButton>
                     <DeleteButton onClick={() => handleDeleteMovie(movie.id)}>

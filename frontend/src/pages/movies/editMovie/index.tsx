@@ -1,36 +1,39 @@
 // hooks
+import { useContext, useEffect, useState } from "react";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { api } from "../../../hooks/useApi";
 import { FieldValues, useForm } from "react-hook-form";
-import React, { useContext, useState, FC } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
-// styled components
+// yup
+import { yupResolver } from "@hookform/resolvers/yup";
+import { movieSchemaValidation } from "../../../validations/movieSchemaValidation";
+// components
+import ErrorMessageComponent from "../../../components/errorMessage";
+import FormErrorMessage from "../../../components/formErrorMessage";
 import {
   FormInput,
   FormInputSubmit,
 } from "../../../components/inputStyledComponent/style";
+import LoadingSpan from "../../../components/loadingSpan";
+import SuccessMessageComponent from "../../../components/successMessage";
+// styled components
 import {
-  AddMovieForm,
-  AddMovieFormWrapper,
-  AddMoviePageWrapper,
+  EditMovieForm,
+  EditMovieFormWrapper,
+  EditMoviePageWrapper,
   FormTitle,
 } from "./style";
-import LoadingSpan from "../../../components/loadingSpan";
-import ErrorMessageComponent from "../../../components/errorMessage";
-import SuccessMessageComponent from "../../../components/successMessage";
-import FormErrorMessage from "../../../components/formErrorMessage";
 // context
 import { AuthContext } from "../../../contexts/auth/AuthContext";
-// yup validation
-import { movieSchemaValidation } from "../../../validations/movieSchemaValidation";
-import { yupResolver } from "@hookform/resolvers/yup";
+// types
 import { Movie } from "../../../types/Movie";
 
-const AddMovie: React.FC = () => {
+const EditMovie = () => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<string>("");
-
+  const [movieBeingEdited, setMovieBeingEdited] = useState<Movie>();
   const navigate = useNavigate();
+  const { movieId } = useParams();
 
   const auth = useContext(AuthContext);
   if (!auth.user) return <Navigate to="/login" />;
@@ -39,11 +42,25 @@ const AddMovie: React.FC = () => {
     const token = localStorage.getItem("authToken");
     return token;
   };
+  const authToken = getToken();
+
+  useEffect(() => {
+    const getMovieBeingEdited = async () => {
+      const movie = await api.get(`/movie/${movieId}`, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      setMovieBeingEdited(movie.data);
+    };
+    getMovieBeingEdited();
+  }, []);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setFocus,
     reset,
   } = useForm({
     resolver: yupResolver(movieSchemaValidation),
@@ -71,27 +88,25 @@ const AddMovie: React.FC = () => {
       poster_url,
     };
 
-    const authToken = getToken();
-
     try {
-      await api.post("/movie", newMovieData, {
+      await api.put(`/movies/${movieId}`, newMovieData, {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },
       });
-      setSuccessMessage("Filme criado com sucesso!");
-
-      setTimeout(() => {
-        setSuccessMessage("");
-      }, 2000);
+      setSuccessMessage("Filme editado com sucesso!");
 
       reset();
+      setTimeout(() => {
+        setSuccessMessage("");
+        navigate("/br/movies");
+      }, 1000);
 
       setIsLoading(false);
     } catch (error) {
       setIsLoading(true);
       if (error) {
-        setErrorMessage("Ocorreu um erro ao criar o filme...");
+        setErrorMessage("Ocorreu um erro ao editar o filme...");
       }
       setTimeout(() => {
         setErrorMessage("");
@@ -99,15 +114,56 @@ const AddMovie: React.FC = () => {
       setIsLoading(false);
     }
   };
+  setTimeout(() => {
+    setFocus("movieName", {
+      shouldSelect: false,
+    });
+  }, 1);
+  setTimeout(() => {
+    setFocus("category", {
+      shouldSelect: false,
+    });
+  }, 2);
+  setTimeout(() => {
+    setFocus("description", {
+      shouldSelect: false,
+    });
+  }, 3);
+  setTimeout(() => {
+    setFocus("duration", {
+      shouldSelect: false,
+    });
+  }, 4);
+  setTimeout(() => {
+    setFocus("description", {
+      shouldSelect: false,
+    });
+  }, 5);
+  setTimeout(() => {
+    setFocus("releaseDate", {
+      shouldSelect: false,
+    });
+  }, 6);
+  setTimeout(() => {
+    setFocus("movie_url", {
+      shouldSelect: false,
+    });
+  }, 7);
+  setTimeout(() => {
+    setFocus("poster_url", {
+      shouldSelect: false,
+    });
+  }, 8);
 
   return (
-    <AddMoviePageWrapper>
-      <AddMovieFormWrapper>
-        <FormTitle>Criar Filme</FormTitle>
-        <AddMovieForm onSubmit={handleSubmit(submitForm)}>
+    <EditMoviePageWrapper>
+      <EditMovieFormWrapper>
+        <FormTitle>Editando o filme: {movieBeingEdited?.movieName}</FormTitle>
+        <EditMovieForm onSubmit={handleSubmit(submitForm)}>
           <FormInput
             type="text"
-            placeholder="Digite o nome do filme..."
+            placeholder={movieBeingEdited?.movieName || ""}
+            defaultValue={movieBeingEdited?.movieName || ""}
             {...register("movieName")}
           />
           {errors.movieName && (
@@ -115,7 +171,8 @@ const AddMovie: React.FC = () => {
           )}
           <FormInput
             type="text"
-            placeholder="Digite a categoria do filme..."
+            placeholder={movieBeingEdited?.category || ""}
+            defaultValue={movieBeingEdited?.category || ""}
             {...register("category")}
           />
           {errors.category && (
@@ -123,7 +180,8 @@ const AddMovie: React.FC = () => {
           )}
           <FormInput
             type="text"
-            placeholder="Digite a descrição do filme..."
+            placeholder={movieBeingEdited?.description || ""}
+            defaultValue={movieBeingEdited?.description || ""}
             {...register("description")}
           />
           {errors.description && (
@@ -131,7 +189,8 @@ const AddMovie: React.FC = () => {
           )}
           <FormInput
             type="text"
-            placeholder="Digite a duração do filme..."
+            placeholder={movieBeingEdited?.duration || ""}
+            defaultValue={movieBeingEdited?.duration || ""}
             {...register("duration")}
           />
           {errors.duration && (
@@ -139,7 +198,8 @@ const AddMovie: React.FC = () => {
           )}
           <FormInput
             type="text"
-            placeholder="Digite a data de lançamento do filme..."
+            placeholder={movieBeingEdited?.releaseDate || ""}
+            defaultValue={movieBeingEdited?.releaseDate || ""}
             {...register("releaseDate")}
           />
           {errors.releaseDate && (
@@ -147,7 +207,8 @@ const AddMovie: React.FC = () => {
           )}
           <FormInput
             type="text"
-            placeholder="Insira a URL do filme..."
+            placeholder={movieBeingEdited?.movie_url || ""}
+            defaultValue={movieBeingEdited?.movie_url || ""}
             {...register("movie_url")}
           />
           {errors.movie_url && (
@@ -155,7 +216,8 @@ const AddMovie: React.FC = () => {
           )}
           <FormInput
             type="text"
-            placeholder="Insira a URL do poster do filme..."
+            placeholder={movieBeingEdited?.poster_url || ""}
+            defaultValue={movieBeingEdited?.poster_url || ""}
             {...register("poster_url")}
           />
           {errors.poster_url && (
@@ -172,13 +234,11 @@ const AddMovie: React.FC = () => {
 
           {isLoading && <LoadingSpan />}
 
-          {!isLoading && (
-            <FormInputSubmit type="submit" value="Adicionar Filme" />
-          )}
-        </AddMovieForm>
-      </AddMovieFormWrapper>
-    </AddMoviePageWrapper>
+          {!isLoading && <FormInputSubmit type="submit" value="Editar Filme" />}
+        </EditMovieForm>
+      </EditMovieFormWrapper>
+    </EditMoviePageWrapper>
   );
 };
 
-export default AddMovie;
+export default EditMovie;

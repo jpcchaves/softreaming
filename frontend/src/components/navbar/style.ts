@@ -61,6 +61,10 @@ export const NavbarLink = styled(Link)`
   @media (max-width: 768px) {
     display: none;
   }
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.smokeWhite};
+  }
 `;
 
 export const NavProfileImgWrapper = styled.div`
@@ -80,6 +84,10 @@ export const NavbarLinkExtended = styled(Link)`
   font-family: ${({ theme }) => theme.fonts.family.default};
   text-decoration: none;
   margin: 10px;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.smokeWhite};
+  }
 `;
 
 export const Logo = styled.img`

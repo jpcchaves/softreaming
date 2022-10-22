@@ -25,6 +25,7 @@ import AddMovie from "./pages/movies/addMovie";
 import WatchMovie from "./pages/movies/watchMovie";
 // components
 import Navbar from "./components/navbar";
+import EditMovie from "./pages/movies/editMovie";
 
 const App: React.FC = () => {
   const auth = useContext(AuthContext);
@@ -107,6 +108,14 @@ const App: React.FC = () => {
               element={
                 <RequireAuth>
                   <UserDetails />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="movie/:movieId"
+              element={
+                <RequireAuth>
+                  <EditMovie />
                 </RequireAuth>
               }
             />

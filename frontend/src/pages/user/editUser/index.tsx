@@ -69,14 +69,11 @@ const UserDetails: React.FC = () => {
       });
       setIsLoading(false);
 
-      setSuccessMessage(
-        "Usuário editado com sucesso! Realize o login novamente para atualizar os dados."
-      );
+      setSuccessMessage("Usuário editado com sucesso!");
 
       reset();
 
       setTimeout(() => {
-        auth.signout();
         setSuccessMessage("");
       }, 1500);
     } catch (error) {

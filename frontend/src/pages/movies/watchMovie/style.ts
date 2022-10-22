@@ -18,7 +18,7 @@ export const MovieDetailsWrapper = styled.div`
 `;
 
 export const MovieDetails = styled.div`
-  width: 500px;
+  max-width: 600px;
   margin: 1.2rem auto 0 auto;
   text-align: center;
 `;
