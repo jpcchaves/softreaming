@@ -8,6 +8,7 @@ export const NavbarContainer = styled.nav<Props>`
   height: ${(props) => (props.extendNavbar ? "100vh" : "80px")};
   background-color: ${({ theme }) => theme.colors.bgColor};
   position: ${(props) => (props.extendNavbar ? "fixed" : "")};
+  z-index: ${(props) => (props.extendNavbar ? 2 : 1)};
   display: flex;
   flex-direction: column;
   font-weight: bold;

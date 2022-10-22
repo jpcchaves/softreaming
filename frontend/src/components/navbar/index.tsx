@@ -111,7 +111,7 @@ const Navbar = () => {
               to={`/br/user/${id}`}
               onClick={handleExtendNavbar}
             >
-              {auth.user?.userName}
+              {currentProfile?.profileName}
             </NavbarLinkExtended>
             <NavbarLinkExtended to="" onClick={handleLogout}>
               Sair

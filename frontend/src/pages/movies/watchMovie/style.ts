@@ -50,6 +50,7 @@ export const YoutubeIframe = styled.iframe`
   transform: translateX(-50%);
   width: 60%;
   height: 60%;
+  z-index: 1;
 
   @media (max-width: 768px) {
     width: 75%;

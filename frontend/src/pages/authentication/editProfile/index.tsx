@@ -91,12 +91,16 @@ const CreateProfile: React.FC = () => {
     resolver: yupResolver(createProfileValidation),
   });
 
-  setFocus("profileUrlImage", {
-    shouldSelect: false,
-  });
-  setFocus("profileName", {
-    shouldSelect: false,
-  });
+  setTimeout(() => {
+    setFocus("profileUrlImage", {
+      shouldSelect: false,
+    });
+  }, 10);
+  setTimeout(() => {
+    setFocus("profileName", {
+      shouldSelect: false,
+    });
+  }, 15);
 
   const submitForm = async (data: FieldValues) => {
     setIsLoading(true);
