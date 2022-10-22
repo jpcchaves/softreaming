@@ -2,7 +2,16 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { api } from "../../../hooks/useApi";
 import { Movie } from "../../../types/Movie";
-import { WatchMoviePageContainer } from "./style";
+import {
+  MovieDetailsWrapper,
+  WatchMoviePageContainer,
+  MovieDetails,
+  MovieTitle,
+  MovieCategory,
+  MovieInfo,
+  MovieContainer,
+  YoutubeIframe,
+} from "./style";
 
 const WatchMovie = () => {
   const { movieId } = useParams();
@@ -17,7 +26,6 @@ const WatchMovie = () => {
 
   useEffect(() => {
     const fetchMovieBeingWatched = async () => {
-      console.log(movieId);
       try {
         const movie = await api.get(`/movie/${movieId}`, {
           headers: {
@@ -32,24 +40,30 @@ const WatchMovie = () => {
     fetchMovieBeingWatched();
   }, []);
 
-  console.log(movieBeingWatched);
-
   return (
     <WatchMoviePageContainer>
-      <div>{movieBeingWatched?.movieName}</div>
-      <div>{movieBeingWatched?.category}</div>
-      <div>{movieBeingWatched?.duration}</div>
-      <div>{movieBeingWatched?.description}</div>
-      <div>{movieBeingWatched?.releaseDate}</div>
-      <div>
-        <iframe
+      <MovieDetailsWrapper>
+        <MovieDetails>
+          <MovieTitle>
+            {movieBeingWatched?.movieName} ({movieBeingWatched?.releaseDate})
+          </MovieTitle>
+          <MovieCategory>
+            {movieBeingWatched?.category}, {movieBeingWatched?.duration} min
+          </MovieCategory>
+          <MovieInfo>{movieBeingWatched?.description}</MovieInfo>
+          <MovieInfo></MovieInfo>
+        </MovieDetails>
+      </MovieDetailsWrapper>
+      <MovieContainer>
+        <YoutubeIframe
+          allowFullScreen
           width="560"
           height="315"
           src={movieBeingWatched?.movie_url}
           title="YouTube video player"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        ></iframe>
-      </div>
+          allow="accelerometer; autoplay; gyroscope; picture-in-picture"
+        ></YoutubeIframe>
+      </MovieContainer>
     </WatchMoviePageContainer>
   );
 };
