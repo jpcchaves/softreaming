@@ -152,6 +152,11 @@ export const SearchInput = styled.input`
   &:focus {
     outline: none;
   }
+
+  @media (max-width: 768px) {
+    width: 80%;
+    font-size: 14px;
+  }
 `;
 
 export const SearchIconWrapper = styled.div`
