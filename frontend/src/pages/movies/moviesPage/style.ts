@@ -127,3 +127,39 @@ export const DeleteButton = styled.button`
     opacity: 0.8;
   }
 `;
+
+export const SearchbarWrapper = styled.div``;
+
+export const SearchInputWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+`;
+
+export const SearchInput = styled.input`
+  background-color: white;
+  border: 0;
+  border-radius: 2px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  font-size: 18px;
+  padding: 25px 15px;
+  height: 30px;
+  width: 60%;
+  max-width: 400px;
+
+  &:focus {
+    outline: none;
+  }
+`;
+
+export const SearchIconWrapper = styled.div`
+  height: 50px;
+  width: 50px;
+  color: #000;
+  background-color: white;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+`;

@@ -6,6 +6,8 @@ import {
   BsFillPencilFill,
   BsFillTrashFill,
   BsFillPlayBtnFill,
+  BsSearch,
+  BsXLg,
 } from "react-icons/bs";
 // components
 import ErrorMessageComponent from "../../../components/errorMessage";
@@ -31,11 +33,17 @@ import {
   MoviesPageTitle,
   MoviesWrapper,
   WatchMovieButton,
+  SearchbarWrapper,
+  SearchIconWrapper,
+  SearchInput,
+  SearchInputWrapper,
 } from "./style";
 
 const MoviesPage: React.FC = () => {
   const [allMovies, setAllMovies] = useState<AllMovies>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [filteredData, setFilteredData] = useState<AllMovies>([]);
+  const [searchWord, setSearchWord] = useState("");
   const [errorMessage, setErrorMessage] = useState<string>("");
 
   const auth = useContext(AuthContext);
@@ -95,9 +103,35 @@ const MoviesPage: React.FC = () => {
     }
   };
 
+  const handleFilter = (e: { target: { value: string } }) => {
+    setSearchWord(e.target.value);
+    const newFilter = allMovies.filter((value) => {
+      return value.movieName.toLowerCase().includes(searchWord.toLowerCase());
+    });
+    setFilteredData(newFilter);
+  };
+
+  const handleInputCleanup = () => {
+    setFilteredData([]);
+    setSearchWord("");
+  };
+
   return (
     <MoviesHomePageContainer>
       <MoviesPageTitle>Confira nossos filmes!</MoviesPageTitle>
+      <SearchbarWrapper>
+        <SearchInputWrapper>
+          <SearchInput
+            type="text"
+            placeholder="Busque um filme pelo nome..."
+            onChange={handleFilter}
+            value={searchWord}
+          />
+          <SearchIconWrapper>
+            {searchWord ? <BsXLg onClick={handleInputCleanup} /> : <BsSearch />}
+          </SearchIconWrapper>
+        </SearchInputWrapper>
+      </SearchbarWrapper>
       {!isLoading && errorMessage && (
         <MoviesPageErrorWrapper>
           <ErrorMessageComponent errorMessage={errorMessage} />
@@ -105,34 +139,63 @@ const MoviesPage: React.FC = () => {
       )}
       <MoviesWrapper>
         {isLoading && <LoadingSpan />}
-        {!isLoading &&
-          allMovies &&
-          allMovies.map((movie) => (
-            <MovieBannerWrapper key={movie.id}>
-              <MoviePosterWrapper>
-                <MoviePoster src={movie.poster_url} />
-              </MoviePosterWrapper>
-              <MovieName>
-                {movie.movieName} ({movie.releaseDate})
-              </MovieName>
-              <MovieCategory>Categoria: {movie.category}</MovieCategory>
-              <ButtonsWrapper>
-                <WatchMovieButton to={`/br/watch/${movie.id}`}>
-                  <BsFillPlayBtnFill />
-                </WatchMovieButton>
-                {auth.user?.role === "admin" && (
-                  <>
-                    <EditButton to={`/br/movie/${movie.id}`}>
-                      <BsFillPencilFill />
-                    </EditButton>
-                    <DeleteButton onClick={() => handleDeleteMovie(movie.id)}>
-                      <BsFillTrashFill />
-                    </DeleteButton>
-                  </>
-                )}
-              </ButtonsWrapper>
-            </MovieBannerWrapper>
-          ))}
+
+        {!searchWord
+          ? !isLoading &&
+            allMovies &&
+            allMovies.map((movie) => (
+              <MovieBannerWrapper key={movie.id}>
+                <MoviePosterWrapper>
+                  <MoviePoster src={movie.poster_url} />
+                </MoviePosterWrapper>
+                <MovieName>
+                  {movie.movieName} ({movie.releaseDate})
+                </MovieName>
+                <MovieCategory>Categoria: {movie.category}</MovieCategory>
+                <ButtonsWrapper>
+                  <WatchMovieButton to={`/br/watch/${movie.id}`}>
+                    <BsFillPlayBtnFill />
+                  </WatchMovieButton>
+                  {auth.user?.role === "admin" && (
+                    <>
+                      <EditButton to={`/br/movie/${movie.id}`}>
+                        <BsFillPencilFill />
+                      </EditButton>
+                      <DeleteButton onClick={() => handleDeleteMovie(movie.id)}>
+                        <BsFillTrashFill />
+                      </DeleteButton>
+                    </>
+                  )}
+                </ButtonsWrapper>
+              </MovieBannerWrapper>
+            ))
+          : filteredData &&
+            filteredData.map((movie) => (
+              <MovieBannerWrapper key={movie.id}>
+                <MoviePosterWrapper>
+                  <MoviePoster src={movie.poster_url} />
+                </MoviePosterWrapper>
+                <MovieName>
+                  {movie.movieName} ({movie.releaseDate})
+                </MovieName>
+                <MovieCategory>Categoria: {movie.category}</MovieCategory>
+                <ButtonsWrapper>
+                  <WatchMovieButton to={`/br/watch/${movie.id}`}>
+                    <BsFillPlayBtnFill />
+                  </WatchMovieButton>
+                  {auth.user?.role === "admin" && (
+                    <>
+                      <EditButton to={`/br/movie/${movie.id}`}>
+                        <BsFillPencilFill />
+                      </EditButton>
+                      <DeleteButton onClick={() => handleDeleteMovie(movie.id)}>
+                        <BsFillTrashFill />
+                      </DeleteButton>
+                    </>
+                  )}
+                </ButtonsWrapper>
+              </MovieBannerWrapper>
+            ))}
       </MoviesWrapper>
     </MoviesHomePageContainer>
   );
