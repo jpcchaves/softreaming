@@ -9,9 +9,21 @@ export const authSchemaValidation = yup.object().shape({
 export const signUpSchemaValidation = yup.object().shape({
   userName: yup.string().min(3).required(),
   email: yup.string().email().required(),
-  password: yup.string().min(5).max(15).required(),
+  password: yup
+    .string()
+    .matches(
+      /^[a-zA-Z0-9äöüÄÖÜ]*$/,
+      "A senha não pode conter caracteres especiais!"
+    )
+    .min(5)
+    .max(15)
+    .required(),
   confirmPassword: yup
     .string()
+    .matches(
+      /^[a-zA-Z0-9äöüÄÖÜ]*$/,
+      "A senha não pode conter caracteres especiais!"
+    )
     .min(5)
     .max(15)
     .oneOf([yup.ref("password")]),

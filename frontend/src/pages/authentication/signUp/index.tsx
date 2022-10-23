@@ -28,7 +28,7 @@ import { signUpSchemaValidation } from "../../../validations/authSchemaValidatio
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 // userDataInterface
-import { UserDataInterface } from "./userDataInterface";
+import { UserDataInterface } from "../../../types/userDataInterface";
 // axios
 import { api } from "../../../hooks/useApi";
 import FormErrorMessage from "../../../components/formErrorMessage";
