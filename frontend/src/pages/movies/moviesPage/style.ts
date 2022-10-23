@@ -168,3 +168,7 @@ export const SearchIconWrapper = styled.div`
   place-items: center;
   cursor: pointer;
 `;
+
+export const NoMoviesFoundMessage = styled.p`
+  font-size: ${({ theme }) => theme.fonts.size.bigSize1};
+`;

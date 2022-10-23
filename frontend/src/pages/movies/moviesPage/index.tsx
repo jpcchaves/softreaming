@@ -37,6 +37,7 @@ import {
   SearchIconWrapper,
   SearchInput,
   SearchInputWrapper,
+  NoMoviesFoundMessage,
 } from "./style";
 
 const MoviesPage: React.FC = () => {
@@ -199,7 +200,9 @@ const MoviesPage: React.FC = () => {
               </MovieBannerWrapper>
             ))}
         {filteredData.length == 0 && searchWord.length > 0 && (
-          <p>Não encontramos nenhum filme com esse nome =(</p>
+          <NoMoviesFoundMessage>
+            Não encontramos nenhum filme com esse nome =(
+          </NoMoviesFoundMessage>
         )}
       </MoviesWrapper>
     </MoviesHomePageContainer>
