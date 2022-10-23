@@ -4,6 +4,7 @@ import Bgimg from "../../../assets/movie_page_bg/movie_hp_bg.jpg";
 
 export const MovieHomePageWrapper = styled.div`
   width: 100vw;
+  max-width: 100%;
   height: calc(100vh - 80px);
   background: rgba(0, 0, 0, 0.5) url(${Bgimg});
   background-repeat: no-repeat;
@@ -28,6 +29,11 @@ export const MoviePageBannerContents = styled.div`
   margin-left: 30px;
   padding-top: 140px;
   height: 190px;
+
+  @media (max-width: 768px) {
+    margin-left: 15px;
+    padding-top: 100px;
+  }
 `;
 
 export const BannerTitle = styled.h1`
@@ -35,6 +41,10 @@ export const BannerTitle = styled.h1`
   font-weight: ${({ theme }) => theme.fonts.weight.extraBold};
   padding-bottom: 1rem;
   width: 100%;
+
+  @media (max-width: 768px) {
+    font-size: ${({ theme }) => theme.fonts.size.bigSize2};
+  }
 `;
 
 export const MoviePageBannerButtonsWrapper = styled.div`

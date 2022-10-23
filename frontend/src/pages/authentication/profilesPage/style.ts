@@ -12,6 +12,10 @@ export const LogoContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
+
+  @media (max-width: 768px) {
+    justify-content: center;
+  }
 `;
 
 export const LogoWrapper = styled.div``;
@@ -20,6 +24,10 @@ export const Logo = styled.img`
   height: 2.8125rem;
   width: 10.4375rem;
   margin-left: 60px;
+
+  @media (max-width: 768px) {
+    margin-left: 0;
+  }
 `;
 
 export const ProfilesContainer = styled.div`
@@ -43,6 +51,10 @@ export const ProfilesTitle = styled.h1`
   font-weight: ${({ theme }) => theme.fonts.weight.medium};
   font-size: ${({ theme }) => theme.fonts.size.extraBig};
   text-shadow: 1px 1px 1px black;
+
+  @media (max-width: 768px) {
+    font-size: ${({ theme }) => theme.fonts.size.bigSize2};
+  }
 `;
 
 export const ProfilesWrapper = styled.div`
@@ -130,6 +142,10 @@ export const ManageProfilesButtonWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 768px) {
+    padding: 50px 20px;
+  }
 `;
 
 export const ManageProfilesButton = styled(Link)`

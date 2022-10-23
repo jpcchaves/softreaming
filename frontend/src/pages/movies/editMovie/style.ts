@@ -32,6 +32,10 @@ export const FormTitle = styled.h1`
     color: ${theme.colors.white};
   `}
   margin-bottom: 28px;
+
+  @media (max-width: 768px) {
+    font-size: ${({ theme }) => theme.fonts.size.bigSize1};
+  }
 `;
 
 export const EditMovieForm = styled.form`

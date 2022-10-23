@@ -32,6 +32,7 @@ const EditMovie = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [movieBeingEdited, setMovieBeingEdited] = useState<Movie>();
+  const [showDefaultValue, setShowDefaultValue] = useState(true);
   const navigate = useNavigate();
   const { movieId } = useParams();
 
@@ -94,9 +95,10 @@ const EditMovie = () => {
           Authorization: `Bearer ${authToken}`,
         },
       });
+      reset();
+      setShowDefaultValue(false);
       setSuccessMessage("Filme editado com sucesso!");
 
-      reset();
       setTimeout(() => {
         setSuccessMessage("");
         navigate("/br/movies");
@@ -162,8 +164,8 @@ const EditMovie = () => {
         <EditMovieForm onSubmit={handleSubmit(submitForm)}>
           <FormInput
             type="text"
-            placeholder={movieBeingEdited?.movieName || ""}
-            defaultValue={movieBeingEdited?.movieName || ""}
+            placeholder="Edite o nome do filme..."
+            defaultValue={showDefaultValue ? movieBeingEdited?.movieName : ""}
             {...register("movieName")}
           />
           {errors.movieName && (
@@ -171,8 +173,8 @@ const EditMovie = () => {
           )}
           <FormInput
             type="text"
-            placeholder={movieBeingEdited?.category || ""}
-            defaultValue={movieBeingEdited?.category || ""}
+            placeholder="Edite a categoria do filme..."
+            defaultValue={showDefaultValue ? movieBeingEdited?.category : ""}
             {...register("category")}
           />
           {errors.category && (
@@ -180,8 +182,8 @@ const EditMovie = () => {
           )}
           <FormInput
             type="text"
-            placeholder={movieBeingEdited?.description || ""}
-            defaultValue={movieBeingEdited?.description || ""}
+            placeholder="Edite a descrição do filme..."
+            defaultValue={showDefaultValue ? movieBeingEdited?.description : ""}
             {...register("description")}
           />
           {errors.description && (
@@ -189,8 +191,8 @@ const EditMovie = () => {
           )}
           <FormInput
             type="text"
-            placeholder={movieBeingEdited?.duration || ""}
-            defaultValue={movieBeingEdited?.duration || ""}
+            placeholder="Edite a duração do filme (em minutos)..."
+            defaultValue={showDefaultValue ? movieBeingEdited?.duration : ""}
             {...register("duration")}
           />
           {errors.duration && (
@@ -198,8 +200,8 @@ const EditMovie = () => {
           )}
           <FormInput
             type="text"
-            placeholder={movieBeingEdited?.releaseDate || ""}
-            defaultValue={movieBeingEdited?.releaseDate || ""}
+            placeholder="Edite a data de lançamento do filme..."
+            defaultValue={showDefaultValue ? movieBeingEdited?.releaseDate : ""}
             {...register("releaseDate")}
           />
           {errors.releaseDate && (
@@ -207,8 +209,8 @@ const EditMovie = () => {
           )}
           <FormInput
             type="text"
-            placeholder={movieBeingEdited?.movie_url || ""}
-            defaultValue={movieBeingEdited?.movie_url || ""}
+            placeholder="Edite a URL do filme..."
+            defaultValue={showDefaultValue ? movieBeingEdited?.movie_url : ""}
             {...register("movie_url")}
           />
           {errors.movie_url && (
@@ -216,8 +218,8 @@ const EditMovie = () => {
           )}
           <FormInput
             type="text"
-            placeholder={movieBeingEdited?.poster_url || ""}
-            defaultValue={movieBeingEdited?.poster_url || ""}
+            placeholder="Edite a URL do pôster do filme..."
+            defaultValue={showDefaultValue ? movieBeingEdited?.poster_url : ""}
             {...register("poster_url")}
           />
           {errors.poster_url && (

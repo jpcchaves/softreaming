@@ -103,7 +103,7 @@ const AddMovie: React.FC = () => {
   return (
     <AddMoviePageWrapper>
       <AddMovieFormWrapper>
-        <FormTitle>Criar Filme</FormTitle>
+        <FormTitle>Adicionar Filme</FormTitle>
         <AddMovieForm onSubmit={handleSubmit(submitForm)}>
           <FormInput
             type="text"

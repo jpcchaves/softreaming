@@ -18,11 +18,16 @@ export const MoviesPageErrorWrapper = styled.div`
 export const MoviesPageTitle = styled.h2`
   color: white;
   font-size: ${({ theme }) => theme.fonts.size.bigSize2};
+  padding: 2rem 0;
+
+  @media (max-width: 768px) {
+    font-size: ${({ theme }) => theme.fonts.size.bigSize1};
+  }
 `;
 
 export const MoviesWrapper = styled.div`
   width: 100%;
-  max-width: 95%;
+  max-width: 100%;
   margin: 0 auto;
   height: 100%;
   display: flex;
@@ -33,8 +38,8 @@ export const MoviesWrapper = styled.div`
 `;
 
 export const MovieBannerWrapper = styled.div`
-  width: 300px;
-  max-width: 300px;
+  width: 400px;
+  max-width: 400px;
   height: auto;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 10px;
@@ -51,7 +56,7 @@ export const MovieBannerWrapper = styled.div`
 export const MoviePosterWrapper = styled.div`
   width: 100%;
   max-width: 100%;
-  height: 200px;
+  height: 220px;
   margin-bottom: 1rem;
 `;
 
