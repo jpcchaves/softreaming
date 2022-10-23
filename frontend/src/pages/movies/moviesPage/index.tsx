@@ -44,6 +44,8 @@ const MoviesPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [filteredData, setFilteredData] = useState<AllMovies>([]);
   const [searchWord, setSearchWord] = useState("");
+  const [page, setPage] = useState<number>(0);
+  const [searchValue, setSearchValue] = useState<number>(0);
   const [errorMessage, setErrorMessage] = useState<string>("");
 
   const auth = useContext(AuthContext);
@@ -196,6 +198,9 @@ const MoviesPage: React.FC = () => {
                 </ButtonsWrapper>
               </MovieBannerWrapper>
             ))}
+        {filteredData.length == 0 && searchWord.length > 0 && (
+          <p>Não encontramos nenhum filme com esse nome =(</p>
+        )}
       </MoviesWrapper>
     </MoviesHomePageContainer>
   );
