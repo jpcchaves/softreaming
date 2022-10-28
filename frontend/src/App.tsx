@@ -32,10 +32,8 @@ const App: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const hasUser = auth.user;
-    if (hasUser) {
+    if (auth.user) {
       navigate("/profiles");
-      return () => {};
     }
   }, [auth.user]);
 

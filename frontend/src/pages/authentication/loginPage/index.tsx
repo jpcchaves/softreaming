@@ -1,5 +1,4 @@
 // components
-import SuccessMessageComponent from "../../../components/successMessage";
 import ErrorMessageComponent from "../../../components/errorMessage";
 import LoadingSpan from "../../../components/loadingSpan";
 import {
@@ -8,7 +7,7 @@ import {
   FormInputWrapper,
 } from "../../../components/inputStyledComponent/style";
 // hooks
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // styled components
 import {
@@ -38,7 +37,6 @@ import FormErrorMessage from "../../../components/formErrorMessage";
 const LoginPage: React.FC = () => {
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
-  const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -58,11 +56,8 @@ const LoginPage: React.FC = () => {
       if (email && password) {
         const isLogged = await auth.signin(email, password);
         if (isLogged) {
-          setSuccessMessage("Usuário logado com sucesso");
           reset();
-          setTimeout(() => {
-            navigate("/profiles");
-          }, 1000);
+          navigate("/profiles");
         }
       }
       setIsLoading(false);
@@ -112,10 +107,6 @@ const LoginPage: React.FC = () => {
 
               {errors.password && (
                 <FormErrorMessage message={errors.password?.message} />
-              )}
-
-              {successMessage && (
-                <SuccessMessageComponent successMessage={successMessage} />
               )}
 
               {errorMessage && (
