@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon --exec ts-node ./src/index.ts",
     "migration:generate": "typeorm-ts-node-commonjs -d ./src/data-source.ts migration:generate ./src/migrations/default",
-    "migration:run": "typeorm-ts-node-commonjs -d ./src/data-source.ts migration:run",
+    "cd ": "typeorm-ts-node-commonjs -d ./src/data-source.ts migration:run",
     "build": "rm -rf ./dist && tsc",
     "start": "node ./dist/index.js"
   },
@@ -31,6 +31,7 @@
     "express-rate-limit": "^6.6.0",
     "express-validator": "^6.14.2",
     "jsonwebtoken": "^8.5.1",
+    "node": "^14.21.0",
     "pg": "^8.8.0",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.3.9"
