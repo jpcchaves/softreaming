@@ -18,7 +18,12 @@
     "strict": true,
     "noImplicitAny": true,
     "strictPropertyInitialization": false,
-    "typeRoots": ["./src/@types"]
+    "typeRoots": [
+      "./src/@types"
+    ],
+    "types": [
+      "node"
+    ]
   },
   "include": [
     "src/**/*"
