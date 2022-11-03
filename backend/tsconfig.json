@@ -23,7 +23,8 @@
     ],
     "types": [
       "node"
-    ]
+    ],
+    "incremental": true
   },
   "include": [
     "src/**/*"
