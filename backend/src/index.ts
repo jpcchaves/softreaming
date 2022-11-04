@@ -13,23 +13,19 @@ AppDataSource.initialize().then(() => {
   const app = express();
   const port = process.env.PORT;
 
-  const limiter = rateLimit({
-    max: 100,
-    windowMs: 60 * 60 * 1000,
-    message: "Too many requests from this IP, please try again in an hour!",
-  });
-  app.use("/", limiter);
+  app.use(cors());
 
   app.use(express.json());
 
   app.use(routes);
 
-  app.use(
-    cors({
-      origin: "*",
-      credentials: true,
-    })
-  );
+  const limiter = rateLimit({
+    max: 100,
+    windowMs: 60 * 60 * 1000,
+    message: "Too many requests from this IP, please try again in an hour!",
+  });
+
+  app.use("/", limiter);
 
   return app.listen(port, () => {
     `API running on port ${port}`;
