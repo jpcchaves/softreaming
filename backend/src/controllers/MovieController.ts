@@ -4,18 +4,19 @@ import { validationResult } from "express-validator";
 
 export class MovieController {
   async createMovie(req: Request, res: Response) {
-    const {
-      movieName,
-      category,
-      description,
-      duration,
-      releaseDate,
-      movie_url,
-      poster_url,
-    } = req.body;
-
     try {
+      const {
+        movieName,
+        category,
+        description,
+        duration,
+        releaseDate,
+        movie_url,
+        poster_url,
+      } = req.body;
+
       const errors = validationResult(req);
+
       if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array()[0].msg });
       }
@@ -29,6 +30,7 @@ export class MovieController {
         movie_url,
         poster_url,
       });
+
       await movieRepository.save(newMovie);
 
       return res.status(201).json(newMovie);
@@ -49,13 +51,13 @@ export class MovieController {
   }
 
   async getOneMovie(req: Request, res: Response) {
-    const { movieId } = req.params;
-
-    if (!(await movieRepository.findOneBy({ id: Number(movieId) }))) {
-      return res.status(400).json({ message: "Filme não encontrado" });
-    }
-
     try {
+      const { movieId } = req.params;
+
+      if (!(await movieRepository.findOneBy({ id: Number(movieId) }))) {
+        return res.status(400).json({ message: "Filme não encontrado" });
+      }
+
       const movie = await movieRepository.findOneBy({ id: Number(movieId) });
       return res.status(200).json(movie);
     } catch (error) {
@@ -65,13 +67,13 @@ export class MovieController {
   }
 
   async deleteMovie(req: Request, res: Response) {
-    const { movieId } = req.params;
-
-    if (!(await movieRepository.findOneBy({ id: Number(movieId) }))) {
-      return res.status(400).json({ message: "Filme não encontrado" });
-    }
-
     try {
+      const { movieId } = req.params;
+
+      if (!(await movieRepository.findOneBy({ id: Number(movieId) }))) {
+        return res.status(400).json({ message: "Filme não encontrado" });
+      }
+
       await movieRepository.delete(movieId);
       res.status(204).end();
     } catch (error) {
@@ -81,22 +83,22 @@ export class MovieController {
   }
 
   async updateMovie(req: Request, res: Response) {
-    const { movieId } = req.params;
-    const {
-      movieName,
-      category,
-      description,
-      duration,
-      releaseDate,
-      movie_url,
-      poster_url,
-    } = req.body;
-
-    if (!(await movieRepository.findOneBy({ id: Number(movieId) }))) {
-      return res.status(400).json({ message: "Filme não encontrado" });
-    }
-
     try {
+      const { movieId } = req.params;
+      const {
+        movieName,
+        category,
+        description,
+        duration,
+        releaseDate,
+        movie_url,
+        poster_url,
+      } = req.body;
+
+      if (!(await movieRepository.findOneBy({ id: Number(movieId) }))) {
+        return res.status(400).json({ message: "Filme não encontrado" });
+      }
+      
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });

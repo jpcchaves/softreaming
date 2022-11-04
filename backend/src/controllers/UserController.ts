@@ -7,15 +7,15 @@ import { profileRepository } from "../repositories/profileRepository";
 
 export class UserController {
   async createUser(req: Request, res: Response) {
-    const { userName, email, password } = req.body;
-
-    const userAlreadyExists = await userRepository.findOneBy({ email });
-
-    if (userAlreadyExists) {
-      return res.status(400).json({ message: "Email já cadastrado!" });
-    }
-
     try {
+      const { userName, email, password } = req.body;
+
+      const userAlreadyExists = await userRepository.findOneBy({ email });
+
+      if (userAlreadyExists) {
+        return res.status(400).json({ message: "Email já cadastrado!" });
+      }
+
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array()[0].msg });
@@ -41,20 +41,18 @@ export class UserController {
   }
 
   async updateUser(req: Request, res: Response) {
-    const { userName, password } = req.body;
-    const { idUser } = req.params;
-
-    const hashPassword = await bcrypt.hash(password, 10);
-
-    const updatedUser = {
-      userName,
-      password: hashPassword,
-    };
-
-    const { password: _, ...updtedUserData } = updatedUser;
-
-
     try {
+      const { userName, password } = req.body;
+      const { idUser } = req.params;
+
+      const hashPassword = await bcrypt.hash(password, 10);
+
+      const updatedUser = {
+        userName,
+        password: hashPassword,
+      };
+
+      const { password: _, ...updtedUserData } = updatedUser;
       const errors = validationResult(req);
 
       if (!errors.isEmpty()) {
@@ -79,11 +77,12 @@ export class UserController {
   }
 
   async createProfile(req: Request, res: Response) {
-    const { profileName, profileUrlImage } = req.body;
-    const { idUser } = req.params;
-
     try {
+      const { profileName, profileUrlImage } = req.body;
+      const { idUser } = req.params;
+
       const errors = validationResult(req);
+
       if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array()[0].msg });
       }
@@ -131,15 +130,15 @@ export class UserController {
   }
 
   async authenticateUser(req: Request, res: Response) {
-    const { email, password } = req.body;
-
-    const userExists = await userRepository.findOneBy({ email });
-
-    if (!userExists) {
-      return res.status(400).json({ message: "Email ou senha inválidos!" });
-    }
-
     try {
+      const { email, password } = req.body;
+
+      const userExists = await userRepository.findOneBy({ email });
+
+      if (!userExists) {
+        return res.status(400).json({ message: "Email ou senha inválidos!" });
+      }
+
       const user = userExists;
 
       const verifyPassword = await bcrypt.compare(password, user.password);
@@ -170,17 +169,17 @@ export class UserController {
   }
 
   async getProfiles(req: Request, res: Response) {
-    const { idUser } = req.params;
-
-    const findUser = await userRepository.findOneBy({
-      id: Number(idUser),
-    });
-
-    if (!findUser) {
-      return res.status(404).json({ message: "Usuário não encontrado!" });
-    }
-
     try {
+      const { idUser } = req.params;
+
+      const findUser = await userRepository.findOneBy({
+        id: Number(idUser),
+      });
+
+      if (!findUser) {
+        return res.status(404).json({ message: "Usuário não encontrado!" });
+      }
+
       const profiles = await userRepository.find({
         relations: {
           profiles: true,
@@ -200,13 +199,13 @@ export class UserController {
   }
 
   async deleteProfile(req: Request, res: Response) {
-    const { profileId } = req.params;
-
-    if (!(await profileRepository.findOneBy({ id: Number(profileId) }))) {
-      return res.status(400).json({ message: "Perfil não encontrado" });
-    }
-
     try {
+      const { profileId } = req.params;
+
+      if (!(await profileRepository.findOneBy({ id: Number(profileId) }))) {
+        return res.status(400).json({ message: "Perfil não encontrado" });
+      }
+
       await profileRepository.delete(profileId);
       res.status(204).end();
     } catch (error) {
@@ -216,14 +215,13 @@ export class UserController {
   }
 
   async updateProfile(req: Request, res: Response) {
-    const { profileId } = req.params;
-    const { profileName, profileUrlImage } = req.body;
-
-    if (!(await profileRepository.findOneBy({ id: Number(profileId) }))) {
-      return res.status(400).json({ message: "Perfil não encontrado" });
-    }
-
     try {
+      const { profileId } = req.params;
+      const { profileName, profileUrlImage } = req.body;
+
+      if (!(await profileRepository.findOneBy({ id: Number(profileId) }))) {
+        return res.status(400).json({ message: "Perfil não encontrado" });
+      }
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
