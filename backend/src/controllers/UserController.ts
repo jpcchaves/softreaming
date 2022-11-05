@@ -8,7 +8,7 @@ import { profileRepository } from "../repositories/profileRepository";
 export class UserController {
   async createUser(req: Request, res: Response) {
     try {
-      const { userName, email, password } = req.body;
+      const { userName, email, password, role } = req.body;
 
       const userAlreadyExists = await userRepository.findOneBy({ email });
 
@@ -27,6 +27,7 @@ export class UserController {
         userName,
         email,
         password: hashPassword,
+        role,
       });
 
       await userRepository.save(createNewUser);
