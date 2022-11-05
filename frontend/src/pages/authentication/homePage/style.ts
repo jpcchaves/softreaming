@@ -33,6 +33,10 @@ export const Logo = styled.img`
   height: 2.8125rem;
   width: 10.4375rem;
   margin-left: 60px;
+
+  @media (max-width: 768px) {
+    margin-left: 10px;
+  }
 `;
 
 export const EnterLink = styled(Link)`
@@ -48,6 +52,10 @@ export const EnterLink = styled(Link)`
   margin-right: 60px;
   text-decoration: none;
 
+  @media (max-width: 768px) {
+    margin-right: 10px;
+  }
+
   &:hover {
     opacity: 0.9;
   }
@@ -58,16 +66,24 @@ export const StoryCard = styled.div`
   max-width: 950px;
   width: 100%;
   text-align: center;
+
+  @media (max-width: 768px) {
+    width: 92%;
+  }
 `;
 
 export const StoryCardTitle = styled.h1`
   ${({ theme }) => css`
     color: ${theme.colors.white};
     font-size: ${theme.fonts.size.extraBig};
+
+    @media (max-width: 768px) {
+      font-size: ${theme.fonts.size.bigSize1};
+    }
   `}
   text-shadow: 1px 1px #000;
   max-width: 680px;
-  margin: 0 auto;
+  margin: 10px auto;
   width: 100%;
 `;
 
@@ -76,6 +92,10 @@ export const StoryCardSubtitle = styled.h2`
     color: ${theme.colors.white};
     font-size: ${theme.fonts.size.bigSize1};
     font-weight: ${theme.fonts.weight.medium};
+
+    @media (max-width: 768px) {
+      font-size: ${theme.fonts.size.mediumBigSize};
+    }
   `}
   text-shadow: 1px 1px #000;
   margin: 0 auto 1rem auto;

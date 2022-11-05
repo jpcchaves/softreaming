@@ -27,6 +27,10 @@ export const LogoWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
+
+  @media (max-width: 768px) {
+    justify-content: center;
+  }
 `;
 
 export const LogoLink = styled(Link)``;
@@ -35,6 +39,10 @@ export const Logo = styled.img`
   height: 2.8125rem;
   width: 10.4375rem;
   margin-left: 60px;
+
+  @media (max-width: 768px) {
+    margin-left: 0;
+  }
 `;
 
 export const LoginFormWrapper = styled.div`
@@ -48,6 +56,11 @@ export const LoginFormWrapper = styled.div`
   padding: 40px 40px;
   max-width: 500px;
   width: 100%;
+
+  @media (max-width: 768px) {
+    margin: 4rem auto;
+    padding: 30px 34px 20px;
+  }
 `;
 
 export const FormTitle = styled.h1`
