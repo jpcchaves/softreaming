@@ -31,7 +31,35 @@ export const signUpSchemaValidation = yup.object().shape({
 
 export const createProfileValidation = yup.object().shape({
   profileName: yup.string().min(3).max(12).required(),
-  profileUrlImage: yup.string().url().required(),
+  profilePic: yup
+    .mixed()
+    .test("hasImage", "A imagem é obrigatória!", (value) => {
+      return value && value[0];
+    })
+    .test(
+      "fileSize",
+      "O arquivo é muito grande! Tente utilizar um arquivo menor. (Limite: 100 Kb)",
+      (value) => {
+        return value && value[0]?.size <= 100000;
+      }
+    )
+    .test(
+      "fileType",
+      "Os formatos suportados são: JPG, JPEG e PNG.",
+      (value) => {
+        const fileType = value[0]?.type;
+
+        const isValidType = fileType && fileType.toLowerCase();
+
+        if (isValidType === "image/jpg") {
+          return value && isValidType;
+        } else if (isValidType === "image/jpeg") {
+          return value && isValidType;
+        } else if (isValidType === "image/png") {
+          return value && isValidType;
+        }
+      }
+    ),
 });
 
 export const updateUserValidation = yup.object().shape({
