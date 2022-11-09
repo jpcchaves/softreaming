@@ -8,8 +8,14 @@ import { movieValidate } from "./validations/movieValidations";
 import { userValidate } from "./validations/userValidations";
 import { profileValidation } from "./validations/profileValidations";
 import { updateUserValidate } from "./validations/updateUserValidation";
+import UploadImagesService from "./services/UploadImageService";
+
+import multer from "multer";
+import multerConfig from "./config/multer";
 
 const routes = Router();
+
+const upload = multer(multerConfig);
 
 // movie routes
 routes.post(
@@ -46,22 +52,40 @@ routes.put(
   new UserController().updateUser
 );
 routes.post("/login", new UserController().authenticateUser);
+
 routes.post(
   "/user/:idUser/profiles",
   authMiddleware,
-  profileValidation,
+  // profileValidation,
+  upload.single("profileUrlImage"),
+  async (req, res, next) => {
+    const { file } = req;
+
+    const uploadImagesService = new UploadImagesService();
+
+    await uploadImagesService.execute(file!);
+
+    const urlProfileS3 = uploadImagesService.s3UrlFile;
+
+    req.app.locals.urlProfileS3 = urlProfileS3;
+
+    next();
+  },
   new UserController().createProfile
 );
+
 routes.get(
   "/user/:idUser/profiles",
   authMiddleware,
   new UserController().getProfiles
 );
+
 routes.delete(
   "/profiles/:idUser/:profileId",
   authMiddleware,
   new UserController().deleteProfile
 );
+
 routes.put(
   "/profiles/:idUser/:profileId",
   authMiddleware,

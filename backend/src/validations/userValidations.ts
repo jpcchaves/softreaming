@@ -7,7 +7,7 @@ export const userValidate = [
     .isEmpty()
     .withMessage("O nome de usuário é obrigatório!")
     .isLength({ min: 5 })
-    .withMessage("O nome precisa ter no mínimo 3 caracteres."),
+    .withMessage("O nome precisa ter no mínimo 5 caracteres."),
   body("email")
     .not()
     .isEmpty()

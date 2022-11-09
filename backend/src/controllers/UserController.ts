@@ -5,20 +5,23 @@ import jwt from "jsonwebtoken";
 import { validationResult } from "express-validator";
 import { profileRepository } from "../repositories/profileRepository";
 
+import S3Storage from "../utils/S3Storage";
+
 export class UserController {
   async createUser(req: Request, res: Response) {
     try {
+      const errors = validationResult(req);
+
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array()[0].msg });
+      }
+
       const { userName, email, password, role } = req.body;
 
       const userAlreadyExists = await userRepository.findOneBy({ email });
 
       if (userAlreadyExists) {
-        return res.status(400).json({ message: "Email já cadastrado!" });
-      }
-
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array()[0].msg });
+        return res.status(400).json({ errors: "Email já cadastrado!" });
       }
 
       const hashPassword = await bcrypt.hash(password, 10);
@@ -37,7 +40,7 @@ export class UserController {
       return res.status(201).json(newUserData);
     } catch (error) {
       console.log(error);
-      return res.status(500).json({ message: "Internal Server Error" });
+      return res.status(500).json({ errors: "Internal Server Error" });
     }
   }
 
@@ -65,7 +68,7 @@ export class UserController {
       });
 
       if (!findUser) {
-        return res.status(404).json({ message: "Usuário não encontrado!" });
+        return res.status(404).json({ errors: "Usuário não encontrado!" });
       }
 
       await userRepository.update(idUser, updatedUser);
@@ -73,14 +76,18 @@ export class UserController {
       return res.status(201).json(updtedUserData);
     } catch (error) {
       console.log(error);
-      return res.status(500).json({ message: "Internal Sever Error" });
+      return res.status(500).json({ errors: "Internal Sever Error" });
     }
   }
 
   async createProfile(req: Request, res: Response) {
     try {
-      const { profileName, profileUrlImage } = req.body;
+      const { profileName } = req.body;
       const { idUser } = req.params;
+
+      const profileUrlImage = req.app.locals.urlProfileS3;
+
+      console.log(profileUrlImage, profileName, idUser);
 
       const errors = validationResult(req);
 
@@ -93,7 +100,7 @@ export class UserController {
       });
 
       if (!findUser) {
-        return res.status(404).json({ message: "Usuário não encontrado!" });
+        return res.status(404).json({ errors: "Usuário não encontrado!" });
       }
 
       const profiles = await userRepository.find({
@@ -108,9 +115,7 @@ export class UserController {
       const profilesAmount = profiles[0].profiles.length;
 
       if (profilesAmount >= 4) {
-        return res
-          .status(400)
-          .json({ message: "Limite de usuários excedido!" });
+        return res.status(400).json({ errors: "Limite de usuários excedido!" });
       }
 
       const { password: _, ...user } = findUser;
@@ -126,7 +131,7 @@ export class UserController {
       return res.status(201).json(newProfile);
     } catch (error) {
       console.log(error);
-      return res.status(500).json({ message: "Internal Sever Error" });
+      return res.status(500).json({ errors: "Internal Sever Error" });
     }
   }
 
@@ -137,7 +142,7 @@ export class UserController {
       const userExists = await userRepository.findOneBy({ email });
 
       if (!userExists) {
-        return res.status(400).json({ message: "Email ou senha inválidos!" });
+        return res.status(400).json({ errors: "Email ou senha inválidos!" });
       }
 
       const user = userExists;
@@ -145,7 +150,7 @@ export class UserController {
       const verifyPassword = await bcrypt.compare(password, user.password);
 
       if (!verifyPassword) {
-        return res.status(400).json({ message: "Email ou senha inválidos!" });
+        return res.status(400).json({ errors: "Email ou senha inválidos!" });
       }
 
       const token = jwt.sign({ id: user.id }, process.env.JWT_PASS ?? "", {
@@ -160,7 +165,7 @@ export class UserController {
       });
     } catch (error) {
       console.log(error);
-      return res.status(500).json({ message: "Internal Server Error" });
+      return res.status(500).json({ errors: "Internal Server Error" });
     }
   }
 
@@ -178,7 +183,7 @@ export class UserController {
       });
 
       if (!findUser) {
-        return res.status(404).json({ message: "Usuário não encontrado!" });
+        return res.status(404).json({ errors: "Usuário não encontrado!" });
       }
 
       const profiles = await userRepository.find({
@@ -195,7 +200,7 @@ export class UserController {
       return res.json(profilesList);
     } catch (error) {
       console.log(error);
-      return res.status(500).json({ message: "Internal Server Error" });
+      return res.status(500).json({ errors: "Internal Server Error" });
     }
   }
 
@@ -204,14 +209,14 @@ export class UserController {
       const { profileId } = req.params;
 
       if (!(await profileRepository.findOneBy({ id: Number(profileId) }))) {
-        return res.status(400).json({ message: "Perfil não encontrado" });
+        return res.status(400).json({ errors: "Perfil não encontrado" });
       }
 
       await profileRepository.delete(profileId);
       res.status(204).end();
     } catch (error) {
       console.log(error);
-      return res.status(500).json({ message: "Internal Server Error" });
+      return res.status(500).json({ errors: "Internal Server Error" });
     }
   }
 
@@ -221,7 +226,7 @@ export class UserController {
       const { profileName, profileUrlImage } = req.body;
 
       if (!(await profileRepository.findOneBy({ id: Number(profileId) }))) {
-        return res.status(400).json({ message: "Perfil não encontrado" });
+        return res.status(400).json({ errors: "Perfil não encontrado" });
       }
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
@@ -238,7 +243,7 @@ export class UserController {
       return res.status(201).json(updatedProfile);
     } catch (error) {
       console.log(error);
-      return res.status(500).json({ message: "Internal Server Error" });
+      return res.status(500).json({ errors: "Internal Server Error" });
     }
   }
 }
