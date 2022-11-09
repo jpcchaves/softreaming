@@ -7,7 +7,7 @@ export const authSchemaValidation = yup.object().shape({
 });
 
 export const signUpSchemaValidation = yup.object().shape({
-  userName: yup.string().min(3).required(),
+  userName: yup.string().min(5).required(),
   email: yup.string().email().required(),
   password: yup
     .string()
@@ -30,7 +30,7 @@ export const signUpSchemaValidation = yup.object().shape({
 });
 
 export const createProfileValidation = yup.object().shape({
-  profileName: yup.string().min(3).max(12).required(),
+  profileName: yup.string().min(5).max(12).required(),
   profilePic: yup
     .mixed()
     .test("hasImage", "A imagem é obrigatória!", (value) => {

@@ -76,14 +76,15 @@ const SignUpPage: React.FC = () => {
       }, 1500);
     } catch (error: any) {
       if (error.response.data) {
-        setErrorMessage(error.response.data.message);
+        const { errors } = error.response.data;
+        setErrorMessage(errors);
       } else {
         setErrorMessage("Ocorreu um erro... Tente novamente mais tarde.");
       }
 
       setTimeout(() => {
         setErrorMessage("");
-      }, 1500);
+      }, 2000);
 
       setIsLoading(false);
 
