@@ -13,7 +13,24 @@ export default {
 
       const filename = `${fileHash}-${file.originalname}`;
 
-      return callback(null, filename);
+      const types = /png|jpg|jpeg/;
+
+      const extName = types.test(
+        path.extname(file.originalname).toLocaleLowerCase()
+      );
+
+      const mimetype = types.test(file.mimetype);
+
+      if (extName && mimetype) {
+        callback(null, filename);
+      } else {
+        callback(
+          new Error(
+            "Arquivo inválido! Os arquivos suportados são: JPG, JPEG e PNG."
+          ),
+          filename
+        );
+      }
     },
   }),
 };

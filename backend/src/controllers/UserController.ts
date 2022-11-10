@@ -87,8 +87,6 @@ export class UserController {
 
       const profileUrlImage = req.app.locals.urlProfileS3;
 
-      console.log(profileUrlImage, profileName, idUser);
-
       const errors = validationResult(req);
 
       if (!errors.isEmpty()) {
