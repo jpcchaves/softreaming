@@ -9,29 +9,29 @@ import {
   FormInputSubmit,
 } from "../../../components/inputStyledComponent/style";
 import LoadingSpan from "../../../components/loadingSpan";
-import SuccessMessageComponent from "../../../components/successMessage";
 import {
   CreateProfilePageContainer,
   CreateProfilePageWrapper,
   FormTitle,
   GoBackLink,
   GoBackLinkWrapper,
+  ImagePreviewText,
+  ImagePreviewWrapper,
+  ImageWrapper,
   LoginForm,
   LoginFormWrapper,
   Logo,
   LogoContainer,
   LogoWrapper,
+  ProfileImage,
 } from "./style";
-// icon
-import { MdAddPhotoAlternate } from "react-icons/md";
-
 // hook forms
 import { FieldValues, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 // yup schema validation
 import { createProfileValidation } from "../../../validations/authSchemaValidation";
 // hooks
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 // axios
 import { api } from "../../../hooks/useApi";
@@ -41,9 +41,9 @@ import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 
 const CreateProfile: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const [successMessage, setSuccessMessage] = useState<string>("");
-  const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [profileImageName, setProfileImageName] = useState("");
+  const [imagePreview, setImagePreview] = useState("");
 
   // navigate hook
   const navigate = useNavigate();
@@ -56,9 +56,30 @@ const CreateProfile: React.FC = () => {
     handleSubmit,
     formState: { errors },
     reset,
+    watch,
   } = useForm({
     resolver: yupResolver(createProfileValidation),
   });
+
+  const covert2base64 = (file: any) => {
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      if (reader.result) {
+        setImagePreview(reader.result?.toString());
+      }
+    };
+
+    reader.readAsDataURL(file);
+  };
+
+  useEffect(() => {
+    watch("profileUrlImage");
+    if (watch("profileUrlImage")[0]) {
+      setProfileImageName(watch("profileUrlImage")[0].name);
+      covert2base64(watch("profileUrlImage")[0]);
+    }
+  }, [watch("profileUrlImage")]);
 
   const submitForm = async (data: FieldValues) => {
     setIsLoading(true);
@@ -70,8 +91,6 @@ const CreateProfile: React.FC = () => {
 
     formData.append("profileName", profileName);
     formData.append("profileUrlImage", profileUrlImage);
-
-    // console.log(newProfileData);
 
     if (!auth.user) return <Navigate to="/login" />;
 
@@ -96,8 +115,6 @@ const CreateProfile: React.FC = () => {
       navigate("/profiles");
     } catch (error: any) {
       setIsLoading(true);
-
-      setError(true);
 
       setErrorMessage(
         "Ocorreu um erro ao criar o perfil! Tente novamente mais tarde..."
@@ -131,21 +148,29 @@ const CreateProfile: React.FC = () => {
             {errors.profileName && (
               <FormErrorMessage message={errors.profileName?.message} />
             )}
-            <FormInputFileLabel>
-              <AddPhotoIcon />
-              Escolher foto de perfil
-              <FormInputFile
-                {...register("profileUrlImage")}
-                accept=".png, .jpg, .jpeg"
 
-              />
+            {imagePreview ? (
+              <ImagePreviewWrapper>
+                <ImagePreviewText>Sua imagem ficará assim:</ImagePreviewText>
+                <ImageWrapper>
+                  <ProfileImage
+                    src={imagePreview}
+                    alt="imagem de perfil do usuário"
+                  />
+                </ImageWrapper>
+              </ImagePreviewWrapper>
+            ) : null}
+            <FormInputFile
+              {...register("profileUrlImage")}
+              accept=".png, .jpg, .jpeg"
+              id="input-file"
+            />
+            <FormInputFileLabel htmlFor="input-file">
+              <AddPhotoIcon />
+              {profileImageName || "Escolher foto de perfil"}
             </FormInputFileLabel>
             {errors.profileUrlImage && (
               <FormErrorMessage message={errors.profileUrlImage?.message} />
-            )}
-
-            {successMessage && (
-              <SuccessMessageComponent successMessage={successMessage} />
             )}
 
             {errorMessage && (

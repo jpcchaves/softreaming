@@ -32,7 +32,7 @@ export const FormInputFileLabel = styled.label`
   padding: 10px 5px;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   width: 100%;
   background: #333;
   color: #fff;
@@ -44,6 +44,8 @@ export const FormInputFileLabel = styled.label`
   border-radius: 5px;
   margin-bottom: 0.5rem;
   gap: 5px;
+  text-overflow: ellipsis;
+  overflow: hidden;
 
   &:hover {
     color: #333;
@@ -53,6 +55,10 @@ export const FormInputFileLabel = styled.label`
 
 export const AddPhotoIcon = styled(MdAddPhotoAlternate)`
   font-size: 30px;
+  width: 32px;
+  min-width: 32px;
+  height: 32px;
+  min-height: 32px;
 `;
 
 export const FormInputSubmit = styled(FormInput)`

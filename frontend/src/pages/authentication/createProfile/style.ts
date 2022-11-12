@@ -51,6 +51,35 @@ export const LoginForm = styled.form`
   width: 100%;
 `;
 
+export const ImagePreviewWrapper = styled.div`
+  width: 100%;
+  text-align: center;
+`;
+
+export const ImagePreviewText = styled.h4`
+  color: #fff;
+`;
+
+export const ImageWrapper = styled.div`
+  margin: 10px 0 15px 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const ProfileImage = styled.img`
+  display: block;
+  margin: 0 auto;
+  width: 150px;
+  height: 150px;
+
+  @media (max-width: 768px) {
+    width: 100px;
+    height: 100px;
+  }
+`;
+
 export const GoBackLinkWrapper = styled.div`
   width: 100%;
   display: flex;

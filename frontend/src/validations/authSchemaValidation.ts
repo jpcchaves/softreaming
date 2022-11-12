@@ -47,9 +47,9 @@ export const createProfileValidation = yup.object().shape({
       "fileType",
       "Os formatos suportados são: JPG, JPEG e PNG.",
       (value) => {
-        const fileType = value[0]?.type;
-
-        const isValidType = fileType.toLowerCase();
+        const fileType: string = value[0]?.type;
+        
+        const isValidType = fileType && fileType.toLowerCase();
 
         if (isValidType === "image/jpg") {
           return value && isValidType;
