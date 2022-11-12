@@ -136,8 +136,8 @@ const CreateProfile: React.FC = () => {
               Escolher foto de perfil
               <FormInputFile
                 {...register("profileUrlImage")}
-                accept="image/png, image/jpg, image/jpeg"
-                
+                accept=".png, .jpg, .jpeg"
+
               />
             </FormInputFileLabel>
             {errors.profileUrlImage && (

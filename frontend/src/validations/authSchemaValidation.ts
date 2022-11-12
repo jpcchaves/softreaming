@@ -38,7 +38,7 @@ export const createProfileValidation = yup.object().shape({
     })
     .test(
       "fileSize",
-      "O arquivo é muito grande! Tente utilizar um arquivo menor. (Limite: 100 Kb)",
+      "O arquivo é muito grande! Tente utilizar um arquivo menor. (Limite: 200 Kb)",
       (value) => {
         return value && value[0]?.size <= 200000;
       }
@@ -49,7 +49,7 @@ export const createProfileValidation = yup.object().shape({
       (value) => {
         const fileType = value[0]?.type;
 
-        const isValidType = fileType && fileType.toLowerCase();
+        const isValidType = fileType.toLowerCase();
 
         if (isValidType === "image/jpg") {
           return value && isValidType;
