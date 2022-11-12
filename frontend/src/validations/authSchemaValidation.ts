@@ -31,7 +31,7 @@ export const signUpSchemaValidation = yup.object().shape({
 
 export const createProfileValidation = yup.object().shape({
   profileName: yup.string().min(5).max(12).required(),
-  profilePic: yup
+  profileUrlImage: yup
     .mixed()
     .test("hasImage", "A imagem é obrigatória!", (value) => {
       return value && value[0];
@@ -40,7 +40,7 @@ export const createProfileValidation = yup.object().shape({
       "fileSize",
       "O arquivo é muito grande! Tente utilizar um arquivo menor. (Limite: 100 Kb)",
       (value) => {
-        return value && value[0]?.size <= 100000;
+        return value && value[0]?.size <= 200000;
       }
     )
     .test(

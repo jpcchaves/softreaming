@@ -1,23 +1,58 @@
+import { MdAddPhotoAlternate } from "react-icons/md";
 import styled, { css } from "styled-components";
 
 export const FormInputWrapper = styled.div`
-    width: 100%;
-`
+  width: 100%;
+`;
 
 export const FormInput = styled.input`
   background: #333;
   outline: none;
   border: 0;
-  border-radius: 5px; 
+  border-radius: 5px;
   color: #fff;
   padding: 15px;
   font-size: 1em;
   width: 100%;
   margin-bottom: 0.5rem;
 
-  &:focus{
+  &:focus {
     border: 1px solid #ccc;
   }
+`;
+
+export const FormInputFile = styled.input.attrs({
+  type: "file",
+})`
+  display: none;
+`;
+
+export const FormInputFileLabel = styled.label`
+  display: flex;
+  padding: 10px 5px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background: #333;
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.5s;
+  border: 1px solid #333;
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
+  gap: 5px;
+
+  &:hover {
+    color: #333;
+    background-color: #fff;
+  }
+`;
+
+export const AddPhotoIcon = styled(MdAddPhotoAlternate)`
+  font-size: 30px;
 `;
 
 export const FormInputSubmit = styled(FormInput)`

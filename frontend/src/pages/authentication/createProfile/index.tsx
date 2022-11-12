@@ -2,7 +2,10 @@ import LogoImage from "../../../assets/logo/logo.png";
 import ErrorMessageComponent from "../../../components/errorMessage";
 import FormErrorMessage from "../../../components/formErrorMessage";
 import {
+  AddPhotoIcon,
   FormInput,
+  FormInputFile,
+  FormInputFileLabel,
   FormInputSubmit,
 } from "../../../components/inputStyledComponent/style";
 import LoadingSpan from "../../../components/loadingSpan";
@@ -19,6 +22,8 @@ import {
   LogoContainer,
   LogoWrapper,
 } from "./style";
+// icon
+import { MdAddPhotoAlternate } from "react-icons/md";
 
 // hook forms
 import { FieldValues, useForm } from "react-hook-form";
@@ -58,12 +63,15 @@ const CreateProfile: React.FC = () => {
   const submitForm = async (data: FieldValues) => {
     setIsLoading(true);
 
-    const { profileName, profileUrlImage } = data;
+    const profileName = data.profileName;
+    const profileUrlImage = data.profileUrlImage[0];
 
-    const newProfileData = {
-      profileName,
-      profileUrlImage,
-    };
+    const formData = new FormData();
+
+    formData.append("profileName", profileName);
+    formData.append("profileUrlImage", profileUrlImage);
+
+    // console.log(newProfileData);
 
     if (!auth.user) return <Navigate to="/login" />;
 
@@ -77,7 +85,7 @@ const CreateProfile: React.FC = () => {
 
       const authToken = getToken();
 
-      await api.post(`/user/${id}/profiles`, newProfileData, {
+      await api.post(`/user/${id}/profiles`, formData, {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },
@@ -123,11 +131,15 @@ const CreateProfile: React.FC = () => {
             {errors.profileName && (
               <FormErrorMessage message={errors.profileName?.message} />
             )}
-            <FormInput
-              type="text"
-              placeholder="Insira a URL da sua profile image..."
-              {...register("profileUrlImage")}
-            />
+            <FormInputFileLabel>
+              <AddPhotoIcon />
+              Escolher foto de perfil
+              <FormInputFile
+                {...register("profileUrlImage")}
+                accept="image/png, image/jpg, image/jpeg"
+                
+              />
+            </FormInputFileLabel>
             {errors.profileUrlImage && (
               <FormErrorMessage message={errors.profileUrlImage?.message} />
             )}
