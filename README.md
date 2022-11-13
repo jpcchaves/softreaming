@@ -28,10 +28,8 @@ npm install \ yarn
 
 ## ☕ Usando Softreaming
 
-Para usar Softreaming, siga estas etapas:
-
-Ao finalizar o projeto, caso o usuário queira testá-lo, será disponibilizado um link com o deploy do projeto.
-
+Foi realizado o deploy do projeto, agora ele está disponível para ser testado pelo link abaixo:</br>
+[Softreaming](https://softreaming.netlify.app/)
 
 ## 🤝 Colaboradores
 
