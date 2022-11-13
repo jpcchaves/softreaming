@@ -3,12 +3,14 @@ import styled, { css } from "styled-components";
 
 export const EditProfilePageContainer = styled.div`
   width: 100vw;
-  height: 100vh;
+  max-width: 100%;
+  min-height: 100vh;
 `;
 
 export const EditProfilePageWrapper = styled.div`
   width: 100%;
   height: 100%;
+  padding-bottom: 200px;
 `;
 
 export const LogoContainer = styled.div`
@@ -50,6 +52,60 @@ export const FormTitle = styled.h1`
 
 export const LoginForm = styled.form`
   width: 100%;
+`;
+
+export const CurrentProfileImagePreviewWrapper = styled.div`
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 20px;
+`;
+
+export const CurrentProfileImageText = styled.h4`
+  margin-bottom: 10px;
+`;
+
+export const CurrentProfileImageWrapper = styled.div`
+  width: 150px;
+  height: 150px;
+`;
+
+export const CurrentProfileImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+
+export const ImagePreviewWrapper = styled.div`
+  width: 100%;
+  text-align: center;
+`;
+
+export const ImagePreviewText = styled.h4`
+  color: #fff;
+`;
+
+export const ImageWrapper = styled.div`
+  margin: 10px 0 15px 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const ProfileImage = styled.img`
+  display: block;
+  margin: 0 auto;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+
+  @media (max-width: 768px) {
+    width: 100px;
+    height: 100px;
+  }
 `;
 
 export const GoBackLinkWrapper = styled.div`

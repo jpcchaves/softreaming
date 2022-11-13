@@ -74,11 +74,17 @@ const CreateProfile: React.FC = () => {
   };
 
   useEffect(() => {
+
     watch("profileUrlImage");
+
     if (watch("profileUrlImage")[0]) {
+
       setProfileImageName(watch("profileUrlImage")[0].name);
+
       covert2base64(watch("profileUrlImage")[0]);
+
     }
+    
   }, [watch("profileUrlImage")]);
 
   const submitForm = async (data: FieldValues) => {
