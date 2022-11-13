@@ -6,9 +6,14 @@ class UploadImagesService {
   async execute(file: Express.Multer.File): Promise<void> {
     const s3Storage = new S3Storage();
 
-    await s3Storage.saveFile(file.filename);
+    try {
+      await s3Storage.saveFile(file.filename);
 
-    this.s3UrlFile = s3Storage.imageS3Url;
+      this.s3UrlFile = s3Storage.imageS3Url;
+      
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
 

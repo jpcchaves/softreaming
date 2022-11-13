@@ -20,32 +20,36 @@ class S3Storage {
   }
 
   async saveFile(filename: string): Promise<void> {
-    const originalPath = path.resolve(multerConfig.directory, filename);
+    try {
+      const originalPath = path.resolve(multerConfig.directory, filename);
 
-    const ContentType = mime.getType(originalPath);
+      const ContentType = mime.getType(originalPath);
 
-    if (!ContentType) {
-      throw new Error("Arquivo não encontrado!");
+      if (!ContentType) {
+        throw new Error("Arquivo não encontrado!");
+      }
+
+      const fileContent = await fs.promises.readFile(originalPath);
+
+      const params = {
+        Bucket: process.env.AWS_BUCKET_NAME!,
+        Key: filename,
+        Body: fileContent,
+      };
+
+      this.client.putObject(params).promise();
+
+      const uploadURL = await this.client.getSignedUrlPromise(
+        "putObject",
+        params
+      );
+
+      this.imageS3Url = uploadURL.split("?")[0];
+
+      await fs.promises.unlink(originalPath);
+    } catch (error) {
+      console.log(error);
     }
-
-    const fileContent = await fs.promises.readFile(originalPath);
-
-    const params = {
-      Bucket: process.env.AWS_BUCKET_NAME!,
-      Key: filename,
-      Body: fileContent,
-    };
-
-    this.client.putObject(params).promise();
-
-    const uploadURL = await this.client.getSignedUrlPromise(
-      "putObject",
-      params
-    );
-
-    this.imageS3Url = uploadURL.split("?")[0];
-
-    await fs.promises.unlink(originalPath);
   }
 }
 
