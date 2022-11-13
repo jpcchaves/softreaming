@@ -72,13 +72,13 @@ export const ImageWrapper = styled.div`
 export const ProfileImage = styled.img`
   display: block;
   margin: 0 auto;
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
   object-fit: cover;
 
   @media (max-width: 768px) {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
   }
 `;
 
