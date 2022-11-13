@@ -24,17 +24,21 @@ routes.post(
   movieValidate,
   new MovieController().createMovie
 );
+
 routes.get("/movies", authMiddleware, new MovieController().getAllMovies);
+
 routes.get(
   "/movie/:movieId",
   authMiddleware,
   new MovieController().getOneMovie
 );
+
 routes.delete(
   "/movies/:movieId",
   authMiddleware,
   new MovieController().deleteMovie
 );
+
 routes.put(
   "/movies/:movieId",
   authMiddleware,
@@ -44,20 +48,24 @@ routes.put(
 
 // user routes
 routes.post("/user", userValidate, new UserController().createUser);
+
 routes.get("/user", authMiddleware, new UserController().getUser);
+
 routes.put(
   "/user/:idUser",
   authMiddleware,
   updateUserValidate,
   new UserController().updateUser
 );
+
 routes.post("/login", new UserController().authenticateUser);
 
+// profile routes
 routes.post(
   "/user/:idUser/profiles",
   authMiddleware,
-  // profileValidation,
   upload.single("profileUrlImage"),
+  profileValidation,
   uploadFileToS3Middleware,
   new UserController().createProfile
 );
@@ -77,7 +85,9 @@ routes.delete(
 routes.put(
   "/profiles/:idUser/:profileId",
   authMiddleware,
+  upload.single("profileUrlImage"),
   profileValidation,
+  uploadFileToS3Middleware,
   new UserController().updateProfile
 );
 

@@ -13,24 +13,20 @@ export default {
 
       const filename = `${fileHash}-${file.originalname}`;
 
-      const types = /png|jpg|jpeg/;
-
-      const extName = types.test(
-        path.extname(file.originalname).toLocaleLowerCase()
-      );
-
-      const mimetype = types.test(file.mimetype);
-
-      if (extName && mimetype) {
-        callback(null, filename);
-      } else {
-        callback(
-          new Error(
-            "Arquivo inválido! Os arquivos suportados são: JPG, JPEG e PNG."
-          ),
-          filename
-        );
-      }
+      callback(null, filename);
     },
   }),
+  fileFilter: (req: any, file: Express.Multer.File, callback: any) => {
+    const allowedFiles = ["image/png", "image/jpeg", "image/jpg"];
+
+    if (!allowedFiles.includes(file.mimetype)) {
+      return callback(
+        new Error(
+          "O arquivo enviado não é permitido. Os arquivos permitidos são: JPG, JPEG e PNG."
+        )
+      );
+    }
+
+    callback(null, true);
+  },
 };

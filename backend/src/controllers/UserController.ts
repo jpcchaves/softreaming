@@ -87,6 +87,8 @@ export class UserController {
 
       const profileUrlImage = req.app.locals.urlProfileS3;
 
+      
+
       const errors = validationResult(req);
 
       if (!errors.isEmpty()) {
@@ -221,7 +223,15 @@ export class UserController {
   async updateProfile(req: Request, res: Response) {
     try {
       const { profileId } = req.params;
-      const { profileName, profileUrlImage } = req.body;
+      const { profileName } = req.body;
+
+      const profileUrlImage = req.app.locals.urlProfileS3;
+
+      if (!profileUrlImage) {
+        return res
+          .status(400)
+          .json({ errors: "A imagem de perfil é obrigatória!" });
+      }
 
       if (!(await profileRepository.findOneBy({ id: Number(profileId) }))) {
         return res.status(400).json({ errors: "Perfil não encontrado" });

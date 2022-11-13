@@ -1,7 +1,7 @@
-import { body } from "express-validator";
+import { check } from "express-validator";
 
 export const profileValidation = [
-  body("profileName")
+  check("profileName")
     .isString()
     .not()
     .isEmpty()
