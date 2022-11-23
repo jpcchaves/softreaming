@@ -2,7 +2,12 @@
 
 <img src="https://i.ibb.co/rbqpv8c/Whats-App-Image-2022-10-01-at-19-11-04.jpg" alt="exemplo imagem">
 
-> O projeto trata-se de um visualizador de filmes inspirado na Netflix! Desenvolvido com tecnologia de ponta (Vite + ReactJS + TypeScript + NodeJS + PostgreSQL), é o meu primeiro projeto completamente Full Stack, desenvolvido do absoluto zero.
+> O projeto trata-se de um visualizador de filmes inspirado na Netflix! Desenvolvido com a seguinte stack:
+Font-end: Vite + ReactJS + TypeScript, Netlify (para fazer o deploy do front-end)
+Back-end: NodeJS + ExpressJS + TypeScript + Heroku (para fazer o deploy do back-end)
+Database: PostgreSQL + ElephantSQL (para tornar o DB online e acessível pelo back-end)
+
+É o meu primeiro projeto completamente Full Stack, desenvolvido do zero.
 
 ## 💻 Pré-requisitos
 
