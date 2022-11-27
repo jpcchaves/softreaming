@@ -45,11 +45,17 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
   const signout = async () => {
     setUser(null);
     setToken('');
+    removeLoggedProfile();
+
     await api.signout();
   };
 
   const setToken = (token: string) => {
     localStorage.setItem('authToken', token);
+  };
+
+  const removeLoggedProfile = () => {
+    localStorage.setItem('loggedProfile', '');
   };
 
   return (
