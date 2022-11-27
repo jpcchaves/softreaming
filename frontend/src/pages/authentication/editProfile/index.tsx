@@ -1,16 +1,16 @@
 // logo
-import LogoImage from "../../../assets/logo/logo.png";
+import LogoImage from '../../../assets/logo/logo.png';
 // components
-import ErrorMessageComponent from "../../../components/errorMessage";
-import FormErrorMessage from "../../../components/formErrorMessage";
-import LoadingSpan from "../../../components/loadingSpan";
+import ErrorMessageComponent from '../../../components/errorMessage';
+import FormErrorMessage from '../../../components/formErrorMessage';
+import LoadingSpan from '../../../components/loadingSpan';
 import {
   AddPhotoIcon,
   FormInput,
   FormInputFile,
   FormInputFileLabel,
   FormInputSubmit,
-} from "../../../components/inputStyledComponent/style";
+} from '../../../components/inputStyledComponent/style';
 import {
   CurrentProfileImage,
   CurrentProfileImagePreviewWrapper,
@@ -30,29 +30,29 @@ import {
   LogoContainer,
   LogoWrapper,
   ProfileImage,
-} from "./style";
+} from './style';
 // hook forms
-import { FieldValues, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { FieldValues, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 // yup schema validation
-import { createProfileValidation } from "../../../validations/authSchemaValidation";
+import { createProfileValidation } from '../../../validations/authSchemaValidation';
 // hooks
-import { useContext, useEffect, useState } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from 'react';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 // axios
-import { api } from "../../../hooks/useApi";
+import { api } from '../../../hooks/useApi';
 // context
-import { AuthContext } from "../../../contexts/auth/AuthContext";
-import { Profiles } from "../../../types/ProfilesEditPage";
+import { AuthContext } from '../../../contexts/auth/AuthContext';
+import { Profiles } from '../../../types/ProfilesEditPage';
 // icon
-import { BsFillArrowLeftCircleFill } from "react-icons/bs";
+import { BsFillArrowLeftCircleFill } from 'react-icons/bs';
 
 const CreateProfile: React.FC = () => {
-  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [userProfiles, setUserProfiles] = useState<Profiles[]>([]);
-  const [profileImageName, setProfileImageName] = useState("");
-  const [imagePreview, setImagePreview] = useState("");
+  const [profileImageName, setProfileImageName] = useState('');
+  const [imagePreview, setImagePreview] = useState('');
 
   // navigate hook
   const navigate = useNavigate();
@@ -64,10 +64,11 @@ const CreateProfile: React.FC = () => {
   const { profileId } = useParams();
 
   // user id
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const { id } = auth.user!;
 
   const getToken = () => {
-    const token = localStorage.getItem("authToken");
+    const token = localStorage.getItem('authToken');
     return token;
   };
 
@@ -92,7 +93,7 @@ const CreateProfile: React.FC = () => {
   const {
     profileName: profileNamePlaceholder,
     profileUrlImage: profileUrlImagePlaceholder,
-  } = profileBeingEdited[0] || "";
+  } = profileBeingEdited[0] || '';
 
   const {
     register,
@@ -105,7 +106,7 @@ const CreateProfile: React.FC = () => {
     resolver: yupResolver(createProfileValidation),
   });
 
-  const covert2base64 = (file: any) => {
+  const covert2base64 = (file: Blob) => {
     const reader = new FileReader();
 
     reader.onloadend = () => {
@@ -118,23 +119,23 @@ const CreateProfile: React.FC = () => {
   };
 
   useEffect(() => {
-    watch("profileUrlImage");
+    watch('profileUrlImage');
 
-    if (watch("profileUrlImage")[0]) {
-      setProfileImageName(watch("profileUrlImage")[0].name);
+    if (watch('profileUrlImage')[0]) {
+      setProfileImageName(watch('profileUrlImage')[0].name);
 
-      covert2base64(watch("profileUrlImage")[0]);
+      covert2base64(watch('profileUrlImage')[0]);
     }
-  }, [watch("profileUrlImage")]);
+  }, [watch('profileUrlImage')]);
 
   setTimeout(() => {
-    setFocus("profileName", {
+    setFocus('profileName', {
       shouldSelect: false,
     });
   }, 100);
 
   setTimeout(() => {
-    setFocus("profileUrlImage", {
+    setFocus('profileUrlImage', {
       shouldSelect: false,
     });
   }, 120);
@@ -147,8 +148,8 @@ const CreateProfile: React.FC = () => {
 
     const formData = new FormData();
 
-    formData.append("profileName", profileName);
-    formData.append("profileUrlImage", profileUrlImage);
+    formData.append('profileName', profileName);
+    formData.append('profileUrlImage', profileUrlImage);
 
     if (!auth.user) return <Navigate to="/login" />;
 
@@ -163,17 +164,18 @@ const CreateProfile: React.FC = () => {
 
       setIsLoading(false);
 
-      navigate("/profiles");
+      navigate('/profiles');
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       setIsLoading(true);
 
       setErrorMessage(
-        "Ocorreu um erro ao editar o perfil! Tente novamente mais tarde..."
+        'Ocorreu um erro ao editar o perfil! Tente novamente mais tarde...'
       );
       setIsLoading(false);
 
       setTimeout(() => {
-        setErrorMessage("");
+        setErrorMessage('');
       }, 2000);
     }
 
@@ -206,22 +208,22 @@ const CreateProfile: React.FC = () => {
             )}
             <FormInput
               type="text"
-              placeholder={profileNamePlaceholder || "Buscando dados..."}
+              placeholder={profileNamePlaceholder || 'Buscando dados...'}
               defaultValue={profileNamePlaceholder}
-              {...register("profileName")}
+              {...register('profileName')}
             />
             {errors.profileName && (
               <FormErrorMessage message={errors.profileName?.message} />
             )}
 
             <FormInputFile
-              {...register("profileUrlImage")}
+              {...register('profileUrlImage')}
               accept=".png, .jpg, .jpeg"
               id="input-file"
             />
             <FormInputFileLabel htmlFor="input-file">
               <AddPhotoIcon />
-              {profileImageName || "Escolher nova foto de perfil"}
+              {profileImageName || 'Escolher nova foto de perfil'}
             </FormInputFileLabel>
 
             {imagePreview ? (

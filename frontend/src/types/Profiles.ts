@@ -4,4 +4,4 @@ export interface Profiles {
   profileUrlImage: string;
 }
 
-export interface UserProfiles extends Array<Profiles> {}
+export type UserProfiles = Array<Profiles>

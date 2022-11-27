@@ -1,5 +1,5 @@
 // icons
-import { BsList, BsX } from "react-icons/bs";
+import { BsList, BsX } from 'react-icons/bs';
 // styled
 import {
   LeftContainer,
@@ -14,18 +14,19 @@ import {
   NavbarLinkExtended,
   NavProfileImgWrapper,
   NavProfileImg,
-} from "./style";
+} from './style';
 // logo
-import LogoImage from "../../assets/logo/logo.png";
+import LogoImage from '../../assets/logo/logo.png';
 // hooks
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect } from 'react';
 // context
-import { AuthContext } from "../../contexts/auth/AuthContext";
-import { Outlet, useNavigate } from "react-router-dom";
-import { Profiles, UserProfiles } from "../../types/Profiles";
+import { AuthContext } from '../../contexts/auth/AuthContext';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { Profiles } from '../../types/Profiles';
 
 const Navbar = () => {
   const auth = useContext(AuthContext);
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const { id } = auth.user!;
   const navigate = useNavigate();
   const [extendNavbar, setExtendNavbar] = useState(false);
@@ -33,8 +34,10 @@ const Navbar = () => {
 
   useEffect(() => {
     const profile = JSON.parse(
-      localStorage.getItem("loggedProfile")!
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      localStorage.getItem('loggedProfile')!
     ) as Profiles;
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     setCurrentProfile(profile!);
   }, []);
 
@@ -44,11 +47,11 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     await auth.signout();
-    navigate("/");
+    navigate('/');
   };
 
   const logoNavigation = () => {
-    navigate("/br");
+    navigate('/br');
   };
 
   return (
@@ -67,7 +70,7 @@ const Navbar = () => {
           </LeftContainer>
           <RightContainer>
             <NavbarLinkContainer>
-              {auth.user?.role === "admin" && (
+              {auth.user?.role === 'admin' && (
                 <NavbarLink to="/br/add-movie">Add Movies</NavbarLink>
               )}
               <NavbarLink to="/profiles">Profiles</NavbarLink>
@@ -93,7 +96,7 @@ const Navbar = () => {
         </NavbarInnerContainer>
         {extendNavbar && (
           <NavbarExtendedContainer>
-            {auth.user?.role === "admin" && (
+            {auth.user?.role === 'admin' && (
               <NavbarLinkExtended
                 to="/br/add-movie"
                 onClick={handleExtendNavbar}

@@ -1,6 +1,6 @@
-import styled, { css } from "styled-components";
-import { Link } from "react-router-dom";
-import BgImg from "../../../assets/bg_poster/netflix_poster.jpg";
+import styled, { css } from 'styled-components';
+import { Link } from 'react-router-dom';
+import BgImg from '../../../assets/bg_poster/netflix_poster.jpg';
 
 export const EnterPageContainer = styled.header`
   height: 100vh;

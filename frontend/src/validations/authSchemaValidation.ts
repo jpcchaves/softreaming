@@ -1,5 +1,5 @@
-import * as yup from "yup";
-import "./yupTranslations";
+import * as yup from 'yup';
+import './yupTranslations';
 
 export const authSchemaValidation = yup.object().shape({
   email: yup.string().email().required(),
@@ -13,7 +13,7 @@ export const signUpSchemaValidation = yup.object().shape({
     .string()
     .matches(
       /^[a-zA-Z0-9äöüÄÖÜ]*$/,
-      "A senha não pode conter caracteres especiais!"
+      'A senha não pode conter caracteres especiais!'
     )
     .min(5)
     .max(15)
@@ -22,40 +22,40 @@ export const signUpSchemaValidation = yup.object().shape({
     .string()
     .matches(
       /^[a-zA-Z0-9äöüÄÖÜ]*$/,
-      "A senha não pode conter caracteres especiais!"
+      'A senha não pode conter caracteres especiais!'
     )
     .min(5)
     .max(15)
-    .oneOf([yup.ref("password")]),
+    .oneOf([yup.ref('password')]),
 });
 
 export const createProfileValidation = yup.object().shape({
   profileName: yup.string().min(5).max(12).required(),
   profileUrlImage: yup
     .mixed()
-    .test("hasImage", "A imagem é obrigatória!", (value) => {
+    .test('hasImage', 'A imagem é obrigatória!', (value) => {
       return value && value[0];
     })
     .test(
-      "fileSize",
-      "O arquivo é muito grande! Tente utilizar um arquivo menor. (Limite: 200 Kb)",
+      'fileSize',
+      'O arquivo é muito grande! Tente utilizar um arquivo menor. (Limite: 200 Kb)',
       (value) => {
         return value && value[0]?.size <= 200000;
       }
     )
     .test(
-      "fileType",
-      "Os formatos suportados são: JPG, JPEG e PNG.",
+      'fileType',
+      'Os formatos suportados são: JPG, JPEG e PNG.',
       (value) => {
         const fileType: string = value[0]?.type;
-        
+
         const isValidType = fileType && fileType.toLowerCase();
 
-        if (isValidType === "image/jpg") {
+        if (isValidType === 'image/jpg') {
           return value && isValidType;
-        } else if (isValidType === "image/jpeg") {
+        } else if (isValidType === 'image/jpeg') {
           return value && isValidType;
-        } else if (isValidType === "image/png") {
+        } else if (isValidType === 'image/png') {
           return value && isValidType;
         }
       }

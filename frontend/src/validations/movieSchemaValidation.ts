@@ -1,5 +1,5 @@
-import * as yup from "yup";
-import "./yupTranslations";
+import * as yup from 'yup';
+import './yupTranslations';
 
 export const movieSchemaValidation = yup.object().shape({
   movieName: yup.string().min(3).required(),

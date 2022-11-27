@@ -1,13 +1,13 @@
 // icons
-import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
+import { BsFillTrashFill, BsFillPencilFill } from 'react-icons/bs';
 // hooks
-import { useContext, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useContext, useState } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 // auth context
-import { AuthContext } from "../../contexts/auth/AuthContext";
-import { api } from "../../hooks/useApi";
+import { AuthContext } from '../../contexts/auth/AuthContext';
+import { api } from '../../hooks/useApi';
 // types
-import { Profiles } from "../../types/Profiles";
+import { Profiles } from '../../types/Profiles';
 // styled
 import {
   ButtonsWrapper,
@@ -18,7 +18,7 @@ import {
   ProfileImageWrapper,
   ProfileName,
   ProfileNameWrapper,
-} from "./style";
+} from './style';
 
 const ManageProfileBanner = ({
   id,
@@ -26,7 +26,10 @@ const ManageProfileBanner = ({
   profileUrlImage,
 }: Profiles) => {
   const auth = useContext(AuthContext);
+
   const navigate = useNavigate();
+
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const [profileIdToEdit, setProfileIdToEdit] = useState<number>(id!);
 
   const handleEditProfile = (id?: number) => {
@@ -43,12 +46,14 @@ const ManageProfileBanner = ({
     const profileIdToDelete = id;
 
     const getToken = () => {
-      const token = localStorage.getItem("authToken");
+      const token = localStorage.getItem('authToken');
       return token;
     };
 
     try {
       const authToken = getToken();
+			
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const { id } = auth.user!;
 
       await api.delete(`/profiles/${id}/${profileIdToDelete}`, {
@@ -57,7 +62,7 @@ const ManageProfileBanner = ({
         },
       });
 
-      navigate("/profiles");
+      navigate('/profiles');
     } catch (error) {
       console.log(error);
     }

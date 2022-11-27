@@ -1,36 +1,36 @@
 // hooks
-import { useContext, useEffect, useState } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { api } from "../../../hooks/useApi";
-import { FieldValues, useForm } from "react-hook-form";
+import { useContext, useEffect, useState } from 'react';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { api } from '../../../hooks/useApi';
+import { FieldValues, useForm } from 'react-hook-form';
 // yup
-import { yupResolver } from "@hookform/resolvers/yup";
-import { movieSchemaValidation } from "../../../validations/movieSchemaValidation";
+import { yupResolver } from '@hookform/resolvers/yup';
+import { movieSchemaValidation } from '../../../validations/movieSchemaValidation';
 // components
-import ErrorMessageComponent from "../../../components/errorMessage";
-import FormErrorMessage from "../../../components/formErrorMessage";
+import ErrorMessageComponent from '../../../components/errorMessage';
+import FormErrorMessage from '../../../components/formErrorMessage';
 import {
   FormInput,
   FormInputSubmit,
-} from "../../../components/inputStyledComponent/style";
-import LoadingSpan from "../../../components/loadingSpan";
-import SuccessMessageComponent from "../../../components/successMessage";
+} from '../../../components/inputStyledComponent/style';
+import LoadingSpan from '../../../components/loadingSpan';
+import SuccessMessageComponent from '../../../components/successMessage';
 // styled components
 import {
   EditMovieForm,
   EditMovieFormWrapper,
   EditMoviePageWrapper,
   FormTitle,
-} from "./style";
+} from './style';
 // context
-import { AuthContext } from "../../../contexts/auth/AuthContext";
+import { AuthContext } from '../../../contexts/auth/AuthContext';
 // types
-import { Movie } from "../../../types/Movie";
+import { Movie } from '../../../types/Movie';
 
 const EditMovie = () => {
-  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [successMessage, setSuccessMessage] = useState<string>("");
+  const [successMessage, setSuccessMessage] = useState<string>('');
   const [movieBeingEdited, setMovieBeingEdited] = useState<Movie>();
   const [showDefaultValue, setShowDefaultValue] = useState(true);
   const navigate = useNavigate();
@@ -40,7 +40,7 @@ const EditMovie = () => {
   if (!auth.user) return <Navigate to="/login" />;
 
   const getToken = () => {
-    const token = localStorage.getItem("authToken");
+    const token = localStorage.getItem('authToken');
     return token;
   };
   const authToken = getToken();
@@ -97,62 +97,62 @@ const EditMovie = () => {
       });
       reset();
       setShowDefaultValue(false);
-      setSuccessMessage("Filme editado com sucesso!");
+      setSuccessMessage('Filme editado com sucesso!');
 
       setTimeout(() => {
-        setSuccessMessage("");
-        navigate("/br/movies");
+        setSuccessMessage('');
+        navigate('/br/movies');
       }, 1000);
 
       setIsLoading(false);
     } catch (error) {
       setIsLoading(true);
       if (error) {
-        setErrorMessage("Ocorreu um erro ao editar o filme...");
+        setErrorMessage('Ocorreu um erro ao editar o filme...');
       }
       setTimeout(() => {
-        setErrorMessage("");
+        setErrorMessage('');
       }, 2000);
       setIsLoading(false);
     }
   };
   setTimeout(() => {
-    setFocus("movieName", {
+    setFocus('movieName', {
       shouldSelect: false,
     });
   }, 1);
   setTimeout(() => {
-    setFocus("category", {
+    setFocus('category', {
       shouldSelect: false,
     });
   }, 2);
   setTimeout(() => {
-    setFocus("description", {
+    setFocus('description', {
       shouldSelect: false,
     });
   }, 3);
   setTimeout(() => {
-    setFocus("duration", {
+    setFocus('duration', {
       shouldSelect: false,
     });
   }, 4);
   setTimeout(() => {
-    setFocus("description", {
+    setFocus('description', {
       shouldSelect: false,
     });
   }, 5);
   setTimeout(() => {
-    setFocus("releaseDate", {
+    setFocus('releaseDate', {
       shouldSelect: false,
     });
   }, 6);
   setTimeout(() => {
-    setFocus("movie_url", {
+    setFocus('movie_url', {
       shouldSelect: false,
     });
   }, 7);
   setTimeout(() => {
-    setFocus("poster_url", {
+    setFocus('poster_url', {
       shouldSelect: false,
     });
   }, 8);
@@ -165,8 +165,8 @@ const EditMovie = () => {
           <FormInput
             type="text"
             placeholder="Edite o nome do filme..."
-            defaultValue={showDefaultValue ? movieBeingEdited?.movieName : ""}
-            {...register("movieName")}
+            defaultValue={showDefaultValue ? movieBeingEdited?.movieName : ''}
+            {...register('movieName')}
           />
           {errors.movieName && (
             <FormErrorMessage message={errors.movieName?.message} />
@@ -174,8 +174,8 @@ const EditMovie = () => {
           <FormInput
             type="text"
             placeholder="Edite a categoria do filme..."
-            defaultValue={showDefaultValue ? movieBeingEdited?.category : ""}
-            {...register("category")}
+            defaultValue={showDefaultValue ? movieBeingEdited?.category : ''}
+            {...register('category')}
           />
           {errors.category && (
             <FormErrorMessage message={errors.category?.message} />
@@ -183,8 +183,8 @@ const EditMovie = () => {
           <FormInput
             type="text"
             placeholder="Edite a descrição do filme..."
-            defaultValue={showDefaultValue ? movieBeingEdited?.description : ""}
-            {...register("description")}
+            defaultValue={showDefaultValue ? movieBeingEdited?.description : ''}
+            {...register('description')}
           />
           {errors.description && (
             <FormErrorMessage message={errors.description?.message} />
@@ -192,8 +192,8 @@ const EditMovie = () => {
           <FormInput
             type="text"
             placeholder="Edite a duração do filme (em minutos)..."
-            defaultValue={showDefaultValue ? movieBeingEdited?.duration : ""}
-            {...register("duration")}
+            defaultValue={showDefaultValue ? movieBeingEdited?.duration : ''}
+            {...register('duration')}
           />
           {errors.duration && (
             <FormErrorMessage message={errors.duration?.message} />
@@ -201,8 +201,8 @@ const EditMovie = () => {
           <FormInput
             type="text"
             placeholder="Edite a data de lançamento do filme..."
-            defaultValue={showDefaultValue ? movieBeingEdited?.releaseDate : ""}
-            {...register("releaseDate")}
+            defaultValue={showDefaultValue ? movieBeingEdited?.releaseDate : ''}
+            {...register('releaseDate')}
           />
           {errors.releaseDate && (
             <FormErrorMessage message={errors.releaseDate?.message} />
@@ -210,8 +210,8 @@ const EditMovie = () => {
           <FormInput
             type="text"
             placeholder="Edite a URL do filme..."
-            defaultValue={showDefaultValue ? movieBeingEdited?.movie_url : ""}
-            {...register("movie_url")}
+            defaultValue={showDefaultValue ? movieBeingEdited?.movie_url : ''}
+            {...register('movie_url')}
           />
           {errors.movie_url && (
             <FormErrorMessage message={errors.movie_url?.message} />
@@ -219,8 +219,8 @@ const EditMovie = () => {
           <FormInput
             type="text"
             placeholder="Edite a URL do pôster do filme..."
-            defaultValue={showDefaultValue ? movieBeingEdited?.poster_url : ""}
-            {...register("poster_url")}
+            defaultValue={showDefaultValue ? movieBeingEdited?.poster_url : ''}
+            {...register('poster_url')}
           />
           {errors.poster_url && (
             <FormErrorMessage message={errors.poster_url?.message} />

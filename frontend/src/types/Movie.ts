@@ -9,4 +9,4 @@ export interface Movie {
   poster_url: string;
 }
 
-export interface AllMovies extends Array<Movie> {}
+export type AllMovies = Array<Movie>

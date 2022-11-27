@@ -1,27 +1,27 @@
-import { setLocale } from "yup";
+import { setLocale } from 'yup';
 
 setLocale({
   mixed: {
-    default: "Campo não é válido",
-    required: "O campo é obrigatório",
-    oneOf: "As senhas devem ser iguais!",
+    default: 'Campo não é válido',
+    required: 'O campo é obrigatório',
+    oneOf: 'As senhas devem ser iguais!',
   },
   string: {
-    email: () => "O campo precisa conter uma email válido",
+    email: () => 'O campo precisa conter uma email válido',
     max: ({ max }) => `O campo pode ter no máximo ${max} caracteres`,
     min: ({ min }) => `O campo precisa ter pelo menos ${min} caracteres`,
     length: ({ length }) =>
       `O campo precisa ter exatamente ${length} caracteres`,
-    url: "Insira uma URL válida!",
+    url: 'Insira uma URL válida!',
   },
   date: {
     max: ({ max }) => `A data deve ser menor que ${max}`,
     min: ({ min }) => `A data deve ser maior que ${min}`,
   },
   number: {
-    integer: () => "O campo precisa ter um valor inteiro",
-    negative: () => "O campo precisa ter um valor negativo",
-    positive: () => "O campo precisa ter um valor positivo",
+    integer: () => 'O campo precisa ter um valor inteiro',
+    negative: () => 'O campo precisa ter um valor negativo',
+    positive: () => 'O campo precisa ter um valor positivo',
     moreThan: ({ more }) => `O campo precisa ter um valor maior que ${more}`,
     lessThan: ({ less }) => `O campo precisa ter um valor menor que ${less}`,
     min: ({ min }) =>

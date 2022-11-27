@@ -1,10 +1,10 @@
 // hooks
-import { useEffect, useState } from "react";
-import { useApi } from "../../hooks/useApi";
+import { useEffect, useState } from 'react';
+import { useApi } from '../../hooks/useApi';
 // type
-import { User } from "../../types/User";
+import { User } from '../../types/User';
 // context
-import { AuthContext } from "./AuthContext";
+import { AuthContext } from './AuthContext';
 
 export const AuthProvider = ({ children }: { children: JSX.Element }) => {
   const [user, setUser] = useState<User | null>(null);
@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
 
   useEffect(() => {
     const validateToken = async () => {
-      const storagedData = localStorage.getItem("authToken");
+      const storagedData = localStorage.getItem('authToken');
       try {
         if (storagedData) {
           const loggedUserData = await api.validateToken(storagedData);
@@ -20,6 +20,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
             setUser(loggedUserData.data);
           }
         }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
         if (error) {
           console.log(error.response.data);
@@ -43,12 +44,12 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
 
   const signout = async () => {
     setUser(null);
-    setToken("");
+    setToken('');
     await api.signout();
   };
 
   const setToken = (token: string) => {
-    localStorage.setItem("authToken", token);
+    localStorage.setItem('authToken', token);
   };
 
   return (

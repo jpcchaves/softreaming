@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../../contexts/auth/AuthContext";
+import React, { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../../../contexts/auth/AuthContext';
 // styled
 import {
   AddProfileButtonWrapper,
@@ -23,32 +23,33 @@ import {
   ProfilesTitleContainer,
   ProfilesWrapper,
   TextToCreateProfile,
-} from "./style";
+} from './style';
 // types
-import { UserProfiles } from "../../../types/Profiles";
+import { UserProfiles } from '../../../types/Profiles';
 // Logo
-import LogoImage from "../../../assets/logo/logo.png";
+import LogoImage from '../../../assets/logo/logo.png';
 // add img
-import AddProfileImg from "../../../assets/add/Add.png";
-import { api } from "../../../hooks/useApi";
-import { Navigate, Link, useNavigate } from "react-router-dom";
+import AddProfileImg from '../../../assets/add/Add.png';
+import { api } from '../../../hooks/useApi';
+import { Navigate, useNavigate } from 'react-router-dom';
 // components
-import LoadingSpan from "../../../components/loadingSpan";
-import ProfileBannerComponent from "../../../components/profileBanner";
+import LoadingSpan from '../../../components/loadingSpan';
+import ProfileBannerComponent from '../../../components/profileBanner';
 
 const ProfilesPage: React.FC = () => {
   const auth = useContext(AuthContext);
   const [userProfiles, setUserProfiles] = useState<UserProfiles>();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState('');
 
   const navigate = useNavigate();
 
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const { id } = auth.user!;
 
   const getToken = () => {
-    const token = localStorage.getItem("authToken");
+    const token = localStorage.getItem('authToken');
     return token;
   };
 
@@ -71,15 +72,16 @@ const ProfilesPage: React.FC = () => {
         setUserProfiles(profiles);
 
         setIsLoading(false);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
         setIsLoading(true);
 
         setError(true);
 
-        setErrorMessage("Ocorreu um erro... Tente novamente mais tarde.");
+        setErrorMessage('Ocorreu um erro... Tente novamente mais tarde.');
 
         setTimeout(() => {
-          setErrorMessage("");
+          setErrorMessage('');
           setError(false);
         }, 3000);
 
@@ -92,7 +94,7 @@ const ProfilesPage: React.FC = () => {
   }, []);
 
   const handleClick = () => {
-    navigate("/profiles/create");
+    navigate('/profiles/create');
   };
 
   return (
@@ -134,15 +136,15 @@ const ProfilesPage: React.FC = () => {
           {userProfiles &&
             userProfiles?.length >= 1 &&
             userProfiles?.length <= 3 && (
-              <AddProfileButtonWrapper onClick={handleClick}>
-                <AddProfileImageWrapper>
-                  <AddProfileImage src={AddProfileImg} />
-                </AddProfileImageWrapper>
-                <AddProfileTextWrapper>
-                  <AddProfileText>Adicionar Perfil</AddProfileText>
-                </AddProfileTextWrapper>
-              </AddProfileButtonWrapper>
-            )}
+            <AddProfileButtonWrapper onClick={handleClick}>
+              <AddProfileImageWrapper>
+                <AddProfileImage src={AddProfileImg} />{' '}
+              </AddProfileImageWrapper>
+              <AddProfileTextWrapper>
+                <AddProfileText>Adicionar Perfil</AddProfileText>
+              </AddProfileTextWrapper>
+            </AddProfileButtonWrapper>
+          )}
         </ProfilesWrapper>
         {userProfiles && userProfiles?.length > 0 && (
           <ManageProfilesButtonWrapper>

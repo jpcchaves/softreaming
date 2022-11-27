@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 export const UserDetailsPageWrapper = styled.div`
   width: 100vw;

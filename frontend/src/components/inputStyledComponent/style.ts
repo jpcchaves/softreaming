@@ -1,5 +1,5 @@
-import { MdAddPhotoAlternate } from "react-icons/md";
-import styled, { css } from "styled-components";
+import { MdAddPhotoAlternate } from 'react-icons/md';
+import styled, { css } from 'styled-components';
 
 export const FormInputWrapper = styled.div`
   width: 100%;
@@ -22,7 +22,7 @@ export const FormInput = styled.input`
 `;
 
 export const FormInputFile = styled.input.attrs({
-  type: "file",
+  type: 'file',
 })`
   display: none;
 `;

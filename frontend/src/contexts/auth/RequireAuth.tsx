@@ -1,8 +1,8 @@
 // hooks
-import { useContext } from "react";
-import { Navigate } from "react-router-dom";
+import { useContext } from 'react';
+import { Navigate } from 'react-router-dom';
 // context
-import { AuthContext } from "./AuthContext";
+import { AuthContext } from './AuthContext';
 
 export const RequireAuth = ({ children }: { children: JSX.Element }) => {
   const auth = useContext(AuthContext);
@@ -20,7 +20,7 @@ export const RequireAuthAndAdmin = ({
 }) => {
   const auth = useContext(AuthContext);
 
-  if (!auth.user || auth.user.role != "admin") {
+  if (!auth.user || auth.user.role != 'admin') {
     return <Navigate to="/login" />;
   }
 

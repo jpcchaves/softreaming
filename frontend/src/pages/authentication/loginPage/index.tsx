@@ -1,14 +1,14 @@
 // components
-import ErrorMessageComponent from "../../../components/errorMessage";
-import LoadingSpan from "../../../components/loadingSpan";
+import ErrorMessageComponent from '../../../components/errorMessage';
+import LoadingSpan from '../../../components/loadingSpan';
 import {
   FormInput,
   FormInputSubmit,
   FormInputWrapper,
-} from "../../../components/inputStyledComponent/style";
+} from '../../../components/inputStyledComponent/style';
 // hooks
-import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 // styled components
 import {
   EnterPageContainer,
@@ -22,22 +22,22 @@ import {
   SignUpLink,
   SignUpNow,
   SignUpText,
-} from "./style";
+} from './style';
 // logo
-import LogoImage from "../../../assets/logo/logo.png";
+import LogoImage from '../../../assets/logo/logo.png';
 // hook forms
-import { FieldValues, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { FieldValues, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 // yup schema validation
-import { authSchemaValidation } from "../../../validations/authSchemaValidation";
+import { authSchemaValidation } from '../../../validations/authSchemaValidation';
 // context
-import { AuthContext } from "../../../contexts/auth/AuthContext";
-import FormErrorMessage from "../../../components/formErrorMessage";
+import { AuthContext } from '../../../contexts/auth/AuthContext';
+import FormErrorMessage from '../../../components/formErrorMessage';
 
 const LoginPage: React.FC = () => {
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const {
@@ -57,20 +57,21 @@ const LoginPage: React.FC = () => {
         const isLogged = await auth.signin(email, password);
         if (isLogged) {
           reset();
-          navigate("/profiles");
+          navigate('/profiles');
         }
       }
       setIsLoading(false);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       setIsLoading(true);
       if (error.response.data) {
         const { message } = error.response.data;
         setErrorMessage(message);
       } else {
-        setErrorMessage("Ocorreu um erro... Tente novamente mais tarde!");
+        setErrorMessage('Ocorreu um erro... Tente novamente mais tarde!');
       }
       setTimeout(() => {
-        setErrorMessage("");
+        setErrorMessage('');
       }, 2000);
     }
     setIsLoading(false);
@@ -92,7 +93,7 @@ const LoginPage: React.FC = () => {
                 <FormInput
                   type="text"
                   placeholder="Digite seu email..."
-                  {...register("email")}
+                  {...register('email')}
                 />
               </FormInputWrapper>
               {errors.email && (
@@ -102,7 +103,7 @@ const LoginPage: React.FC = () => {
               <FormInput
                 type="password"
                 placeholder="Digite sua senha..."
-                {...register("password")}
+                {...register('password')}
               />
 
               {errors.password && (

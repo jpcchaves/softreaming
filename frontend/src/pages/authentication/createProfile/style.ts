@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import styled, { css } from "styled-components";
+import { Link } from 'react-router-dom';
+import styled, { css } from 'styled-components';
 
 export const CreateProfilePageContainer = styled.div`
   width: 100vw;

@@ -8,7 +8,7 @@ import {
   MoviePageBannerButtons,
   MoviePageBannerButtonsWrapper,
   MoviePageBannerContents,
-} from "./style";
+} from './style';
 
 const MovieHomePage: React.FC = () => {
   return (

@@ -3,7 +3,7 @@ import {
   LoadingMessage,
   SubmitButtonDisabled,
   SubmitButtonWrapper,
-} from "./style";
+} from './style';
 
 const LoadingSpan: React.FC = () => {
   return (

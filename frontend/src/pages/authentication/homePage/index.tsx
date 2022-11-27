@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 // styled components
 import {
   EnterLink,
@@ -10,9 +10,9 @@ import {
   StoryCardSubtitle,
   StoryCardText,
   StoryCardTitle,
-} from "./style";
+} from './style';
 // logo
-import LogoImage from "../../../assets/logo/logo.png";
+import LogoImage from '../../../assets/logo/logo.png';
 
 const HomePage: React.FC = () => {
   return (

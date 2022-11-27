@@ -1,11 +1,11 @@
 // components
-import SuccessMessageComponent from "../../../components/successMessage";
-import ErrorMessageComponent from "../../../components/errorMessage";
-import LoadingSpan from "../../../components/loadingSpan";
+import SuccessMessageComponent from '../../../components/successMessage';
+import ErrorMessageComponent from '../../../components/errorMessage';
+import LoadingSpan from '../../../components/loadingSpan';
 import {
   FormInput,
   FormInputSubmit,
-} from "../../../components/inputStyledComponent/style";
+} from '../../../components/inputStyledComponent/style';
 // styled components
 import {
   EnterPageContainer,
@@ -16,26 +16,26 @@ import {
   Logo,
   LogoLink,
   LogoWrapper,
-} from "./style";
+} from './style';
 // logo
-import LogoImage from "../../../assets/logo/logo.png";
+import LogoImage from '../../../assets/logo/logo.png';
 // hook forms
-import { FieldValues, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { FieldValues, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 // yup schema validation
-import { signUpSchemaValidation } from "../../../validations/authSchemaValidation";
+import { signUpSchemaValidation } from '../../../validations/authSchemaValidation';
 // hooks
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 // userDataInterface
-import { UserDataInterface } from "../../../types/userDataInterface";
+import { UserDataInterface } from '../../../types/userDataInterface';
 // axios
-import { api } from "../../../hooks/useApi";
-import FormErrorMessage from "../../../components/formErrorMessage";
+import { api } from '../../../hooks/useApi';
+import FormErrorMessage from '../../../components/formErrorMessage';
 
 const SignUpPage: React.FC = () => {
-  const [errorMessage, setErrorMessage] = useState<string>("");
-  const [successMessage, setSuccessMessage] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [successMessage, setSuccessMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   // navigate hook
@@ -62,28 +62,29 @@ const SignUpPage: React.FC = () => {
         confirmPassword,
       };
 
-      await api.post("/user", newUserData);
+      await api.post('/user', newUserData);
 
       setSuccessMessage(
-        "Usuário criado com sucesso! Aguarde... você será redirecionado para a tela de Login"
+        'Usuário criado com sucesso! Aguarde... você será redirecionado para a tela de Login'
       );
 
       setIsLoading(false);
 
       setTimeout(() => {
-        navigate("/login");
-        setSuccessMessage("");
+        navigate('/login');
+        setSuccessMessage('');
       }, 1500);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       if (error.response.data) {
         const { errors } = error.response.data;
         setErrorMessage(errors);
       } else {
-        setErrorMessage("Ocorreu um erro... Tente novamente mais tarde.");
+        setErrorMessage('Ocorreu um erro... Tente novamente mais tarde.');
       }
 
       setTimeout(() => {
-        setErrorMessage("");
+        setErrorMessage('');
       }, 2000);
 
       setIsLoading(false);
@@ -109,7 +110,7 @@ const SignUpPage: React.FC = () => {
               <FormInput
                 type="text"
                 placeholder="Digite seu nome..."
-                {...register("userName")}
+                {...register('userName')}
               />
               {errors.userName && (
                 <FormErrorMessage message={errors.userName?.message} />
@@ -118,7 +119,7 @@ const SignUpPage: React.FC = () => {
               <FormInput
                 type="email"
                 placeholder="Digite seu email..."
-                {...register("email")}
+                {...register('email')}
               />
 
               {errors.email && (
@@ -128,7 +129,7 @@ const SignUpPage: React.FC = () => {
               <FormInput
                 type="password"
                 placeholder="Digite sua senha..."
-                {...register("password")}
+                {...register('password')}
               />
 
               {errors.password && (
@@ -138,7 +139,7 @@ const SignUpPage: React.FC = () => {
               <FormInput
                 type="password"
                 placeholder="Digite novamente sua senha..."
-                {...register("confirmPassword")}
+                {...register('confirmPassword')}
               />
 
               {errors.confirmPassword && (

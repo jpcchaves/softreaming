@@ -1,4 +1,4 @@
-import { ApiErrorMessageWrapper, ApiErrorMessage } from "./style";
+import { ApiErrorMessageWrapper, ApiErrorMessage } from './style';
 
 const ErrorMessageComponent = ({ errorMessage }: { errorMessage: string }) => {
   return (

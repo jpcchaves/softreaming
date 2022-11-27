@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
-import { AuthContext } from "../../../contexts/auth/AuthContext";
-import { api } from "../../../hooks/useApi";
-import { UserProfiles } from "../../../types/Profiles";
+import React, { useContext, useEffect, useState } from 'react';
+import { Navigate } from 'react-router-dom';
+import { AuthContext } from '../../../contexts/auth/AuthContext';
+import { api } from '../../../hooks/useApi';
+import { UserProfiles } from '../../../types/Profiles';
 import {
   ErrorMessagePageWrapper,
   GoBackLink,
@@ -14,24 +14,25 @@ import {
   ManageProfilesTitle,
   ManageProfilesTitleContainer,
   ProfilesWrapper,
-} from "./style";
+} from './style';
 // icons
-import { BsFillArrowLeftCircleFill } from "react-icons/bs";
-import ManageProfileBanner from "../../../components/manageProfileBanner";
-import LoadingSpan from "../../../components/loadingSpan";
-import ErrorMessageComponent from "../../../components/errorMessage";
+import { BsFillArrowLeftCircleFill } from 'react-icons/bs';
+import ManageProfileBanner from '../../../components/manageProfileBanner';
+import LoadingSpan from '../../../components/loadingSpan';
+import ErrorMessageComponent from '../../../components/errorMessage';
 
 const ManageProfiles: React.FC = () => {
   const [userProfiles, setUserProfiles] = useState<UserProfiles>();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState('');
   const auth = useContext(AuthContext);
 
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const { id } = auth.user!;
 
   const getToken = () => {
-    const token = localStorage.getItem("authToken");
+    const token = localStorage.getItem('authToken');
     return token;
   };
 
@@ -54,13 +55,14 @@ const ManageProfiles: React.FC = () => {
         setUserProfiles(profiles);
 
         setIsLoading(false);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
         setIsLoading(true);
 
         setError(true);
 
         setErrorMessage(
-          "Ocorreu um erro ao carregar os perfis, tente novamente!"
+          'Ocorreu um erro ao carregar os perfis, tente novamente!'
         );
         setIsLoading(false);
       }

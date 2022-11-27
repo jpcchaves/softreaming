@@ -1,7 +1,7 @@
 // hooks
-import { createContext } from "react";
+import { createContext } from 'react';
 // types
-import { User } from "../../types/User";
+import { User } from '../../types/User';
 
 export type AuthContextType = {
   user: User | null;
@@ -9,4 +9,5 @@ export type AuthContextType = {
   signout: () => void;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 export const AuthContext = createContext<AuthContextType>(null!);

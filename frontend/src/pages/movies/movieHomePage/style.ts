@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import Bgimg from "../../../assets/movie_page_bg/movie_hp_bg.jpg";
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import Bgimg from '../../../assets/movie_page_bg/movie_hp_bg.jpg';
 
 export const MovieHomePageWrapper = styled.div`
   width: 100vw;

@@ -1,11 +1,11 @@
-import { useNavigate } from "react-router-dom";
-import { Profiles } from "../../types/Profiles";
+import { useNavigate } from 'react-router-dom';
+import { Profiles } from '../../types/Profiles';
 import {
   ProfileBanner,
   ProfileImage,
   ProfileImageWrapper,
   ProfileName,
-} from "./style";
+} from './style';
 
 const ProfileBannerComponent = ({
   id,
@@ -17,8 +17,8 @@ const ProfileBannerComponent = ({
   const profileToStore = { id, profileName, profileUrlImage };
 
   const navigateToMovies = () => {
-    localStorage.setItem("loggedProfile", JSON.stringify(profileToStore));
-    navigate("/br");
+    localStorage.setItem('loggedProfile', JSON.stringify(profileToStore));
+    navigate('/br');
   };
 
   return (

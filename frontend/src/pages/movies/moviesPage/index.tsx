@@ -1,6 +1,6 @@
 // hooks
-import { useEffect, useState, useContext } from "react";
-import { Navigate } from "react-router-dom";
+import { useEffect, useState, useContext } from 'react';
+import { Navigate } from 'react-router-dom';
 // icons
 import {
   BsFillPencilFill,
@@ -8,16 +8,16 @@ import {
   BsFillPlayBtnFill,
   BsSearch,
   BsXLg,
-} from "react-icons/bs";
+} from 'react-icons/bs';
 // components
-import ErrorMessageComponent from "../../../components/errorMessage";
-import LoadingSpan from "../../../components/loadingSpan";
+import ErrorMessageComponent from '../../../components/errorMessage';
+import LoadingSpan from '../../../components/loadingSpan';
 // context
-import { AuthContext } from "../../../contexts/auth/AuthContext";
+import { AuthContext } from '../../../contexts/auth/AuthContext';
 // axios
-import { api } from "../../../hooks/useApi";
+import { api } from '../../../hooks/useApi';
 // types
-import { AllMovies } from "../../../types/Movie";
+import { AllMovies } from '../../../types/Movie';
 // styled components
 import {
   ButtonsWrapper,
@@ -38,19 +38,19 @@ import {
   SearchInput,
   SearchInputWrapper,
   NoMoviesFoundMessage,
-} from "./style";
+} from './style';
 
 const MoviesPage: React.FC = () => {
   const [allMovies, setAllMovies] = useState<AllMovies>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [filteredData, setFilteredData] = useState<AllMovies>([]);
-  const [searchWord, setSearchWord] = useState("");
-  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [searchWord, setSearchWord] = useState('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
   const auth = useContext(AuthContext);
 
   const getToken = () => {
-    const token = localStorage.getItem("authToken");
+    const token = localStorage.getItem('authToken');
     return token;
   };
 
@@ -60,7 +60,7 @@ const MoviesPage: React.FC = () => {
     const fetchMovies = async () => {
       try {
         setIsLoading(true);
-        const movies = await api.get("/movies", {
+        const movies = await api.get('/movies', {
           headers: {
             Authorization: `Bearer ${authToken}`,
           },
@@ -71,7 +71,7 @@ const MoviesPage: React.FC = () => {
       } catch (error) {
         setIsLoading(false);
         setErrorMessage(
-          "Ocorreu um erro ao carregar os filmes... Tente novamente mais tarde."
+          'Ocorreu um erro ao carregar os filmes... Tente novamente mais tarde.'
         );
         console.log(error);
       }
@@ -84,7 +84,7 @@ const MoviesPage: React.FC = () => {
 
     try {
       if (
-        window.confirm("Você irá deletar um filme. Deseja confirmar?") === true
+        window.confirm('Você irá deletar um filme. Deseja confirmar?') === true
       ) {
         await api.delete(`/movies/${id}`, {
           headers: {
@@ -97,10 +97,11 @@ const MoviesPage: React.FC = () => {
         });
         setAllMovies(remainingMovies);
         setFilteredData(remainingMovies);
-        handleInputCleanup()
+        handleInputCleanup();
       } else {
         return;
       }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.log(error);
     }
@@ -116,7 +117,7 @@ const MoviesPage: React.FC = () => {
 
   const handleInputCleanup = () => {
     setFilteredData([]);
-    setSearchWord("");
+    setSearchWord('');
   };
 
   return (
@@ -159,7 +160,7 @@ const MoviesPage: React.FC = () => {
                   <WatchMovieButton to={`/br/watch/${movie.id}`}>
                     <BsFillPlayBtnFill />
                   </WatchMovieButton>
-                  {auth.user?.role === "admin" && (
+                  {auth.user?.role === 'admin' && (
                     <>
                       <EditButton to={`/br/movie/${movie.id}`}>
                         <BsFillPencilFill />
@@ -186,7 +187,7 @@ const MoviesPage: React.FC = () => {
                   <WatchMovieButton to={`/br/watch/${movie.id}`}>
                     <BsFillPlayBtnFill />
                   </WatchMovieButton>
-                  {auth.user?.role === "admin" && (
+                  {auth.user?.role === 'admin' && (
                     <>
                       <EditButton to={`/br/movie/${movie.id}`}>
                         <BsFillPencilFill />

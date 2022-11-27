@@ -1,13 +1,13 @@
-import axios from "axios";
+import axios from 'axios';
 
 export const api = axios.create({
-  baseURL: "http://softreaming.herokuapp.com",
+  baseURL: 'http://softreaming.herokuapp.com',
 });
 
 export const useApi = () => ({
   validateToken: async (token: string) => {
     const tokenToValidate = token;
-    const userData = await api.get("/user", {
+    const userData = await api.get('/user', {
       headers: {
         Authorization: `Bearer ${tokenToValidate}`,
       },
@@ -16,7 +16,7 @@ export const useApi = () => ({
   },
   signin: async (email: string, password: string) => {
     const userLoginData = { email, password };
-    const response = await api.post("/login", userLoginData);
+    const response = await api.post('/login', userLoginData);
     return response.data;
   },
   signout: async () => {

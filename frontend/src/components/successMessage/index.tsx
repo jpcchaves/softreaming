@@ -1,4 +1,4 @@
-import { SuccessMessageWrapper, SuccessMessage } from "./style";
+import { SuccessMessageWrapper, SuccessMessage } from './style';
 
 const SuccessMessageComponent = ({
   successMessage,

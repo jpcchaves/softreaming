@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import LoadingSpan from "../../../components/loadingSpan";
-import { api } from "../../../hooks/useApi";
-import { Movie } from "../../../types/Movie";
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import LoadingSpan from '../../../components/loadingSpan';
+import { api } from '../../../hooks/useApi';
+import { Movie } from '../../../types/Movie';
 import {
   MovieDetailsWrapper,
   WatchMoviePageContainer,
@@ -12,7 +12,7 @@ import {
   MovieInfo,
   MovieContainer,
   YoutubeIframe,
-} from "./style";
+} from './style';
 
 const WatchMovie = () => {
   const { movieId } = useParams();
@@ -20,7 +20,7 @@ const WatchMovie = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const getToken = () => {
-    const token = localStorage.getItem("authToken");
+    const token = localStorage.getItem('authToken');
     return token;
   };
 

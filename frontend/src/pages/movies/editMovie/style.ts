@@ -1,5 +1,5 @@
-import styled, { css } from "styled-components";
-import BgImg from "../../../assets/add_movie_bg/add_movie_bg.jpg";
+import styled, { css } from 'styled-components';
+import BgImg from '../../../assets/add_movie_bg/add_movie_bg.jpg';
 
 export const EditMoviePageWrapper = styled.div`
   width: 100vw;
