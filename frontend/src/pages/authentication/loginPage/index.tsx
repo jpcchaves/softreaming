@@ -65,8 +65,8 @@ const LoginPage: React.FC = () => {
     } catch (error: any) {
       setIsLoading(true);
       if (error.response.data) {
-        const { message } = error.response.data;
-        setErrorMessage(message);
+        const { errors } = error.response.data;
+        setErrorMessage(errors);
       } else {
         setErrorMessage('Ocorreu um erro... Tente novamente mais tarde!');
       }
