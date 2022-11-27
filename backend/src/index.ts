@@ -1,19 +1,19 @@
 // express
-import express from "express";
+import express from 'express';
 // data source
-import { AppDataSource } from "./data-source";
+import { AppDataSource } from './data-source';
 // routes
-import routes from "./routes";
+import routes from './routes';
 // rate limit
-import rateLimit from "express-rate-limit";
+import rateLimit from 'express-rate-limit';
 // cors
-import cors from "cors";
+import cors from 'cors';
 
 AppDataSource.initialize().then(() => {
   const app = express();
   const port = process.env.PORT;
 
-  app.locals.urlProfileS3
+  app.locals.urlProfileS3;
 
   app.use(cors());
 
@@ -24,10 +24,10 @@ AppDataSource.initialize().then(() => {
   const limiter = rateLimit({
     max: 100,
     windowMs: 60 * 60 * 1000,
-    message: "Too many requests from this IP, please try again in an hour!",
+    message: 'Too many requests from this IP, please try again in an hour!',
   });
 
-  app.use("/", limiter);
+  app.use('/', limiter);
 
   return app.listen(port, () => {
     `API running on port ${port}`;

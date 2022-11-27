@@ -1,5 +1,5 @@
-import { NextFunction, Request, Response } from "express";
-import UploadImagesService from "../services/UploadImageService";
+import { NextFunction, Request, Response } from 'express';
+import UploadImagesService from '../services/UploadImageService';
 
 export const uploadFileToS3Middleware = async (
   req: Request,
@@ -11,6 +11,7 @@ export const uploadFileToS3Middleware = async (
 
     const uploadImagesService = new UploadImagesService();
 
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     await uploadImagesService.execute(file!);
 
     const urlProfileS3 = uploadImagesService.s3UrlFile;
@@ -21,7 +22,7 @@ export const uploadFileToS3Middleware = async (
   } catch (error) {
     console.log(error);
     res.status(400).json({
-      errors: "Ocorreu um erro ao enviar a foto. Tente novamente mais tarde.",
+      errors: 'Ocorreu um erro ao enviar a foto. Tente novamente mais tarde.',
     });
   }
 };

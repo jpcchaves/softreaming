@@ -4,19 +4,19 @@ import {
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
-} from "typeorm";
-import { User } from "./User";
+} from 'typeorm';
+import { User } from './User';
 
-@Entity("profiles")
+@Entity('profiles')
 export class Profile {
   @PrimaryGeneratedColumn()
-  id: number;
-  @Column({ type: "text" })
-  profileName: string;
-  @Column({ type: "text" })
-  profileUrlImage: string;
+    id: number;
+  @Column({ type: 'text' })
+    profileName: string;
+  @Column({ type: 'text' })
+    profileUrlImage: string;
 
   @ManyToOne(() => User, (user) => user.profiles)
-  @JoinColumn({ name: "user_id" })
-  user: User;
+  @JoinColumn({ name: 'user_id' })
+    user: User;
 }

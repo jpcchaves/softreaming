@@ -1,4 +1,4 @@
-import S3Storage from "../utils/S3Storage";
+import S3Storage from '../utils/S3Storage';
 
 class UploadImagesService {
   public s3UrlFile: string;
@@ -10,7 +10,7 @@ class UploadImagesService {
       await s3Storage.saveFile(file.filename);
 
       this.s3UrlFile = s3Storage.imageS3Url;
-      
+
     } catch (error) {
       console.log(error);
     }

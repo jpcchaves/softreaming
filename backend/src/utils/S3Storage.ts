@@ -1,9 +1,10 @@
-import aws, { S3 } from "aws-sdk";
-import path from "path";
-import mime from "mime";
-import fs from "fs";
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+import aws, { S3 } from 'aws-sdk';
+import path from 'path';
+import mime from 'mime';
+import fs from 'fs';
 
-import multerConfig from "../config/multer";
+import multerConfig from '../config/multer';
 
 class S3Storage {
   private client: S3;
@@ -26,7 +27,7 @@ class S3Storage {
       const ContentType = mime.getType(originalPath);
 
       if (!ContentType) {
-        throw new Error("Arquivo não encontrado!");
+        throw new Error('Arquivo não encontrado!');
       }
 
       const fileContent = await fs.promises.readFile(originalPath);
@@ -40,11 +41,11 @@ class S3Storage {
       this.client.putObject(params).promise();
 
       const uploadURL = await this.client.getSignedUrlPromise(
-        "putObject",
+        'putObject',
         params
       );
 
-      this.imageS3Url = uploadURL.split("?")[0];
+      this.imageS3Url = uploadURL.split('?')[0];
 
       await fs.promises.unlink(originalPath);
     } catch (error) {

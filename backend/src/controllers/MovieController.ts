@@ -1,6 +1,6 @@
-import { Request, Response } from "express";
-import { movieRepository } from "../repositories/movieRepository";
-import { validationResult } from "express-validator";
+import { Request, Response } from 'express';
+import { movieRepository } from '../repositories/movieRepository';
+import { validationResult } from 'express-validator';
 
 export class MovieController {
   async createMovie(req: Request, res: Response) {
@@ -36,7 +36,7 @@ export class MovieController {
       return res.status(201).json(newMovie);
     } catch (error) {
       console.log(error);
-      return res.status(500).json({ message: "Internal Server Error" });
+      return res.status(500).json({ message: 'Internal Server Error' });
     }
   }
 
@@ -46,7 +46,7 @@ export class MovieController {
       return res.status(200).json(allMovies);
     } catch (error) {
       console.log(error);
-      return res.status(500).json({ message: "Internal Server Error" });
+      return res.status(500).json({ message: 'Internal Server Error' });
     }
   }
 
@@ -55,14 +55,14 @@ export class MovieController {
       const { movieId } = req.params;
 
       if (!(await movieRepository.findOneBy({ id: Number(movieId) }))) {
-        return res.status(400).json({ message: "Filme não encontrado" });
+        return res.status(400).json({ message: 'Filme não encontrado' });
       }
 
       const movie = await movieRepository.findOneBy({ id: Number(movieId) });
       return res.status(200).json(movie);
     } catch (error) {
       console.log(error);
-      return res.status(500).json({ message: "Internal Server Error" });
+      return res.status(500).json({ message: 'Internal Server Error' });
     }
   }
 
@@ -71,14 +71,14 @@ export class MovieController {
       const { movieId } = req.params;
 
       if (!(await movieRepository.findOneBy({ id: Number(movieId) }))) {
-        return res.status(400).json({ message: "Filme não encontrado" });
+        return res.status(400).json({ message: 'Filme não encontrado' });
       }
 
       await movieRepository.delete(movieId);
       res.status(204).end();
     } catch (error) {
       console.log(error);
-      return res.status(500).json({ message: "Internal Server Error" });
+      return res.status(500).json({ message: 'Internal Server Error' });
     }
   }
 
@@ -96,9 +96,9 @@ export class MovieController {
       } = req.body;
 
       if (!(await movieRepository.findOneBy({ id: Number(movieId) }))) {
-        return res.status(400).json({ message: "Filme não encontrado" });
+        return res.status(400).json({ message: 'Filme não encontrado' });
       }
-      
+
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -119,7 +119,7 @@ export class MovieController {
       return res.status(201).json(updatedMovie);
     } catch (error) {
       console.log(error);
-      return res.status(500).json({ message: "Internal Server Error" });
+      return res.status(500).json({ message: 'Internal Server Error' });
     }
   }
 }
