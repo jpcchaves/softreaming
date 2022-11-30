@@ -1,3 +1,5 @@
+// express async errors
+import 'express-async-errors';
 // express
 import express from 'express';
 // data source
@@ -8,6 +10,7 @@ import routes from './routes';
 import rateLimit from 'express-rate-limit';
 // cors
 import cors from 'cors';
+import { errorMiddleware } from './middlewares/error';
 
 AppDataSource.initialize().then(() => {
   const app = express();
@@ -29,7 +32,9 @@ AppDataSource.initialize().then(() => {
 
   app.use('/', limiter);
 
+  app.use(errorMiddleware);
+
   return app.listen(port, () => {
-    `API running on port ${port}`;
+    console.log(`API running on port ${port}`);
   });
 });

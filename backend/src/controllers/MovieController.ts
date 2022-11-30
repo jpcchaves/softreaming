@@ -1,125 +1,116 @@
 import { Request, Response } from 'express';
 import { movieRepository } from '../repositories/movieRepository';
 import { validationResult } from 'express-validator';
+import { BadRequestError, NotFoundError } from '../helpers/apiErrors';
 
 export class MovieController {
   async createMovie(req: Request, res: Response) {
-    try {
-      const {
-        movieName,
-        category,
-        description,
-        duration,
-        releaseDate,
-        movie_url,
-        poster_url,
-      } = req.body;
+    const {
+      movieName,
+      category,
+      description,
+      duration,
+      releaseDate,
+      movie_url,
+      poster_url,
+    } = req.body;
 
-      const errors = validationResult(req);
+    const errors = validationResult(req);
 
-      if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array()[0].msg });
-      }
+    if (!errors.isEmpty()) {
 
-      const newMovie = movieRepository.create({
-        movieName,
-        category,
-        description,
-        duration,
-        releaseDate,
-        movie_url,
-        poster_url,
-      });
+      const { msg }: {msg: string} = errors.array()[0];
 
-      await movieRepository.save(newMovie);
+      throw new BadRequestError(msg);
 
-      return res.status(201).json(newMovie);
-    } catch (error) {
-      console.log(error);
-      return res.status(500).json({ message: 'Internal Server Error' });
     }
+
+    const newMovie = movieRepository.create({
+      movieName,
+      category,
+      description,
+      duration,
+      releaseDate,
+      movie_url,
+      poster_url,
+    });
+
+    await movieRepository.save(newMovie);
+
+    return res.status(201).json(newMovie);
   }
 
   async getAllMovies(req: Request, res: Response) {
-    try {
-      const allMovies = await movieRepository.find();
-      return res.status(200).json(allMovies);
-    } catch (error) {
-      console.log(error);
-      return res.status(500).json({ message: 'Internal Server Error' });
+
+    const allMovies = await movieRepository.find();
+
+    if(!allMovies){
+      throw new BadRequestError('Não foi possível localizar os filmes.');
     }
+
+    return res.status(200).json(allMovies);
   }
 
   async getOneMovie(req: Request, res: Response) {
-    try {
-      const { movieId } = req.params;
+    const { movieId } = req.params;
 
-      if (!(await movieRepository.findOneBy({ id: Number(movieId) }))) {
-        return res.status(400).json({ message: 'Filme não encontrado' });
-      }
+    if (!(await movieRepository.findOneBy({ id: Number(movieId) }))) {
 
-      const movie = await movieRepository.findOneBy({ id: Number(movieId) });
-      return res.status(200).json(movie);
-    } catch (error) {
-      console.log(error);
-      return res.status(500).json({ message: 'Internal Server Error' });
+      throw new BadRequestError('Filme não encontrado.');
+
     }
+
+    const movie = await movieRepository.findOneBy({ id: Number(movieId) });
+
+    return res.status(200).json(movie);
   }
 
   async deleteMovie(req: Request, res: Response) {
-    try {
-      const { movieId } = req.params;
+    const { movieId } = req.params;
 
-      if (!(await movieRepository.findOneBy({ id: Number(movieId) }))) {
-        return res.status(400).json({ message: 'Filme não encontrado' });
-      }
-
-      await movieRepository.delete(movieId);
-      res.status(204).end();
-    } catch (error) {
-      console.log(error);
-      return res.status(500).json({ message: 'Internal Server Error' });
+    if (!(await movieRepository.findOneBy({ id: Number(movieId) }))) {
+      throw new NotFoundError('Filme não encontrado.');
     }
+
+    await movieRepository.delete(movieId);
+    res.status(204).end();
   }
 
   async updateMovie(req: Request, res: Response) {
-    try {
-      const { movieId } = req.params;
-      const {
-        movieName,
-        category,
-        description,
-        duration,
-        releaseDate,
-        movie_url,
-        poster_url,
-      } = req.body;
+    const { movieId } = req.params;
 
-      if (!(await movieRepository.findOneBy({ id: Number(movieId) }))) {
-        return res.status(400).json({ message: 'Filme não encontrado' });
-      }
+    const {
+      movieName,
+      category,
+      description,
+      duration,
+      releaseDate,
+      movie_url,
+      poster_url,
+    } = req.body;
 
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-      }
-
-      const updatedMovie = {
-        movieName,
-        category,
-        description,
-        duration,
-        releaseDate,
-        movie_url,
-        poster_url,
-      };
-
-      await movieRepository.update(movieId, updatedMovie);
-
-      return res.status(201).json(updatedMovie);
-    } catch (error) {
-      console.log(error);
-      return res.status(500).json({ message: 'Internal Server Error' });
+    if (!(await movieRepository.findOneBy({ id: Number(movieId) }))) {
+      throw new NotFoundError('Filme não encontrado.');
     }
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const { msg }: {msg: string} = errors.array()[0];
+      throw new BadRequestError(msg);
+    }
+
+    const updatedMovie = {
+      movieName,
+      category,
+      description,
+      duration,
+      releaseDate,
+      movie_url,
+      poster_url,
+    };
+
+    await movieRepository.update(movieId, updatedMovie);
+
+    return res.status(201).json(updatedMovie);
   }
 }
