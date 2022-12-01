@@ -47,7 +47,7 @@ const EditMovie = () => {
 
   useEffect(() => {
     const getMovieBeingEdited = async () => {
-      const movie = await api.get(`/movie/${movieId}`, {
+      const movie = await api.get(`/movies/${movieId}`, {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },

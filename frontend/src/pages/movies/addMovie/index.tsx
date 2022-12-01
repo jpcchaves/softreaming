@@ -72,7 +72,7 @@ const AddMovie: React.FC = () => {
     const authToken = getToken();
 
     try {
-      await api.post('/movie', newMovieData, {
+      await api.post('/movies', newMovieData, {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },

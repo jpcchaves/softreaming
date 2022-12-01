@@ -45,7 +45,7 @@ const ManageProfiles: React.FC = () => {
 
         const authToken = getToken();
 
-        const userProfiles = await api.get(`/user/${id}/profiles`, {
+        const userProfiles = await api.get(`/profiles/${id}`, {
           headers: {
             Authorization: `Bearer ${authToken}`,
           },

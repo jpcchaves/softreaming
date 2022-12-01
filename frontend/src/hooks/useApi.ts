@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 export const api = axios.create({
-  baseURL: 'http://softreaming.herokuapp.com',
+  // baseURL: 'http://softreaming.herokuapp.com',
+  baseURL: 'http://localhost:3001'
 });
 
 export const useApi = () => ({
@@ -16,7 +17,7 @@ export const useApi = () => ({
   },
   signin: async (email: string, password: string) => {
     const userLoginData = { email, password };
-    const response = await api.post('/login', userLoginData);
+    const response = await api.post('/user/login', userLoginData);
     return response.data;
   },
   signout: async () => {

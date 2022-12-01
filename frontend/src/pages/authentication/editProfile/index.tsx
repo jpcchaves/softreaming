@@ -76,7 +76,7 @@ const CreateProfile: React.FC = () => {
     const getUserProfiles = async () => {
       const authToken = getToken();
 
-      const profiles = await api.get(`/user/${id}/profiles`, {
+      const profiles = await api.get(`/profiles/${id}`, {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },

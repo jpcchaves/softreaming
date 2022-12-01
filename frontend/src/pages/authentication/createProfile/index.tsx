@@ -107,7 +107,7 @@ const CreateProfile: React.FC = () => {
 
       const authToken = getToken();
 
-      await api.post(`/user/${id}/profiles`, formData, {
+      await api.post(`/profiles/${id}`, formData, {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },

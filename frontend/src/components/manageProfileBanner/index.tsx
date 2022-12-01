@@ -52,7 +52,7 @@ const ManageProfileBanner = ({
 
     try {
       const authToken = getToken();
-			
+
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const { id } = auth.user!;
 
