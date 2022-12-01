@@ -2,6 +2,8 @@ import multer from 'multer';
 import path from 'path';
 import crypto from 'crypto';
 
+import { BadRequestError } from '../helpers/apiErrors';
+
 const tmpFolder = path.resolve(__dirname, '..', '..', 'tmp');
 
 export default {
@@ -22,7 +24,7 @@ export default {
 
     if (!allowedFiles.includes(file.mimetype)) {
       return callback(
-        new Error(
+        new BadRequestError(
           'O arquivo enviado não é permitido. Os arquivos permitidos são: JPG, JPEG e PNG.'
         )
       );
