@@ -5,7 +5,9 @@ import express from 'express';
 // data source
 import { AppDataSource } from './data-source';
 // routes
-import routes from './routes';
+import movieRoute from './routes/Movie';
+import userRoute from './routes/User';
+import profileRoute from './routes/Profile';
 // rate limit
 import rateLimit from 'express-rate-limit';
 // cors
@@ -22,7 +24,9 @@ AppDataSource.initialize().then(() => {
 
   app.use(express.json());
 
-  app.use(routes);
+  app.use('/user', userRoute);
+  app.use('/movies', movieRoute);
+  app.use('/profiles', profileRoute);
 
   const limiter = rateLimit({
     max: 100,
