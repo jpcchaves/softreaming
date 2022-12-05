@@ -20,7 +20,9 @@ AppDataSource.initialize().then(() => {
 
   app.locals.urlProfileS3;
 
-  app.use(cors());
+  app.use(cors({
+    origin: '*'
+  }));
 
   app.use(express.json());
 
