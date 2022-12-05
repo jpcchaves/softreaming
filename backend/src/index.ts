@@ -18,6 +18,8 @@ AppDataSource.initialize().then(() => {
   const app = express();
   const port = process.env.PORT;
 
+  app.use(cors({origin: 'https://softreaming.netlify.app',credentials: true}));
+
   app.locals.urlProfileS3;
 
   app.use(express.json());
@@ -34,7 +36,6 @@ AppDataSource.initialize().then(() => {
 
   app.use('/', limiter);
 
-  app.use(cors({origin: 'https://softreaming.netlify.app',credentials: true}));
 
   app.use(errorMiddleware);
 
