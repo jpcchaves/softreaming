@@ -34,7 +34,7 @@ AppDataSource.initialize().then(() => {
 
   app.use('/', limiter);
 
-  app.use(cors({credentials: true}));
+  app.use(cors({origin: 'https://softreaming.netlify.app',credentials: true}));
 
   app.use(errorMiddleware);
 
