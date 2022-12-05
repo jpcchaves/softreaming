@@ -34,7 +34,7 @@ AppDataSource.initialize().then(() => {
 
   app.use('/', limiter);
 
-  app.use(cors());
+  app.use(cors({credentials: true}));
 
   app.use(errorMiddleware);
 
