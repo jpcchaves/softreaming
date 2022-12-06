@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const api = axios.create({
-  baseURL: 'http://softreaming.herokuapp.com',
+  baseURL: 'https://corspolicyhandler.herokuapp.com/http://softreaming.herokuapp.com',
 });
 
 export const useApi = () => ({
