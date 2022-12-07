@@ -19,8 +19,7 @@ AppDataSource.initialize().then(() => {
   const port = process.env.PORT;
   app.locals.urlProfileS3;
 
-  app.use(cors({credentials: true, origin: 'https://softreaming.netlify.app'}));
-
+  app.use(cors({credentials: true}));
   app.use(express.json());
 
   app.use('/user', userRoute);
